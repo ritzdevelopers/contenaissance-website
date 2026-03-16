@@ -245,7 +245,7 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
         <div className="bg-zinc-950 text-white">
 
             {/* Spacer above (like Peach) */}
-            <div style={{ height: "30vh" }} />
+            {/* <div style={{ height: "30vh" }} /> */}
 
             {/* ===== STICKY SECTION ===== (taller = slower card movement per scroll) */}
             <section ref={sectionRef} className="relative h-[320vh]">

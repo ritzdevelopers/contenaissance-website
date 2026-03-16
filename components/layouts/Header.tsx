@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
   const currentPath = usePathname();
 
   const logoUrl =
-    "https://res.cloudinary.com/df4ax8siq/image/upload/v1770122693/2_alykqd.png";
+    "https://res.cloudinary.com/dbpx7aobb/image/upload/v1773663948/Mask_group_34_vhp00b.png";
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
           <img
             src={logoUrl}
             alt="Contenaissance Logo"
-            className={`h-[80px] sm:h-[100px] md:h-[9rem] w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? "brightness-125 contrast-125" : ""
+            className={`h-[60px] sm:h-[5px] md:h-[3rem] w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? "brightness-125 contrast-125" : ""
               }`}
           />
         </button>

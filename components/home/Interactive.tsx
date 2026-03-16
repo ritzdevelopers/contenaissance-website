@@ -80,18 +80,17 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     return (
         <section
             ref={sectionRef}
-            className="relative bg-zinc-950 text-white"
+            className="relative bg-zinc-950 text-white overflow-x-hidden"
         >
             {/* TOP video section */}
-            <div className="pin-wrapper relative w-full flex justify-center py-10 md:py-24 z-10">
+            <div className="pin-wrapper relative w-full flex justify-center py-12 md:py-20 lg:py-28 z-10">
 
                 <div
                     ref={previewRef}
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
 
-                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform cursor-pointer"
-                    style={{ transformOrigin: "center center" }}
+                    className="w-full max-w-[1400px] aspect-video overflow-hidden will-change-transform cursor-pointer" style={{ transformOrigin: "center center" }}
                 >
                     <video
                         ref={videoRef1}
@@ -107,7 +106,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             </div>
 
             {/* CONTENT section */}
-            <div className="relative z-20 max-w-6xl mx-auto px-6 py-8">
+            <div className="relative z-20 max-w-[1400px] mx-auto px-5 sm:px-6 md:px-12 lg:px-20 py-10 md:py-16">
                 <h1
                     ref={headingRef}
                     className="text-[clamp(2rem,8vw,4.2rem)] leading-tight font-light mb-14"
@@ -120,22 +119,22 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
 
                 <div
 
-                    className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div className="flex flex-col sm:flex-row gap-6 items-center md:justify-end">
+                    className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-20 items-center">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-center md:justify-end px-10 md:px-0 ">
 
                         {/* Book Now */}
-                        <button className="relative overflow-hidden px-6 py-3 border border-white/20 text-white group rounded-xl">
+                        <button className="relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-white group rounded-xl whitespace-nowrap">
                             <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
-                            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
+                            <span className="relative z-10 transition-colors duration-500 group-hover:text-black ">
                                 Book Now
                             </span>
                         </button>
 
                         {/* Get Started */}
-                        <button className="rounded-xl relative overflow-hidden px-6 py-3 border border-white/20 text-black bg-white group">
+                        <button className="rounded-xl relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-black bg-white group whitespace-nowrap">
                             <span className="absolute inset-0 bg-[#0A0D2D] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-                                Get started — it's free
+                                Get started
                             </span>
                         </button>
                     </div>
@@ -144,7 +143,8 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                         <div
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
-                            className="w-full max-w-sm h-[350px] md:h-[520px] cursor-pointer">
+                            className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] 
+                            h-[280px] sm:h-[320px] md:h-[460px] lg:h-[520px] cursor-pointer">
                             <video
                                 ref={videoRef2}
                                 src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515349/interactive_ahvxx6.mp4"

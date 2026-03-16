@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 interface ServicesProps {
   isDarkMode: boolean;
   isFullPage?: boolean;
-  
+
   navigateTo?: (
     page: 'home' | 'portfolio' | 'services-page' | 'contact',
     sectionId?: string
@@ -42,7 +42,7 @@ const ServiceCard: React.FC<{
         ease: [0.16, 1, 0.3, 1]
       }}
       viewport={{ once: false, amount: 0.3 }}
-      className="relative group "
+      className="relative group h-full"
     >
       {/* Outer Glow */}
       <div className="absolute -inset-[1px] rounded-[28px] opacity-30 
@@ -52,20 +52,19 @@ const ServiceCard: React.FC<{
       />
 
       {/* Main Card */}
-      <div className="relative rounded-[28px] border border-[#3A3A3E] 
-                      p-5 sm:p-6 md:p-8 lg:p-5 text-justify
-                      overflow-hidden transition-all duration-500
-                      bg-gradient-to-b from-white/[0.02] to-white/[0.01]
-                      backdrop-blur-xl
-                       cursor-pointer"
-      >
+      <div className="relative h-full flex flex-col rounded-[28px] border border-[#3A3A3E] 
+            p-5 sm:p-6 md:p-8 lg:p-5 text-justify
+            overflow-hidden transition-all duration-500
+            bg-gradient-to-b from-white/[0.02] to-white/[0.01]
+            backdrop-blur-xl cursor-pointer">
+
         {/* Premium Gradient Glow */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent blur-2xl" />
         </div>
 
         {/* Inner Glass Container */}
-        <div className="font-sora bg-zinc-900/40 rounded-[22px] p-5 sm:p-6 md:p-8 lg:p-8 "
+        <div className="font-sora bg-zinc-900/40 rounded-[22px] p-4 sm:p-5 md:p-6 lg:p-7 "
         >
           {/* Badge */}
           <div className="inline-block mb-4 sm:mb-5">
@@ -82,14 +81,14 @@ const ServiceCard: React.FC<{
           </h3>
 
           {/* Description */}
-          <p className="font-sora text-xs sm:text-sm md:text-base 
+          <p className="font-sora text-sm sm:text-sm md:text-base lg:text-[15px]
         text-white/60 leading-relaxed"
           >
             {description}
           </p>
 
           {/* Explore */}
-          <div className="mt-5 sm:mt-6">
+          <div className="mt-auto pt-6">
             <span className="text-yellow-500 font-medium text-xs sm:text-sm 
           flex items-center gap-2 
           group-hover:gap-3 transition-all duration-300 cursor-pointer"
@@ -131,7 +130,7 @@ const Services: React.FC<ServicesProps> = ({
 
     const ctx = gsap.context(() => {
       gsap.to(fishRef.current, {
-        x: -600,
+        x: window.innerWidth < 768 ? -200 : -600,
         y: 1000,
         rotation: -25,
         scrollTrigger: {
@@ -181,11 +180,13 @@ const Services: React.FC<ServicesProps> = ({
     <section
       id="services"
       ref={sectionRef}
-      className={`relative overflow-hidden min-h-[150vh] bg-zinc-950 ${isFullPage ? "pt-40 md:pt-56" : "-mt-8 py-8 md:py-12"
-        } px-5 md:px-24 max-w-[1600px] mx-auto`}
+      className={`relative overflow-hidden min-h-screen bg-zinc-950 
+  ${isFullPage ? "pt-32 md:pt-48 lg:pt-56" : "-mt-6 py-12 md:py-16"} 
+  px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 
+  max-w-[1600px] mx-auto`}
     >
       {/* Header */}
-      <div className="relative z-10 flex flex-col mb-14">
+      <div className="relative z-10 flex flex-col mb-10 md:mb-14">
         <motion.div
           style={{ opacity, y }}
           className="flex items-center gap-3 mb-4 "
@@ -218,7 +219,7 @@ const Services: React.FC<ServicesProps> = ({
       </div>
 
       {/* Cards */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10  font-sora ">
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-10  font-sora items-stretch ">
         {allServices.map((service, index) => (
           <ServiceCard
             key={service.id}
