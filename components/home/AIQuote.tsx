@@ -61,7 +61,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
 
             {/* Full-Screen Horizontal Display Section */}
             <div className="w-full relative overflow-hidden py-4">
-                {/* The Marquee Container */}
+
                 <motion.div
                     className="flex flex-nowrap gap-6 sm:gap-10 md:gap-20 lg:gap-24 px-6 sm:px-12 md:px-24"
                     animate={{ x: ["0%", "-50%"] }}
@@ -73,33 +73,28 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                     style={{ width: 'fit-content' }}
                 >
                     {/* Map over items twice for a seamless infinite loop */}
-                    {[...visualItems, ...visualItems].map((item, idx) => (
+                    {/* {[...visualItems, ...visualItems].map((item, idx) => (
                         <div
                             key={idx}
                             className="flex-shrink-0 group relative"
                         >
-                            {/* Card Container with reduced image dimensions (approx 40% smaller than previous) */}
                             <div className="relative overflow-hidden bg-zinc-900/40 border border-white/5 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-10 lg:p-14 backdrop-blur-md transition-all duration-700 hover:bg-zinc-900/60 hover:border-white/20 hover:scale-[1.02]">
                                 <img
                                     src={timelineImageUrl}
                                     alt={`AI Evolution Step ${item}`}
-                                    // Heights decreased by 40% from previous sizes to match "40% decrease" request
-                                    // Previous: 32 -> New: 20 | Previous: 64 -> New: 40 | Previous: 22.5rem -> New: 13.5rem
-                                    className="h-20 md:h-40 lg:h-[13.5rem] w-auto max-w-full object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
+                                      className="h-20 md:h-40 lg:h-[13.5rem] w-auto max-w-full object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
                                 />
 
-                                {/* Subtle Inner Glow */}
                                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-white/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             </div>
 
-                            {/* Decorative label for card separation */}
                             <div className=" text-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                                 <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-blue-400">
                                     Step {item}
                                 </span>
                             </div>
                         </div>
-                    ))}
+                    ))} */}
                 </motion.div>
 
                 {/* Edge Faders for full-screen blending */}

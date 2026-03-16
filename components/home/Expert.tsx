@@ -204,7 +204,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                     {/* Video section */}
                     <motion.div
                         ref={rightRef}
-                        className="w-full lg:w-1/2 flex justify-center items-center relative mt-1 lg:mt-0"
+                        className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center relative mt-1 lg:mt-0"
                     >
                         <motion.div
 

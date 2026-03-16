@@ -2,16 +2,16 @@ import Link from "next/link";
 
 export default function FooterCTA() {
     return (
-        <section className="contact-section absolute top-[40%] md:top-[49%] left-0 w-full min-h-screen px-4 sm:px-8 md:px-16 z-[100]">
+        <section className="contact-section absolute top-[40%] md:top-[49%] left-0 w-full min-h-screen px-4 sm:px-8 md:px-16 z-[100] mt-10 md:mt-8">
 
             {/* Top CTA */}
             <div className="relative z-[100] flex flex-col items-center text-center px-4 sm:px-6">
 
                 <button className="flex items-center group outline-none">
                     <img
-                        src="https://res.cloudinary.com/df4ax8siq/image/upload/v1770122693/2_alykqd.png"
+                        src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773663948/Mask_group_33_lkwukz.png"
                         alt="Contenaissance Logo"
-                        className="h-[60px] sm:h-[80px] md:h-[9rem] w-auto object-contain transition-all duration-700 group-hover:scale-105"
+                        className="h-[40px] sm:h-[56px] md:h-[5rem] w-auto object-contain transition-all duration-700 group-hover:scale-105"
                     />
                 </button>
 
