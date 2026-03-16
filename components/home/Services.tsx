@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useRouter } from "next/navigation";
+import { div } from "framer-motion/client";
 
 gsap.registerPlugin(ScrollTrigger);
 // ---------Srcoll
@@ -177,61 +178,63 @@ const Services: React.FC<ServicesProps> = ({
   };
 
   return (
-    <section
-      id="services"
-      ref={sectionRef}
-      className={`relative overflow-hidden min-h-screen bg-zinc-950 
+    <div className="bg-zinc-950 ">
+      <section
+        id="services"
+        ref={sectionRef}
+        className={`relative overflow-hidden min-h-screen bg-zinc-950 
   ${isFullPage ? "pt-32 md:pt-48 lg:pt-56" : "-mt-6 py-12 md:py-16"} 
   px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 
   max-w-[1600px] mx-auto`}
-    >
-      {/* Header */}
-      <div className="relative z-10 flex flex-col mb-10 md:mb-14">
-        <motion.div
-          style={{ opacity, y }}
-          className="flex items-center gap-3 mb-4 "
-        >
-          <div className="w-8 h-[1px] bg-blue-500/50" />
-          <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/50">
-            Expertise
-          </span>
-        </motion.div>
+      >
+        {/* Header */}
+        <div className="relative z-10 flex flex-col mb-10 md:mb-14">
+          <motion.div
+            style={{ opacity, y }}
+            className="flex items-center gap-3 mb-4 "
+          >
+            <div className="w-8 h-[1px] bg-blue-500/50" />
+            <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/50">
+              Expertise
+            </span>
+          </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-[clamp(2rem,10vw,11rem)] font-bold tracking-tighter text-white leading-none"
-        >
-          AI Services
-        </motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-[clamp(2rem,10vw,11rem)] font-bold tracking-tighter text-white leading-none"
+          >
+            AI Services
+          </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-base md:text-lg font-light text-white/70 mt-4"
-        >
-          Merging human creative intuition with the raw power of neural intelligence.
-        </motion.p>
-      </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-base md:text-lg font-light text-white/70 mt-4"
+          >
+            Merging human creative intuition with the raw power of neural intelligence.
+          </motion.p>
+        </div>
 
-      {/* Cards */}
-      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-10  font-sora items-stretch ">
-        {allServices.map((service, index) => (
-          <ServiceCard
-            key={service.id}
-            delay={index * 0.1}
-            title={service.title}
-            description={service.description}
-            onClick={() => handleScroll(service.id)}
-          />
+        {/* Cards */}
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-10  font-sora items-stretch ">
+          {allServices.map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              delay={index * 0.1}
+              title={service.title}
+              description={service.description}
+              onClick={() => handleScroll(service.id)}
+            />
 
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 };
 
