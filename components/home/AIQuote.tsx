@@ -113,6 +113,10 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                             src={timelineImageUrl}
                             className="h-24 md:h-40 lg:h-56 w-auto flex-shrink-0"
                         />
+                        <img
+                            src={timelineImageUrl}
+                            className="h-24 md:h-40 lg:h-56 w-auto flex-shrink-0"
+                        />
                     </motion.div>
                 </motion.div>
 
