@@ -66,9 +66,9 @@ export default function Page() {
         {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
 
-      {!isMobile && <PageAnimations />}
+      {/* {!isMobile && <PageAnimations />} */}
 
-      {!isMobile && <PageAnimations />}
+      {/* {!isMobile && <PageAnimations />} */}
 
       <section className="" />
       <Footer isDarkMode={isDarkMode} />
