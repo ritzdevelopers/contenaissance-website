@@ -173,7 +173,7 @@ export default function PageAnimations() {
                     .to(".butterfly", {
                         // x: 620,
                         x: 150,
-                        y: 200,
+                        y: 500,
                         duration: 0.6,
                         ease: "none"
                     })
