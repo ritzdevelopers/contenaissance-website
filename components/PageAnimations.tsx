@@ -17,6 +17,14 @@ export default function PageAnimations() {
 
             let prevX = 0
 
+            const rotateBird = gsap.quickTo(bird, "scaleX", {
+                duration: 1,
+                ease: "power2.out"
+            })
+            const rotateAngle = gsap.quickTo(butterfly, "rotation", {
+                duration: 1,
+                ease: "power2.out"
+            })
             gsap.set(".butterfly", { autoAlpha: 0 })
             gsap.set(bird, { scaleX: 1 })
 
@@ -36,14 +44,22 @@ export default function PageAnimations() {
                     onUpdate: () => {
 
                         const currentX = Number(gsap.getProperty(butterfly, "x")) || 0
-
-                        if (currentX > prevX) {
-                            gsap.to(bird, { scaleX: -1, duration: 0.2 })
+                        const delta = currentX - prevX
+                        // if (currentX > prevX) {
+                        //     rotateBird(-1)
+                        // }
+                        // else if (currentX < prevX) {
+                        //     rotateBird(1)
+                        // }
+                        if (delta > 0) {
+                            rotateBird(-1)
+                        } else if (delta < 0) {
+                            rotateBird(1)
                         }
-                        else if (currentX < prevX) {
-                            gsap.to(bird, { scaleX: 1, duration: 0.2 })
-                        }
 
+                        // Smooth tilt based on speed
+                        const tilt = gsap.utils.clamp(-30, 30, delta * 0.2)
+                        rotateAngle(tilt)
                         prevX = currentX
                     }
                 })
@@ -69,7 +85,7 @@ export default function PageAnimations() {
                     // left → right
                     .to(".butterfly", {
                         x: 1000,
-                        y: -200,
+                        y: 200,
                         duration: 1,
                         ease: "none"
                     })
@@ -114,17 +130,17 @@ export default function PageAnimations() {
                         const currentX = Number(gsap.getProperty(butterfly, "x")) || 0
 
                         if (currentX > prevX) {
-                            gsap.to(bird, { scaleX: -1, duration: 0.2 })
+                            rotateBird(-1)
                         }
                         else if (currentX < prevX) {
-                            gsap.to(bird, { scaleX: 1, duration: 0.2 })
+                            rotateBird(1)
                         }
 
                         prevX = currentX
                     }
                 })
 
-                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01 ,scale:2})
+                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01, scale: 2 })
 
                     // smaller movements for mobile
                     .to(".butterfly", {
@@ -200,6 +216,8 @@ export default function PageAnimations() {
             })
 
         })
+
+        
 
         return () => ctx.revert()
 

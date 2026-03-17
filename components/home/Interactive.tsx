@@ -83,7 +83,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             className="relative bg-zinc-950 text-white overflow-x-hidden"
         >
             {/* TOP video section */}
-            <div className="pin-wrapper relative w-full flex justify-center py-12 md:py-20 lg:py-28 z-10">
+            <div className="pin-wrapper relative w-full flex justify-center py-12 md:py-20 lg:py-28 z-25">
 
                 <div
                     ref={previewRef}
@@ -132,7 +132,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
 
                         {/* Get Started */}
                         <button className="rounded-xl relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-black bg-white group whitespace-nowrap">
-                            <span className="absolute inset-0 bg-[#0A0D2D] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                            <span className="absolute inset-0 bg-zinc-950 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
                                 Get started
                             </span>

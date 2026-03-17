@@ -248,7 +248,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       </div>
 
       {/* Modern Slider Container */}
-      <div className="relative w-full max-w-[1600px] mx-auto z-20 group/slider">
+      <div className="relative w-full max-w-[1600px] mx-auto z-30 group/slider">
 
         {/* Navigation Buttons */}
         <AnimatePresence>

@@ -9,7 +9,7 @@ export default function FooterCTA() {
 
                 <button className="flex items-center group outline-none">
                     <img
-                        src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773663948/Mask_group_33_lkwukz.png"
+                        src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773733366/2_White_1_1_bso5jt.png"
                         alt="Contenaissance Logo"
                         className="h-[40px] sm:h-[56px] md:h-[5rem] w-auto object-contain transition-all duration-700 group-hover:scale-105"
                     />

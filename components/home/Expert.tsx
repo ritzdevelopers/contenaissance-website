@@ -135,7 +135,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
                     className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10 cursor-pointer"
-                >
+                >   
                     <video
                         ref={videoRef1}
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"

@@ -10,7 +10,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
     const arialFont = { fontFamily: 'Arial, sans-serif' };
 
     // High-quality timeline/evolution visual
-    const timelineImageUrl = "https://res.cloudinary.com/df4ax8siq/image/upload/v1769166382/New-Image-03_twboif.png";
+    const timelineImageUrl = "https://res.cloudinary.com/dbpx7aobb/image/upload/v1773730198/image_4_2_kuzssj.png";
 
     // Create a list of items for the marquee to ensure distinct spacing and variety
     const visualItems = [1, 2, 3, 4];
@@ -82,7 +82,7 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                                 <img
                                     src={timelineImageUrl}
                                     alt={`AI Evolution Step ${item}`}
-                                      className="h-20 md:h-40 lg:h-[13.5rem] w-auto max-w-full object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
+                                    className="h-20 md:h-40 lg:h-[13.5rem] w-auto max-w-full object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
                                 />
 
                                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-white/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -95,6 +95,25 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                             </div>
                         </div>
                     ))} */}
+                    <motion.div
+                        className="flex overflow-hidden"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{
+                            duration: 30,
+                            repeat: Infinity,
+                            ease: "linear"
+                        }}
+                    >
+                        {/* duplicate image for seamless loop */}
+                        <img
+                            src={timelineImageUrl}
+                            className="h-24 md:h-40 lg:h-56 w-auto flex-shrink-0"
+                        />
+                        <img
+                            src={timelineImageUrl}
+                            className="h-24 md:h-40 lg:h-56 w-auto flex-shrink-0"
+                        />
+                    </motion.div>
                 </motion.div>
 
                 {/* Edge Faders for full-screen blending */}

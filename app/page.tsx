@@ -25,6 +25,14 @@ import FooterCTA from "@/components/layouts/FooterCTA";
 export default function Page() {
 
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -39,10 +47,14 @@ export default function Page() {
   return (
     <main className="relative  bg-black text-white">
       <Header isDarkMode={isDarkMode} />
-      {/* Background effects */}
-      {isDarkMode && <SnowEffect />}
-      <ParticlesBg />
-      <SmoothScroll />
+      {/* Background effects (DISABLED ON MOBILE) */}
+      {!isMobile && isDarkMode && <SnowEffect />}
+      {!isMobile && <ParticlesBg />}
+
+      {/* Smooth scroll ONLY desktop */}
+      {!isMobile && <SmoothScroll />}
+
+
       <Hero />
       <Hero1 isDarkMode={isDarkMode} />
       <AIQuote isDarkMode={isDarkMode} />
