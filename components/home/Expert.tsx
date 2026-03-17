@@ -124,7 +124,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
     //     }
     // };
     return (
-        <div className="bg-zinc-950">
+        <div className="bg-zinc-950 overflow-x-hidden">
             {/* -----------First section----- */}
             <div
                 ref={sectionRef}
@@ -210,7 +210,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
 
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
-                            className="w-full sm:w-[340px] md:w-[420px] lg:w-[520px] xl:w-[500px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px] cursor-pointer">
+                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-[220px] sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px] cursor-pointer">
                             <video
                                 ref={videoRef2}
                                 src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651797/06_pazrtc.mp4"

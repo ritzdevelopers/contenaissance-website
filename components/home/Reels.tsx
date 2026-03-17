@@ -226,7 +226,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   };
 
   return (
-    <section className="mt-[2.5rem] pt-2 pb-4 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">
+    <section className=" pt-2 pb-4 md:pb-12 relative overflow-hidden flex flex-col items-center bg-zinc-950">
       {/* Dynamic Background Glow */}
       {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" /> */}
 

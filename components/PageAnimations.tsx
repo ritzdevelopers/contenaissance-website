@@ -52,7 +52,7 @@ export default function PageAnimations() {
 
                     // center → right top
                     .to(".butterfly", {
-                        x: 800,
+                        x: 1000,
                         y: -400,
                         duration: 0.6,
                         ease: "none"
@@ -68,7 +68,7 @@ export default function PageAnimations() {
 
                     // left → right
                     .to(".butterfly", {
-                        x: 800,
+                        x: 1000,
                         y: -200,
                         duration: 1,
                         ease: "none"
@@ -83,7 +83,7 @@ export default function PageAnimations() {
 
                     // contact section movement
                     .to(".butterfly", {
-                        x: 750,
+                        x: 1000,
                         y: 400,
                         duration: 0.6,
                         ease: "none"
@@ -142,7 +142,7 @@ export default function PageAnimations() {
                     })
 
                     .to(".butterfly", {
-                        x: 200,
+                        x: 300,
                         y: -100,
                         duration: 1,
                         ease: "none"
@@ -155,7 +155,7 @@ export default function PageAnimations() {
                     })
 
                     .to(".butterfly", {
-                        x: 140,
+                        x: 620,
                         y: 200,
                         duration: 0.6,
                         ease: "none"

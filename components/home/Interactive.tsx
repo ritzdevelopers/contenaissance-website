@@ -144,7 +144,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
                             className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] 
-                            h-[280px] sm:h-[320px] md:h-[460px] lg:h-[520px] cursor-pointer">
+                            h-[280px] sm:h-[420px] md:h-[460px] lg:h-[520px] cursor-pointer">
                             <video
                                 ref={videoRef2}
                                 src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515349/interactive_ahvxx6.mp4"
