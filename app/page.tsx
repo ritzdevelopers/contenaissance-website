@@ -5,7 +5,7 @@ import Butterfly from "@/components/Butterfly";
 import Hero from "@/components/home/Hero";
 import StorySections from "@/components/home/StorySections";
 import ParticlesBg from "@/components/ParticlesBg";
-import SmoothScroll from "@/components/SmoothScroll";
+// import SmoothScroll from "@/components/SmoothScroll";
 import SnowEffect from "@/components/SnowEffects";
 import Hero1 from "@/components/home/Hero1";
 import PageAnimations from "@/components/PageAnimations";
@@ -47,14 +47,10 @@ export default function Page() {
   return (
     <main className="relative  bg-black text-white">
       <Header isDarkMode={isDarkMode} />
-      {/* Background effects (DISABLED ON MOBILE) */}
-      {!isMobile && isDarkMode && <SnowEffect />}
-      {!isMobile && <ParticlesBg />}
-
-      {/* Smooth scroll ONLY desktop */}
-      {!isMobile && <SmoothScroll />}
-
-
+      {/* Background effects */}
+      {isDarkMode && <SnowEffect />}
+      <ParticlesBg />
+      {/* <SmoothScroll /> */}
       <Hero />
       <Hero1 isDarkMode={isDarkMode} />
       <AIQuote isDarkMode={isDarkMode} />

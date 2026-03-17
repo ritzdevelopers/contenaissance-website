@@ -35,7 +35,7 @@ export default function PageAnimations() {
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: "body",
+                        trigger: ".page-wrapper",
                         start: "top top",
                         end: "bottom bottom",
                         scrub: 1,
@@ -119,7 +119,7 @@ export default function PageAnimations() {
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: "body",
+                        trigger: ".page-wrapper",
                         start: "top top",
                         end: "bottom bottom",
                         scrub: 1,
@@ -171,7 +171,8 @@ export default function PageAnimations() {
                     })
 
                     .to(".butterfly", {
-                        x: 620,
+                        // x: 620,
+                        x: 150,
                         y: 200,
                         duration: 0.6,
                         ease: "none"
@@ -217,7 +218,7 @@ export default function PageAnimations() {
 
         })
 
-        
+
 
         return () => ctx.revert()
 

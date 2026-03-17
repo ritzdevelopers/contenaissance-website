@@ -4,18 +4,25 @@ import Lenis from "@studio-freight/lenis"
 
 export default function SmoothScroll() {
 
- useEffect(()=>{
+    useEffect(() => {
 
-  const lenis = new Lenis()
+        const lenis = new Lenis()
+        let rafId: number
 
-  function raf(time:number){
-   lenis.raf(time)
-   requestAnimationFrame(raf)
-  }
+        function raf(time: number) {
+            lenis.raf(time)
+            rafId = requestAnimationFrame(raf)
+        }
 
-  requestAnimationFrame(raf)
+        rafId = requestAnimationFrame(raf)
 
- },[])
+        // ✅ Cleanup — yeh pehle nahi tha, isliye scroll stuck hota tha
+        return () => {
+            lenis.destroy()
+            cancelAnimationFrame(rafId)
+        }
 
- return null
+    }, [])
+
+    return null
 }
