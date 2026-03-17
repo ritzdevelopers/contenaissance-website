@@ -76,7 +76,7 @@ export default function PageAnimations() {
 
                     // right → left
                     .to(".butterfly", {
-                        x: -600,
+                        x: -1600,
                         y: 100,
                         duration: 1,
                         ease: "none"

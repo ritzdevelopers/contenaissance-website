@@ -1,27 +1,34 @@
 "use client"
+
 import { useEffect } from "react"
 import Lenis from "@studio-freight/lenis"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function SmoothScroll() {
-
     useEffect(() => {
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            wheelMultiplier: 0.8,
+            touchMultiplier: 1.5,
+        })
 
-        const lenis = new Lenis()
-        let rafId: number
+        lenis.on("scroll", ScrollTrigger.update)
 
-        function raf(time: number) {
-            lenis.raf(time)
-            rafId = requestAnimationFrame(raf)
+        const onTick = (time: number) => {
+            lenis.raf(time * 1000)
         }
+        gsap.ticker.add(onTick)
+        gsap.ticker.lagSmoothing(0)
 
-        rafId = requestAnimationFrame(raf)
-
-        // ✅ Cleanup — yeh pehle nahi tha, isliye scroll stuck hota tha
         return () => {
             lenis.destroy()
-            cancelAnimationFrame(rafId)
+            gsap.ticker.remove(onTick)
         }
-
     }, [])
 
     return null

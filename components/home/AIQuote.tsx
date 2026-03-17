@@ -12,8 +12,8 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
     // High-quality timeline/evolution visual
     const timelineImageUrl = "https://res.cloudinary.com/dbpx7aobb/image/upload/v1773730198/image_4_2_kuzssj.png";
 
-    // Create a list of items for the marquee to ensure distinct spacing and variety
-    const visualItems = [1, 2, 3, 4];
+    // Repeated images per row for a long strip; we duplicate the row for seamless loop
+    const slideCopies = 8;
 
     return (
         <section className="pt-0 pb-2 md:pb-2 px-0 relative flex flex-col items-center justify-center transition-colors duration-700 bg-zinc-950">
@@ -59,64 +59,43 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                 </motion.div>
             </div>
 
-            {/* Full-Screen Horizontal Display Section */}
-            <div className="w-full relative  py-4">
-
+            {/* Full-Screen Horizontal Display Section — seamless infinite slider */}
+            <div className="w-full relative overflow-hidden py-4">
                 <motion.div
-                    className="flex flex-nowrap gap-6 sm:gap-10 md:gap-20 lg:gap-24 px-6 sm:px-12 md:px-24"
+                    className="flex flex-nowrap w-max"
                     animate={{ x: ["0%", "-50%"] }}
                     transition={{
-                        duration: 45,
+                        duration: 120,
                         repeat: Infinity,
-                        ease: "linear"
+                        ease: "linear",
+                        repeatType: "loop",
                     }}
-                    style={{ width: 'fit-content' }}
                 >
-                    {/* Map over items twice for a seamless infinite loop */}
-                    {/* {[...visualItems, ...visualItems].map((item, idx) => (
-                        <div
-                            key={idx}
-                            className="flex-shrink-0 group relative"
-                        >
-                            <div className="relative overflow-hidden bg-zinc-900/40 border border-white/5 rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-10 lg:p-14 backdrop-blur-md transition-all duration-700 hover:bg-zinc-900/60 hover:border-white/20 hover:scale-[1.02]">
-                                <img
-                                    src={timelineImageUrl}
-                                    alt={`AI Evolution Step ${item}`}
-                                    className="h-20 md:h-40 lg:h-[13.5rem] w-auto max-w-full object-contain block brightness-110 contrast-125 transition-transform duration-1000 group-hover:scale-110"
-                                />
-
-                                <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-white/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                            </div>
-
-                            <div className=" text-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                                <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-blue-400">
-                                    Step {item}
-                                </span>
-                            </div>
-                        </div>
-                    ))} */}
-                    <motion.div
-                        className="flex overflow-hidden"
-                        animate={{ x: ["0%", "-50%"] }}
-                        transition={{
-                            duration: 30,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                    >
-                        {/* duplicate image for seamless loop */}
-                        <img
-                            src={timelineImageUrl}
-                            className="h-24 md:h-40 lg:h-56 w-auto flex-shrink-0"
-                        />
-                        <img
-                            src={timelineImageUrl}
-                            className="h-24 md:h-40 lg:h-56 w-auto flex-shrink-0"
-                        />
-                    </motion.div>
+                    {/* Row 1: strip of images (same content duplicated in Row 2 for seamless loop) */}
+                    <div className="flex flex-nowrap shrink-0">
+                        {Array.from({ length: slideCopies }).map((_, i) => (
+                            <img
+                                key={`a-${i}`}
+                                src={timelineImageUrl}
+                                alt=""
+                                className="h-24 md:h-40 lg:h-56 w-auto shrink-0 object-contain"
+                            />
+                        ))}
+                    </div>
+                    {/* Row 2: exact duplicate — at -50% we're here, so loop is invisible */}
+                    <div className="flex flex-nowrap shrink-0">
+                        {Array.from({ length: slideCopies }).map((_, i) => (
+                            <img
+                                key={`b-${i}`}
+                                src={timelineImageUrl}
+                                alt=""
+                                className="h-24 md:h-40 lg:h-56 w-auto shrink-0 object-contain"
+                            />
+                        ))}
+                    </div>
                 </motion.div>
 
-                {/* Edge Faders for full-screen blending */}
+                {/* Edge faders for blending */}
                 <div className="absolute inset-y-0 left-0 w-32 md:w-80 bg-gradient-to-r from-zinc-950 via-zinc-950/60 to-transparent z-10 pointer-events-none" />
                 <div className="absolute inset-y-0 right-0 w-32 md:w-80 bg-gradient-to-l from-zinc-950 via-zinc-950/60 to-transparent z-10 pointer-events-none" />
             </div>

@@ -139,7 +139,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     },
     {
       title: "Cinematic Flow",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/01_mrmw5v.mp4p4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4"
     },
     {
       title: "Neural Core",
