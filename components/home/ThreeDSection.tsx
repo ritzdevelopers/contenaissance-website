@@ -211,6 +211,15 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
 
     const sectionRef = useRef<HTMLDivElement | null>(null);
     const [progress, setProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth <= 768);
+        check();
+
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -254,8 +263,8 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
                         shadows
                         // camera={{ position: [0, 1.1, 7.5], fov: 38 }}
                         camera={{
-                            position: window.innerWidth <= 768 ? [0, 1, 6] : [0, 1.1, 7.5],
-                            fov: window.innerWidth <= 768 ? 45 : 38
+                            position: isMobile ? [0, 1, 6] : [0, 1.1, 7.5],
+                            fov: isMobile ? 45 : 38,
                         }}
                         gl={{ antialias: true }}
                         className="absolute inset-0 pt-6"
