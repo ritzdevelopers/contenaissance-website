@@ -51,7 +51,7 @@ export default function Page() {
       {isDarkMode && <SnowEffect />}
       <ParticlesBg />
       <SmoothScroll />
-      <Hero />
+      {/* <Hero /> */}
       <Hero1 isDarkMode={isDarkMode} />
       <AIQuote isDarkMode={isDarkMode} />
       <Reels isDarkMode={isDarkMode} />
