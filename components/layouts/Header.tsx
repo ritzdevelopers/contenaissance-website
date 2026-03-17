@@ -46,6 +46,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
       const l = (window as any).lenis;
       if (l?.start) l.start();
     }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+      const l = (window as any).lenis;
+      if (l?.start) l.start();
+    };
   }, [mobileOpen]);
 
   useEffect(() => {

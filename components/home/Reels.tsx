@@ -74,7 +74,16 @@ const ReelCard: React.FC<{
         transformStyle: "preserve-3d",
         scrollSnapAlign: 'center'
       }}
-      className="relative h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group w-[calc(100vw-2rem)] sm:w-auto sm:max-w-[320px]"
+      // className="relative h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group w-[calc(100vw-2rem)] sm:w-auto sm:max-w-[320px]"
+      className="
+                relative
+                h-[420px] sm:h-[500px] md:h-[550px]
+                w-[220px] sm:w-[260px] md:w-[300px]
+                rounded-[1.2rem] sm:rounded-[1.8rem] md:rounded-[2.5rem]
+                overflow-hidden border border-white/10
+                flex-shrink-0 transition-all cursor-pointer
+                bg-zinc-900 group
+                "
     >
       <video
         ref={videoRef}
@@ -279,7 +288,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
         <div
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-5 sm:gap-8 md:gap-6 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-10"
+          className="flex gap-4 sm:gap-6 md:gap-8 overflow-x-auto no-scrollbar px-4 sm:px-10 md:px-24 py-8 sm:py-10"
           style={{
             scrollSnapType: 'none',
             perspective: '2000px'

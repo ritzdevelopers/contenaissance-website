@@ -18,8 +18,12 @@ type CardProps = {
     progress: number;
 }
 function Card({ url, index, progress }: CardProps) {
-    const CARD_WIDTH = 2.1;
-    const CARD_HEIGHT = 3.6;
+    // const CARD_WIDTH = 2.1;
+    // const CARD_HEIGHT = 3.6;
+    const isMobile = window.innerWidth <= 768;
+
+    const CARD_WIDTH = isMobile ? 1.5 : 2.1;
+    const CARD_HEIGHT = isMobile ? 2.6 : 3.6;
     const CARD_DEPTH = 0.05;
     const CARD_RADIUS = 0.1;
     const ref = useRef<THREE.Mesh | null>(null);
@@ -104,7 +108,8 @@ function Card({ url, index, progress }: CardProps) {
         ref.current.visible = true;
 
         // ⭐ Orbit motion (RIGHT → LEFT)
-        const radius = 9;
+        // const radius = 9;
+        const radius = window.innerWidth <= 768 ? 5 : 9;
 
         const angle = THREE.MathUtils.lerp(
             -Math.PI * 0.6,
@@ -206,6 +211,15 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
 
     const sectionRef = useRef<HTMLDivElement | null>(null);
     const [progress, setProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth <= 768);
+        check();
+
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -220,13 +234,6 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
             const p = total === 0 ? 0 : scrolled / total;
 
             setProgress(p);
-
-            // 🚀 Lock scroll until animation finishes
-            if (p < 0.98) {
-                document.body.style.overflow = "hidden";
-            } else {
-                document.body.style.overflow = "";
-            }
         };
 
         window.addEventListener("scroll", handleScroll, {
@@ -237,7 +244,6 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            document.body.style.overflow = "";
         };
     }, []);
 
@@ -248,14 +254,18 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
             {/* <div style={{ height: "30vh" }} /> */}
 
             {/* ===== STICKY SECTION ===== (taller = slower card movement per scroll) */}
-            <section ref={sectionRef} className="relative h-[320vh]">
+            <section ref={sectionRef} className="relative h-[220vh] md:h-[320vh]">
 
-                <div className="sticky top-[80px] h-[calc(100vh-80px)] overflow-hidden">
+                <div className="sticky top-[60px] md:top-[80px] h-[calc(100vh-60px)] md:h-[calc(100vh-80px)] overflow-hidden">
 
                     {/* ===== 3D CANVAS ===== */}
                     <Canvas
                         shadows
-                        camera={{ position: [0, 1.1, 7.5], fov: 38 }}
+                        // camera={{ position: [0, 1.1, 7.5], fov: 38 }}
+                        camera={{
+                            position: isMobile ? [0, 1, 6] : [0, 1.1, 7.5],
+                            fov: isMobile ? 45 : 38,
+                        }}
                         gl={{ antialias: true }}
                         className="absolute inset-0 pt-6"
                     >
@@ -271,7 +281,6 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
                     {/* ===== CENTER HERO ===== */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="z-50 text-center max-w-3xl px-6">
-
                             <h1 className="text-4xl md:text-5xl font-light leading-tight tracking-tight">
                                 Visually<span className="font-medium">Stunning</span>
                                 <br />
@@ -280,7 +289,7 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
                                 </span>
                             </h1>
 
-                            <button className="pointer-events-auto mt-6 px-8 py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105">
+                            <button className="pointer-events-auto mt-4 md:mt-6 px-6 md:px-8 py-3 md:py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105">
                                 Book a Call
                             </button>
 

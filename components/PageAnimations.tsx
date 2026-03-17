@@ -145,7 +145,7 @@ export default function PageAnimations() {
                     // smaller movements for mobile
                     .to(".butterfly", {
                         x: 180,
-                        y: -160,
+                        y: -360,
                         duration: 0.6,
                         ease: "none"
                     })
@@ -173,7 +173,7 @@ export default function PageAnimations() {
                     .to(".butterfly", {
                         // x: 620,
                         x: 150,
-                        y: 200,
+                        y: 500,
                         duration: 0.6,
                         ease: "none"
                     })
