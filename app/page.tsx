@@ -5,7 +5,7 @@ import Butterfly from "@/components/Butterfly";
 import Hero from "@/components/home/Hero";
 import StorySections from "@/components/home/StorySections";
 import ParticlesBg from "@/components/ParticlesBg";
-// import SmoothScroll from "@/components/SmoothScroll";
+import SmoothScroll from "@/components/SmoothScroll";
 import SnowEffect from "@/components/SnowEffects";
 import Hero1 from "@/components/home/Hero1";
 import PageAnimations from "@/components/PageAnimations";
@@ -45,12 +45,12 @@ export default function Page() {
   }, [isDarkMode]);
 
   return (
-    <main className="relative  bg-black text-white">
+    <main className="relative page-wrapper bg-black text-white">
       <Header isDarkMode={isDarkMode} />
       {/* Background effects */}
       {isDarkMode && <SnowEffect />}
       <ParticlesBg />
-      {/* <SmoothScroll /> */}
+      <SmoothScroll />
       <Hero />
       <Hero1 isDarkMode={isDarkMode} />
       <AIQuote isDarkMode={isDarkMode} />
@@ -66,8 +66,10 @@ export default function Page() {
         {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
 
-      <Butterfly />
-      <PageAnimations />
+      {!isMobile && <PageAnimations />}
+
+      {!isMobile && <PageAnimations />}
+
       <section className="" />
       <Footer isDarkMode={isDarkMode} />
     </main>
