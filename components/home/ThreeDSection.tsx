@@ -220,13 +220,6 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
             const p = total === 0 ? 0 : scrolled / total;
 
             setProgress(p);
-
-            // 🚀 Lock scroll until animation finishes
-            if (p < 0.98) {
-                document.body.style.overflow = "hidden";
-            } else {
-                document.body.style.overflow = "";
-            }
         };
 
         window.addEventListener("scroll", handleScroll, {
@@ -237,7 +230,6 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            document.body.style.overflow = "";
         };
     }, []);
 
