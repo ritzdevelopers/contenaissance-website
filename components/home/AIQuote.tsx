@@ -61,10 +61,9 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
 
             {/* Full-Screen Horizontal Display Section */}
             <div className="w-full relative  py-4">
-
                 <motion.div
-                    className="flex flex-nowrap gap-6 sm:gap-10 md:gap-20 lg:gap-24 px-6 sm:px-12 md:px-24"
-                    animate={{ x: ["0%", "-50%"] }}
+                    className="flex flex-nowrap gap-6 sm:gap-10 md:gap-20 lg:gap-24 px-6 sm:px-12 md:px-20"
+                    // animate={{ x: ["0%", "-50%"] }}
                     transition={{
                         duration: 45,
                         repeat: Infinity,
@@ -96,27 +95,38 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                         </div>
                     ))} */}
                     <motion.div
-                        className="flex overflow-hidden"
-                        animate={{ x: ["0%", "-50%"] }}
-                        transition={{
-                            duration: 30,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
+                        className="flex overflow-hidden w-full relative"
                     >
-                        {/* duplicate image for seamless loop */}
-                        <img
-                            src={timelineImageUrl}
-                            className="h-28 md:h-40 lg:h-56 w-auto flex-shrink-0"
-                        />
-                        <img
-                            src={timelineImageUrl}
-                            className="h-28 md:h-40 lg:h-56 w-auto flex-shrink-0"
-                        />
-                        <img
-                            src={timelineImageUrl}
-                            className="h-28 md:h-40 lg:h-56 w-auto flex-shrink-0"
-                        />
+                        <motion.div
+                            className="flex"
+                            animate={{ x: ["0%", "-50%"] }} // move half of the duplicated content
+                            transition={{
+                                x: {
+                                    repeat: Infinity,
+                                    repeatType: "loop",
+                                    duration: 30, // adjust speed
+                                    ease: "linear"
+                                }
+                            }}
+                        >
+                            {/* Duplicate the images twice */}
+                            {[...Array(2)].map((_, idx) => (
+                                <React.Fragment key={idx}>
+                                    <img
+                                        src={timelineImageUrl}
+                                        className="h-28 md:h-40 lg:h-56 w-auto flex-shrink-0"
+                                    />
+                                    <img
+                                        src={timelineImageUrl}
+                                        className="h-28 md:h-40 lg:h-56 w-auto flex-shrink-0"
+                                    />
+                                    <img
+                                        src={timelineImageUrl}
+                                        className="h-28 md:h-40 lg:h-56 w-auto flex-shrink-0"
+                                    />
+                                </React.Fragment>
+                            ))}
+                        </motion.div>
                     </motion.div>
                 </motion.div>
 
