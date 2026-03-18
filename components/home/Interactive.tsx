@@ -13,18 +13,37 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
     const previewRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
+    const videoRef1 = useRef<HTMLVideoElement | null>(null);
+    const videoRef2 = useRef<HTMLVideoElement | null>(null);
+
+
+    const handleMouseEnter = (video: HTMLVideoElement | null) => {
+        if (video) {
+            video.muted = false;
+            video.volume = 1;
+        }
+    };
+
+    const handleMouseLeave = (video: HTMLVideoElement | null) => {
+        if (video) {
+            video.muted = true;
+            video.volume = 0;
+        }
+    };
+
 
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current || !headingRef.current) return;
 
+        // Disable animations on mobile
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) return;
+
         const ctx = gsap.context(() => {
-            // Preview animation
+            // Video scale animation
             gsap.fromTo(
                 previewRef.current,
-                {
-                    scale: 0.30, //  smaller from start
-                    borderRadius: "30px",
-                },
+                { scale: 0.3, borderRadius: "30px" },
                 {
                     scale: 1,
                     borderRadius: "0px",
@@ -33,8 +52,8 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: "top top",
-                        end: "+=80%", //  more scroll distance
-                        scrub: 1.5,     //  smoother interpolation
+                        end: "+=80%",
+                        scrub: 1.5,
                         pin: ".pin-wrapper",
                         anticipatePin: 1,
                         invalidateOnRefresh: true,
@@ -42,7 +61,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                 }
             );
 
-            // Heading opacity animation (decrease on scroll)
+            // Heading fade animation
             gsap.fromTo(
                 headingRef.current,
                 { opacity: 1 },
@@ -62,21 +81,6 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         return () => ctx.revert();
     }, []);
 
-    const videoRef1 = useRef<HTMLVideoElement | null>(null);
-    const videoRef2 = useRef<HTMLVideoElement | null>(null);
-    const handleMouseEnter = (video: HTMLVideoElement | null) => {
-        if (video) {
-            video.muted = false;
-            video.volume = 1;
-        }
-    };
-
-    const handleMouseLeave = (video: HTMLVideoElement | null) => {
-        if (video) {
-            video.muted = true;
-            video.volume = 0;
-        }
-    };
     return (
         <section
             ref={sectionRef}

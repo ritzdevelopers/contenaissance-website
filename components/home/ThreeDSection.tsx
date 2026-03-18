@@ -212,7 +212,7 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
     const sectionRef = useRef<HTMLDivElement | null>(null);
     const [progress, setProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
-    
+
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth <= 768);
         check();
@@ -300,7 +300,7 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
             </section>
 
             {/* Spacer below */}
-            <div style={{ height: "40vh" }} />
+            <div className="hidden md:block" style={{ height: "40vh" }} />
 
         </div>
     );

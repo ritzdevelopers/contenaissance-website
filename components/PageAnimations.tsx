@@ -22,7 +22,7 @@ export default function PageAnimations() {
                 ease: "power2.out"
             })
             const rotateAngle = gsap.quickTo(butterfly, "rotation", {
-                duration: 1,
+                duration: 0.6,
                 ease: "power2.out"
             })
             gsap.set(".butterfly", { autoAlpha: 0 })
@@ -70,7 +70,7 @@ export default function PageAnimations() {
                     .to(".butterfly", {
                         x: 1000,
                         y: -400,
-                        duration: 0.6,
+                        duration: 0.3,
                         ease: "none"
                     })
 
@@ -180,7 +180,7 @@ export default function PageAnimations() {
 
                     .to(".butterfly", {
                         x: 0,
-                        y: -60,
+                        y: -90,
                         duration: 1,
                         ease: "none"
                     })
@@ -189,35 +189,91 @@ export default function PageAnimations() {
 
             /* ---------------- CONTACT SECTION ANIMATION ---------------- */
 
-            gsap.fromTo(
-                ".contact-section",
-                {
-                    y: "120vh"
-                },
-                {
-                    y: "0vh",
-                    ease: "none",
+            // gsap.fromTo(
+            //     ".contact-section",
+            //     {
+            //         y: "120vh"
+            //     },
+            //     {
+            //         y: "0vh",
+            //         ease: "none",
+            //         scrollTrigger: {
+            //             trigger: ".bottom-section",
+            //             start: "top top",
+            //             end: "bottom bottom",
+            //             scrub: 2
+            //         }
+            //     }
+            // )
+
+            // gsap.to(".butterfly", {
+            //     zIndex: 0,
+            //     scrollTrigger: {
+            //         trigger: ".bottom-section",
+            //         start: "top top",
+            //         end: "bottom bottom",
+            //         scrub: true
+            //     }
+            // })
+
+            mm.add("(min-width: 768px)", () => {
+                gsap.fromTo(
+                    ".contact-section",
+                    { y: "120vh" },
+                    {
+                        y: "0vh",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".bottom-section",
+                            start: "top top",
+                            end: "bottom bottom",
+                            scrub: 2,
+                        },
+                    }
+                );
+
+                gsap.to(".butterfly", {
+                    zIndex: 0,
                     scrollTrigger: {
                         trigger: ".bottom-section",
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 2
+                        scrub: true,
+                    },
+                });
+            });
+
+            /* ── MOBILE ── */
+            mm.add("(max-width: 767px)", () => {
+                // On mobile the pin end is "+=150%" (set in Bottom.tsx),
+                // so we match the FooterCTA slide to that same range.
+                gsap.fromTo(
+                    ".contact-section",
+                    { y: "80vh" },          // start just below the viewport
+                    {
+                        y: "0vh",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".bottom-section",
+                            start: "top top",        // once the section is pinned
+                            end: "bottom bottom",    // when the pin releases
+                            scrub: 1.5,             // slightly snappier on mobile
+                        },
                     }
-                }
-            )
+                );
 
-            gsap.to(".butterfly", {
-                zIndex: 0,
-                scrollTrigger: {
-                    trigger: ".bottom-section",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: true
-                }
-            })
+                gsap.to(".butterfly", {
+                    zIndex: 0,
+                    scrollTrigger: {
+                        trigger: ".bottom-section",
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: true,
+                    },
+                });
+            });
 
-        })
-
+        });
 
 
         return () => ctx.revert()

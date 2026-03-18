@@ -1,5 +1,5 @@
 "use client";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,7 +11,6 @@ interface ExpertSectionProps {
 }
 
 export default function Expert({ isDarkMode }: ExpertSectionProps) {
-
     const videoRef1 = useRef<HTMLVideoElement | null>(null);
     const videoRef2 = useRef<HTMLVideoElement | null>(null);
 
@@ -39,12 +38,16 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current) return;
 
-        const ctx = gsap.context(() => {
+        // Disable GSAP animations on mobile
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) return;
 
+        const ctx = gsap.context(() => {
+            // First section: video scale animation
             gsap.fromTo(
                 previewRef.current,
                 {
-                    scale: 0.30,
+                    scale: 0.3,
                     borderRadius: "30px",
                 },
                 {
@@ -57,15 +60,14 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         start: "top 30%",
                         end: "+=80%",
                         scrub: 1.5,
-                        pin: true, // easier than pin-wrapper
+                        pin: true,
                         anticipatePin: 1,
                         invalidateOnRefresh: true,
                     },
                 }
             );
 
-            // !-------Second section animation -------------------
-
+            // Second section: slide-in animation
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: secondSectionRef.current,
@@ -79,50 +81,22 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 x: -80,
                 duration: 0.8,
                 ease: "power3.out",
-            })
-                .from(
-                    rightRef.current,
-                    {
-                        opacity: 0,
-                        x: 80,
-                        duration: 0.8,
-                        ease: "power3.out",
-                    },
-                    "-=0.4"
-                );
-
+            }).from(
+                rightRef.current,
+                {
+                    opacity: 0,
+                    x: 80,
+                    duration: 0.8,
+                    ease: "power3.out",
+                },
+                "-=0.4"
+            );
         });
+
         ScrollTrigger.refresh();
         return () => ctx.revert();
     }, []);
 
-    //! -------------second section--------------------
-    // const container = {
-    //     hidden: {},
-    //     show: {
-    //         transition: {
-    //             staggerChildren: 0.25
-    //         }
-    //     }
-    // };
-
-    // const slideLeft: Variants = {
-    //     hidden: { opacity: 0, x: -80 },
-    //     show: {
-    //         opacity: 1,
-    //         x: 0,
-    //         transition: { duration: 0.8, ease: "easeOut" }
-    //     }
-    // };
-
-    // const slideRight: Variants = {
-    //     hidden: { opacity: 0, x: 80 },
-    //     show: {
-    //         opacity: 1,
-    //         x: 0,
-    //         transition: { duration: 0.8, ease: "easeOut" }
-    //     }
-    // };
     return (
         <div className="bg-zinc-950 overflow-x-hidden">
             {/* -----------First section----- */}
@@ -135,7 +109,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
                     className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10 cursor-pointer"
-                >   
+                >
                     <video
                         ref={videoRef1}
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"
@@ -144,10 +118,11 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         loop
                         playsInline
                         preload="none"
-                        className="w-full h-full object-contain "
+                        className="w-full h-full object-contain"
                     />
                 </div>
             </div>
+
             {/* --------------second section--------------- */}
             <motion.section
                 className="relative text-white overflow-hidden"
@@ -163,11 +138,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                     gap-12 lg:gap-0
                 "
                 >
-
-                    <motion.div
-                        ref={leftRef}
-                        className="w-full lg:w-1/2 z-10"
-                    >
+                    <motion.div ref={leftRef} className="w-full lg:w-1/2 z-10">
                         <h1
                             className="
                             font-light leading-[1.1] tracking-tight
@@ -180,8 +151,8 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                             <span className="opacity-80"> Our Expert Designers.</span>
                         </h1>
                         <p className="text-white/70 text-sm sm:text-base max-w-md mb-8">
-                            We craft immersive, high-end 3D experiences that elevate your brand
-                            beyond flat design.
+                            We craft immersive, high-end 3D experiences that elevate your
+                            brand beyond flat design.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                             <button
@@ -198,19 +169,19 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                             >
                                 Book Now
                             </button>
-
                         </div>
                     </motion.div>
+
                     {/* Video section */}
                     <motion.div
                         ref={rightRef}
                         className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center relative mt-1 lg:mt-0"
                     >
                         <motion.div
-
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
-                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-auto sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px] cursor-pointer">
+                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-auto sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px] cursor-pointer"
+                        >
                             <video
                                 ref={videoRef2}
                                 src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651797/06_pazrtc.mp4"
@@ -220,13 +191,11 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                                 playsInline
                                 preload="none"
                                 className="w-full h-full object-contain rounded-2xl shadow-2xl border border-white/20 bg-black object-cover"
-
                             />
                         </motion.div>
                     </motion.div>
                 </div>
-            </motion.section >
-        </div >
-
+            </motion.section>
+        </div>
     );
 }

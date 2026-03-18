@@ -26,7 +26,9 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                         start: "top 30%",
                         end: "+=200%",
                         scrub: true,
-                        pin: true
+                        pin: true,
+                        // Allow children (FooterCTA) to visually overflow
+                        pinSpacing: true,
                     }
                 })
 
@@ -38,23 +40,23 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
 
             })
 
-
             /* ---------------- MOBILE ---------------- */
             mm.add("(max-width: 767px)", () => {
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 40%",
-                        end: "+=120%",   // shorter scroll distance
+                        start: "top 20%",   // trigger earlier on mobile
+                        end: "+=150%",      // enough room for FooterCTA to slide up
                         scrub: true,
-                        pin: true
+                        pin: true,
+                        pinSpacing: true,
                     }
                 })
 
                 tl.fromTo(
                     videoRef.current,
-                    { scale: 0.8 },   // bigger start so it doesn't look tiny
+                    { scale: 0.75 },        // start slightly smaller on mobile
                     { scale: 1, ease: "none" }
                 )
 
@@ -69,7 +71,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
     return (
         <section
             ref={sectionRef}
-            className="bottom-section relative min-h-[80vh] md:h-[110vh] w-full overflow-hidden flex items-center justify-center z-0"
+            className="bottom-section relative h-screen w-full flex items-center justify-center z-0 overflow-visible"
         >
             <div
                 ref={videoRef}
