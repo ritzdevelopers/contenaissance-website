@@ -77,7 +77,7 @@ function SlidingRow({
 ========================= */
 export default function Mosaic({ isDarkMode }: MosaicProps) {
   return (
-    <main className="bg-zinc-950 min-h-screen p-4 space-y-4 overflow-x-hidden">
+    <main className="bg-zinc-950 p-4 space-y-4 overflow-x-hidden">
 
       {/* ROW 1 */}
       <SlidingRow direction={-1}>

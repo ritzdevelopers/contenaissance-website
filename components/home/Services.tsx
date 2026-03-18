@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useRouter } from "next/navigation";
-import { div } from "framer-motion/client";
+
 
 gsap.registerPlugin(ScrollTrigger);
 // ---------Srcoll
@@ -169,8 +169,6 @@ const Services: React.FC<ServicesProps> = ({
     }
   ];
 
-
-
   const router = useRouter();
 
   const handleScroll = (id: string) => {
@@ -183,9 +181,9 @@ const Services: React.FC<ServicesProps> = ({
         id="services"
         ref={sectionRef}
         className={`relative overflow-hidden min-h-screen bg-zinc-950 
-  ${isFullPage ? "pt-32 md:pt-48 lg:pt-56" : "-mt-6 py-12 md:py-16"} 
-  px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 
-  max-w-[1600px] mx-auto`}
+          ${isFullPage ? "pt-32 md:pt-48 lg:pt-56" : "-mt-6 py-12 md:py-16"} 
+          px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 
+          max-w-[1600px] mx-auto`}
       >
         {/* Header */}
         <div className="relative z-10 flex flex-col mb-10 md:mb-14">

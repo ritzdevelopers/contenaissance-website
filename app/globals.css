@@ -62,6 +62,7 @@ html.lenis body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -84,6 +85,43 @@ html.lenis body {
   }
 
   /* Heavy blur reduce on mobile */
-  .backdrop-blur-xl { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
-  .backdrop-blur-lg { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
+  .backdrop-blur-xl {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+
+  .backdrop-blur-lg {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+
+  .bottom-section .video-wrapper {
+    transform: scale(0.75);
+    will-change: transform;
+  }
+}
+
+/* ----------Ai quote-------optimization------- */
+
+/* globals.css ke end mein add karo */
+
+/* Mobile slider — pure CSS, zero JS/RAF overhead */
+@media (max-width: 767px) {
+  @keyframes slide-loop {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .slider-track {
+    animation: slide-loop 80s linear infinite;
+    /* GPU composite layer — CPU involvement zero */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function FooterCTA() {
     return (
-        <section className="contact-section absolute left-0 w-full min-h-screen px-4 sm:px-8 md:px-16 z-[100] flex flex-col justify-center pt-57 md:pt-65">
+        <section className="contact-section absolute left-0 w-full min-h-screen px-4 sm:px-8 md:px-16 z-[100] flex flex-col justify-center pt-60 md:pt-65">
 
             {/* Top CTA */}
             <div className="relative z-[100] flex flex-col items-center text-center px-4 sm:px-6">

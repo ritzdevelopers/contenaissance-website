@@ -20,14 +20,16 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
             /* ---------------- DESKTOP ---------------- */
             mm.add("(min-width: 768px)", () => {
 
+                // Desktop pe CSS scale override karo
+                gsap.set(videoRef.current, { clearProps: "transform" })
+
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: "top 30%",
                         end: "+=200%",
-                        scrub: true,
+                        scrub: 1,
                         pin: true,
-                        // Allow children (FooterCTA) to visually overflow
                         pinSpacing: true,
                     }
                 })
@@ -37,29 +39,31 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                     { scale: 0.5 },
                     { scale: 1, ease: "none" }
                 )
-
             })
 
             /* ---------------- MOBILE ---------------- */
             mm.add("(max-width: 767px)", () => {
 
+                gsap.set(videoRef.current, { force3D: true })
+
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 20%",   // trigger earlier on mobile
-                        end: "+=150%",      // enough room for FooterCTA to slide up
-                        scrub: true,
+                        start: "top top",
+                        end: "+=200%",
+                        scrub: 0.5,
                         pin: true,
                         pinSpacing: true,
+                        fastScrollEnd: true,
+                        invalidateOnRefresh: true,
                     }
                 })
 
                 tl.fromTo(
                     videoRef.current,
-                    { scale: 0.75 },        // start slightly smaller on mobile
-                    { scale: 1, ease: "none" }
+                    { scale: 0.75 },
+                    { scale: 1, ease: "power1.out" }
                 )
-
             })
 
         }, sectionRef)
@@ -75,7 +79,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
         >
             <div
                 ref={videoRef}
-                className="w-full h-full flex items-center justify-center"
+                className="video-wrapper w-full h-full flex items-center justify-center"
             >
                 <video
                     autoPlay
