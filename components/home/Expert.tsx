@@ -140,9 +140,9 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 >
                     <motion.div ref={leftRef} className="w-full lg:w-1/2 z-10">
                         <h1
-                            className="
+                            className="text-center md:text-start text-[clamp(1.5rem,5vw,1rem)]
                             font-light leading-[1.1] tracking-tight
-                            text-[clamp(2rem,5vw,2.5rem)]
+                            md:text-[clamp(2rem,5vw,2.5rem)]
                             mb-6
                         "
                         >

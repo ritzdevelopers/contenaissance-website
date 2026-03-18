@@ -48,8 +48,8 @@ export default function Page() {
     <main className="relative page-wrapper bg-black text-white">
       <Header isDarkMode={isDarkMode} />
       {/* Background effects */}
-      {isDarkMode && <SnowEffect />}
-      <ParticlesBg />
+      {isDarkMode && !isMobile && <SnowEffect />}
+      {!isMobile && <ParticlesBg />}
       <SmoothScroll />
       <Hero />
       <Hero1 isDarkMode={isDarkMode} />

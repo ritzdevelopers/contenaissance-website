@@ -1,34 +1,56 @@
 "use client"
 
 import { useEffect } from "react"
-import Lenis from "@studio-freight/lenis"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function SmoothScroll() {
+
     useEffect(() => {
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            wheelMultiplier: 0.8,
-            touchMultiplier: 1.5,
-        })
 
-        lenis.on("scroll", ScrollTrigger.update)
+        const isMobile = window.innerWidth <= 767
 
-        const onTick = (time: number) => {
-            lenis.raf(time * 1000)
+        
+        if (isMobile) {
+            ScrollTrigger.config({ ignoreMobileResize: true })
+            return
         }
-        gsap.ticker.add(onTick)
-        gsap.ticker.lagSmoothing(0)
+
+        // ── Desktop only: Lenis ──
+        let lenis: any
+        let rafHandler: (time: number) => void
+
+        const initLenis = async () => {
+            const LenisModule = await import("lenis")
+            const Lenis = LenisModule.default
+
+            lenis = new Lenis({
+                duration: 1.4,
+                easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                orientation: "vertical",
+                gestureOrientation: "vertical",
+                smoothWheel: true,
+                wheelMultiplier: 0.85,
+                infinite: false,
+                // touchMultiplier: 0 — 
+            })
+
+            lenis.on("scroll", ScrollTrigger.update)
+
+            rafHandler = (time: number) => lenis.raf(time * 1000)
+            gsap.ticker.add(rafHandler)
+            gsap.ticker.lagSmoothing(0)
+        }
+
+        initLenis()
 
         return () => {
-            lenis.destroy()
-            gsap.ticker.remove(onTick)
+            if (lenis) lenis.destroy()
+            if (rafHandler) gsap.ticker.remove(rafHandler)
         }
+
     }, [])
 
     return null

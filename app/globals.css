@@ -19,21 +19,71 @@
   }
 }
 
-
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
+  /* 
+    ❌ scroll-behavior: smooth  — HATAO YE LINE
+    Lenis aur GSAP dono se conflict karta hai
+    Freeze + jank isi wajah se aata tha
+  */
   overflow-x: hidden;
 }
 
+/* ── Lenis required — GSAP pinned sections ke liye zaroori ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* GSAP pin spacer fix */
+.pin-spacer {
+  pointer-events: none !important;
+}
+
+/* ── Scrollbar hide ── */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ── Mobile performance ── */
+@media (max-width: 767px) {
+
+  /* GPU layer — sirf butterfly pe, poore page pe nahi */
+  .butterfly {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Video GPU composite */
+  video {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Heavy blur reduce on mobile */
+  .backdrop-blur-xl { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
+  .backdrop-blur-lg { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
 }

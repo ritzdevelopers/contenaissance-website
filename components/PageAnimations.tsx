@@ -18,7 +18,7 @@ export default function PageAnimations() {
             let prevX = 0
 
             const rotateBird = gsap.quickTo(bird, "scaleX", {
-                duration: 1,
+                duration: 0.6,
                 ease: "power2.out"
             })
             const rotateAngle = gsap.quickTo(butterfly, "rotation", {
