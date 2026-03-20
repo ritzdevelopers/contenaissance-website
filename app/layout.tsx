@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   description: "Contenaissance official website",
   icons: {
-    icon: "/favicon.png", // make sure file exists in /public
+    icon: "/fav-icon.png", // make sure file exists in /public
   },
 };
 

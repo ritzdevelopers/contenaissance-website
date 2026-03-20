@@ -218,7 +218,11 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                   <div className="grid grid-cols-2 gap-3 text-sm tracking-[0.2em] uppercase">
 
                     <a
-                      href="https://linkedin.com"
+                      href="https://x.com/contenaissance
+https://www.facebook.com/profile.php?id=61579738437856
+https://www.linkedin.com/company/108385521/admin/dashboard/
+www.youtube.com/@Contenaissance
+https://www.instagram.com/contenaissance/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] hover:font-bold transition group"
                     >
@@ -227,7 +231,11 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                     </a>
 
                     <a
-                      href="https://instagram.com"
+                      href="https://x.com/contenaissance
+https://www.facebook.com/profile.php?id=61579738437856
+https://www.linkedin.com/company/108385521/admin/dashboard/
+www.youtube.com/@Contenaissance
+https://www.instagram.com/contenaissance/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] transition hover:font-bold group"                    >
                       <span>Instagram</span>
@@ -235,16 +243,24 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                     </a>
 
                     <a
-                      href="https://twitter.com"
+                      href="https://x.com/contenaissance
+https://www.facebook.com/profile.php?id=61579738437856
+https://www.linkedin.com/company/108385521/admin/dashboard/
+www.youtube.com/@Contenaissance
+https://www.instagram.com/contenaissance/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] transition hover:font-bold group"                      >
-                      <span>Twitter</span>
+                      <span>Facebook</span>
                       <GoArrowUpRight className="text-lg opacity-60 transition hover:font-bold" />
 
                     </a>
 
                     <a
-                      href="https://youtube.com"
+                      href="https://x.com/contenaissance
+https://www.facebook.com/profile.php?id=61579738437856
+https://www.linkedin.com/company/108385521/admin/dashboard/
+www.youtube.com/@Contenaissance
+https://www.instagram.com/contenaissance/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] transition group hover:font-bold"                    >
                       <span>YouTube</span>
