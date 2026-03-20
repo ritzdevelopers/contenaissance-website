@@ -34,7 +34,7 @@ export default function FooterCTA() {
                 </button>
 
                 {/* Heading */}
-                <h1 className="mt-0 md:mt-5 italic font-serif text-lg sm:text-2xl md:text-3xl font-light leading-tight max-w-2xl mt-1 md:mt-2">
+                <h1 className="mt-0 md:mt-5 italic font-serif text-lg sm:text-2xl md:text-3xl font-light leading-tight max-w-2xl mt-1 md:mt-2 text-white">
                     Creating Wonders With AI
                 </h1>
 

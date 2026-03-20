@@ -5,11 +5,11 @@ import Service from "@/components/services/Services";
 export default function ServicesPage() {
   const isDarkMode = false;
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-zinc-950">
       <Service isDarkMode={isDarkMode} />
       <Bottom >
         <FooterCTA />
-        {/* <Contact isDarkMode={isDarkMode} /> */}
+      {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
     </main>
   )

@@ -45,7 +45,7 @@ export default function Page() {
   }, [isDarkMode]);
 
   return (
-    <main className="relative page-wrapper bg-black text-white">
+    <main className="relative page-wrapper bg-zinc-950 text-white">
       <Header isDarkMode={isDarkMode} />
       {/* Background effects */}
       {isDarkMode && !isMobile && <SnowEffect />}

@@ -11,10 +11,10 @@ export default function PortfolioPage() {
   return (
    
    <>
-    <div>
+    <div className='bg-zinc-950'>
       {/* <CreativePortraits /> */}
       <Port isDarkMode={isDarkMode} />
-      <div className="max-w-[1400px] mx-auto mt-8">
+      <div className="max-w-[1400px] mx-auto mt-8 bg-zinc-950">
         <Reels isDarkMode={isDarkMode} />
       </div>
       {/* <Gallery /> */}
