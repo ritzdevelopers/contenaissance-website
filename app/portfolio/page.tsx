@@ -5,7 +5,7 @@ export default function PortfolioPage() {
    const isDarkMode = false;
   return (
     <main className="min-h-screen">
-      <Portfolio isDarkMode={isDarkMode} />
+      <Portfolio/>
     </main>
   )
 }
