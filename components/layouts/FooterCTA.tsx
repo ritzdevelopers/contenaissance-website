@@ -1,17 +1,23 @@
+"use client"
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function FooterCTA() {
+    const router = useRouter();
     return (
         <section className="contact-section absolute left-0 w-full min-h-screen px-4 sm:px-8 md:px-16 z-[100] flex flex-col justify-center pt-60 md:pt-65">
 
             {/* Top CTA */}
             <div className="relative z-[100] flex flex-col items-center text-center px-4 sm:px-6">
 
-                <button className="flex items-center group outline-none">
+                <button
+                    onClick={() => router.push("/")}
+                    className="flex items-center group outline-none cursor-pointer">
+
                     <img
                         src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773733366/2_White_1_1_bso5jt.png"
                         alt="Contenaissance Logo"
-                        className="h-[36px] sm:h-[48px] md:h-[5rem] w-auto object-contain transition-all duration-700 group-hover:scale-105"
+                        className="h-[36px] sm:h-[48px] md:h-[5rem] cursor-pointer w-auto object-contain transition-all duration-700 group-hover:scale-105"
                     />
                 </button>
 
