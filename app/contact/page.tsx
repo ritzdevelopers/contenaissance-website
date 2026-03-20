@@ -6,11 +6,13 @@ export default function ContactPage() {
   const isDarkMode = false;
   return (
     <main className="min-h-screen">
-      <Contact isDarkMode={isDarkMode} />
-      <div className="pt-10">
-        {/* <Bottom >
+      <section >
+        <Contact isDarkMode={isDarkMode} />
+      </section>
+      <div className="mt-[100vh] md:mt-[120vh]">
+        <Bottom >
           <FooterCTA />
-        </Bottom> */}
+        </Bottom>
       </div>
     </main>
   )

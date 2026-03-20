@@ -131,7 +131,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
   ];
 
   return (
-    <section className="contact-section absolute top-0 left-0 w-full min-h-screen px-5 md:px-16 pt-28 md:pt-38 pb-5 md:pb-8  md bg-zinc-950">
+    <section className="contact-section  top-0 left-0 w-full min-h-screen px-5 md:px-16 pt-28 md:pt-38 pb-5 md:pb-8  md bg-zinc-950">
       <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-16 lg:gap-x-24 gap-y-12 md:gap-y-20 items-start">
 
         <div className="flex flex-col h-full items-center lg:items-start">

@@ -88,7 +88,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                     playsInline
                     preload="auto"
                     disablePictureInPicture
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full h-full object-cover rounded-xl pointer-events-none"
                 >
                     <source
                         src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1774000230/footervdo_hi6dtc.mp4"
