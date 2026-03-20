@@ -218,7 +218,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                   <div className="grid grid-cols-2 gap-3 text-sm tracking-[0.2em] uppercase">
 
                     <a
-                      href="https://www.facebook.com/people/Contenaissance/61579738437856/"
+                      href="https://www.linkedin.com/company/108385521/admin/dashboard/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] hover:font-bold transition group"
                     >
