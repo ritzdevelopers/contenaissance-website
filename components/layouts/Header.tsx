@@ -218,11 +218,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                   <div className="grid grid-cols-2 gap-3 text-sm tracking-[0.2em] uppercase">
 
                     <a
-                      href="https://x.com/contenaissance
-https://www.facebook.com/profile.php?id=61579738437856
-https://www.linkedin.com/company/108385521/admin/dashboard/
-www.youtube.com/@Contenaissance
-https://www.instagram.com/contenaissance/"
+                      href="https://www.facebook.com/people/Contenaissance/61579738437856/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] hover:font-bold transition group"
                     >
@@ -231,11 +227,7 @@ https://www.instagram.com/contenaissance/"
                     </a>
 
                     <a
-                      href="https://x.com/contenaissance
-https://www.facebook.com/profile.php?id=61579738437856
-https://www.linkedin.com/company/108385521/admin/dashboard/
-www.youtube.com/@Contenaissance
-https://www.instagram.com/contenaissance/"
+                      href="https://www.instagram.com/contenaissance/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] transition hover:font-bold group"                    >
                       <span>Instagram</span>
@@ -243,11 +235,7 @@ https://www.instagram.com/contenaissance/"
                     </a>
 
                     <a
-                      href="https://x.com/contenaissance
-https://www.facebook.com/profile.php?id=61579738437856
-https://www.linkedin.com/company/108385521/admin/dashboard/
-www.youtube.com/@Contenaissance
-https://www.instagram.com/contenaissance/"
+                      href="https://www.facebook.com/people/Contenaissance/61579738437856/"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] transition hover:font-bold group"                      >
                       <span>Facebook</span>
@@ -256,11 +244,7 @@ https://www.instagram.com/contenaissance/"
                     </a>
 
                     <a
-                      href="https://x.com/contenaissance
-https://www.facebook.com/profile.php?id=61579738437856
-https://www.linkedin.com/company/108385521/admin/dashboard/
-www.youtube.com/@Contenaissance
-https://www.instagram.com/contenaissance/"
+                      href="https://www.youtube.com/@Contenaissance"
                       target="_blank"
                       className="flex items-center  text-white hover:text-[#ab8922] transition group hover:font-bold"                    >
                       <span>YouTube</span>
