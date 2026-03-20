@@ -28,7 +28,7 @@ body {
     Lenis aur GSAP dono se conflict karta hai
     Freeze + jank isi wajah se aata tha
   */
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 /* ── Lenis required — GSAP pinned sections ke liye zaroori ── */

@@ -16,7 +16,7 @@ export default function FooterCTA() {
                 </button>
 
                 {/* Heading */}
-                <h1 className="italic font-serif text-lg sm:text-2xl md:text-3xl font-light leading-tight max-w-2xl mt-1 md:mt-2">
+                <h1 className="mt-0 md:mt-5 italic font-serif text-lg sm:text-2xl md:text-3xl font-light leading-tight max-w-2xl mt-1 md:mt-2">
                     Creating Wonders With AI
                 </h1>
 
@@ -38,9 +38,8 @@ export default function FooterCTA() {
             </div>
 
             {/* Footer Links */}
-            <div className="relative z-10 grid grid-cols-3 gap-4 sm:gap-8 mt-6 md:mt-8 mb-6 text-center text-[10px] sm:text-xs max-w-4xl mx-auto w-full">
+            {/* <div className="relative z-10 grid grid-cols-3 gap-4 sm:gap-8 mt-6 md:mt-8 mb-6 text-center text-[10px] sm:text-xs max-w-4xl mx-auto w-full">
 
-                {/* Navigation */}
                 <div>
                     <p className="text-white/90 font-bold tracking-widest mb-2 text-[9px] sm:text-xs">NAVIGATION</p>
                     <ul className="space-y-1">
@@ -51,7 +50,6 @@ export default function FooterCTA() {
                     </ul>
                 </div>
 
-                {/* Resources */}
                 <div>
                     <p className="text-white/90 font-bold tracking-widest mb-2 text-[9px] sm:text-xs">RESOURCES</p>
                     <ul className="space-y-1">
@@ -62,7 +60,6 @@ export default function FooterCTA() {
                     </ul>
                 </div>
 
-                {/* Contact */}
                 <div>
                     <p className="text-white/90 font-bold tracking-widest mb-2 text-[9px] sm:text-xs">CONTACT</p>
                     <ul className="space-y-1">
@@ -72,7 +69,7 @@ export default function FooterCTA() {
                     </ul>
                 </div>
 
-            </div>
+            </div> */}
 
         </section>
     )

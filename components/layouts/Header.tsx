@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
         {/* LOGO */}
         <button
           onClick={() => router.push("/")}
-          className="flex items-center group outline-none"
+          className="flex items-center group outline-none cursor-pointer"
         >
           <img
             src={logoUrl}

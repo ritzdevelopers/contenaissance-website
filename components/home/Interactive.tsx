@@ -21,6 +21,10 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         if (video) {
             video.muted = false;
             video.volume = 1;
+
+            video.play().catch(() => {
+            console.log("Autoplay with sound blocked");
+        });
         }
     };
 
@@ -94,7 +98,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
 
-                    className="w-full max-w-[1400px] aspect-video overflow-hidden will-change-transform cursor-pointer" style={{ transformOrigin: "center center" }}
+                    className="w-full max-w-[1400px] aspect-video overflow-hidden will-change-transform px-4 md:px-0" style={{ transformOrigin: "center center cursor-pointer" }}
                 >
                     <video
                         ref={videoRef1}

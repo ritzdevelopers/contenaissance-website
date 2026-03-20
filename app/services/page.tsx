@@ -1,9 +1,10 @@
-import Contact from "@/components/layouts/Contact";
+import Service from "@/components/services/Services";
 
 export default function ServicesPage() {
+  const isDarkMode = false;
   return (
     <main className="min-h-screen">
-      Services
+      <Service isDarkMode={isDarkMode} />
     </main>
   )
 }

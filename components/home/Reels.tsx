@@ -1,4 +1,6 @@
 
+"use client"
+
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
@@ -140,28 +142,24 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const baseReels = useMemo(() => [
     {
       title: "Storytelling",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651791/09_tbp1q7.mp4"
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773745661/V4_eb67pa.mp4"
     },
     {
-      title: "AI Model",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686554/3d_wm31gf.mp4"
-    },
-    {
-      title: "Cinematic Flow",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4"
-    },
-    {
-      title: "Neural Core",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651787/05_ucknoc.mp4"
+      title: "Studio Vision",
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651787/02_rnqgc1.mp4"
     },
     {
       title: "AI Model",
       video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/01_mrmw5v.mp4"
     },
     {
-      title: "",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4"
+      title: "Cinematic Flow",
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651796/13_kn8ho3.mp4"
     },
+    {
+      title: "Neural Core",
+      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651792/10_fufsbp.mp4"
+    }
   ], []);
 
   const reels = [...baseReels, ...baseReels]; // duplicate for infinite illusion
