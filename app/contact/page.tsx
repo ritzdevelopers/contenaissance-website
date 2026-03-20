@@ -7,9 +7,11 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen">
       <Contact isDarkMode={isDarkMode} />
-      <Bottom >
-        <FooterCTA />
-      </Bottom>
+      <div className="pt-10">
+        {/* <Bottom >
+          <FooterCTA />
+        </Bottom> */}
+      </div>
     </main>
   )
 }
