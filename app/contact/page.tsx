@@ -9,7 +9,7 @@ export default function ContactPage() {
       <section >
         <Contact isDarkMode={isDarkMode} />
       </section>
-      <div className="mt-[100vh] md:mt-[120vh]">
+      <div className="mt-[1vh] md:mt-[2vh]">
         <Bottom >
           <FooterCTA />
         </Bottom>
