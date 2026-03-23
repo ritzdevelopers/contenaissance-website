@@ -107,7 +107,7 @@ export default function Digital() {
             >
                 <video
                     ref={videoRef}
-                    src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651790/08_dwrbhx.mp4"
+                    src="/assets/Video/06.mp4"
                     autoPlay
                     muted
                     loop

@@ -104,7 +104,7 @@ export default function AiPower() {
                 >
                     <video
                         ref={videoRef}
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515260/expert_cztbxe.mp4"
+                        src="/assets/Video/07.mp4"
                         autoPlay
                         muted
                         loop

@@ -112,7 +112,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 >
                     <video
                         ref={videoRef1}
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515369/service2_rdybf5.mp4"
+                        src="/assets/Video/08.MP4"
                         autoPlay
                         muted
                         loop
@@ -184,7 +184,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         >
                             <video
                                 ref={videoRef2}
-                                src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651797/06_pazrtc.mp4"
+                                src="/assets/Video/06.mp4"
                                 autoPlay
                                 muted
                                 loop

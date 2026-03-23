@@ -116,22 +116,22 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
     {
       title: "Gulshan Luxury",
       category: "Architectural Narrative",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/07_wmp4jw.mp4"
+      video: "/assets/Video/04.mp4"
     },
     {
       title: "Namah Wellness",
       category: "Cinematic Identity",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651795/04_c8jpqe.mp4"
+      video: "/assets/Video/06.mp4"
     },
     {
       title: "MPF Narrative",
       category: "Horizontal Narrative",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651797/06_pazrtc.mp4"
+      video: "/assets/Video/08.MP4"
     },
     {
       title: "RMW Synthesis",
       category: "Neural Core",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651790/08_dwrbhx.mp4"
+      video: "/assets/Video/04.mp4"
     },
     // {
     //   title: "Lumora Safari",

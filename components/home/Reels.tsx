@@ -142,23 +142,23 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const baseReels = useMemo(() => [
     {
       title: "Storytelling",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773745661/V4_eb67pa.mp4"
+      video: "/assets/Video/auto.mp4"
     },
     {
       title: "Studio Vision",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651787/02_rnqgc1.mp4"
+      video: "/assets/Video/01.mp4"
     },
     {
       title: "AI Model",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651789/01_mrmw5v.mp4"
+      video: "/assets/Video/02.MP4"
     },
     {
       title: "Cinematic Flow",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651796/13_kn8ho3.mp4"
+      video: "/assets/Video/05.MP4"
     },
     {
       title: "Neural Core",
-      video: "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651792/10_fufsbp.mp4"
+      video: "/assets/Video/09.mp4"
     }
   ], []);
 

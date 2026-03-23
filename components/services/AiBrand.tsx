@@ -114,7 +114,7 @@ export default function AiBrand() {
                 >
                     <video
                         ref={videoRef}
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
+                        src="/assets/Video/04.mp4"
                         autoPlay
                         muted
                         loop

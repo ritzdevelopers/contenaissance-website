@@ -102,7 +102,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                 >
                     <video
                         ref={videoRef1}
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4"
+                        src="/assets/Video/04.mp4"
                         autoPlay
                         muted
                         loop
@@ -154,7 +154,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                             className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] h-[480px] sm:h-[420px] md:h-[460px] lg:h-[520px] cursor-pointer">
                             <video
                                 ref={videoRef2}
-                                src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515349/interactive_ahvxx6.mp4"
+                                src="/assets/Video/11.mp4"
                                 autoPlay
                                 loop
                                 muted

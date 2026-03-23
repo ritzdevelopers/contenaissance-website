@@ -81,19 +81,19 @@ export default function Mosaic({ isDarkMode }: MosaicProps) {
 
       {/* ROW 1 */}
       <SlidingRow direction={-1}>
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h2_f5kt1b.jpg" />
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h1_wj1sgy.jpg" />
+        <TileImage src="/assets/mosaic/1.jpg" />
+        <TileImage src="/assets/mosaic/2.jpg" />
         <TileText>
           <ScrollWeightHeading>ÉDITION</ScrollWeightHeading>
         </TileText>
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h3_knswia.jpg" />
+        <TileImage src="/assets/mosaic/3.jpg" />
       </SlidingRow>
 
       {/* ROW 2 */}
       <SlidingRow direction={1}>
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h6_wstn38.jpg" />
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h5_aqew4y.jpg" />
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053124/h4_gjqgbg.jpg" />
+        <TileImage src="/assets/mosaic/4.jpg" />
+        <TileImage src="/assets/mosaic/5.jpg" />
+        <TileImage src="/assets/mosaic/6.jpg" />
         <TileText>
           <ScrollWeightHeading>LIMITÉE</ScrollWeightHeading>
         </TileText>
@@ -101,20 +101,20 @@ export default function Mosaic({ isDarkMode }: MosaicProps) {
 
       {/* ROW 3 */}
       <SlidingRow direction={-1}>
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h12_wdw5ea.jpg" />
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h8_lfwloh.jpg" />
+        <TileImage src="/assets/mosaic/7.jpg" />
+        <TileImage src="/assets/mosaic/8.jpg" />
         <TileText>
           <ScrollWeightHeading>1500</ScrollWeightHeading>
         </TileText>
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h9_vu1vfx.jpg" />
+        <TileImage src="/assets/mosaic/9.jpg" />
       </SlidingRow>
 
       {/* ROW 4 */}
       <SlidingRow direction={1}>
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h7_ou4go8.jpg" />
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h11_lehnu9.jpg" />
+        <TileImage src="/assets/mosaic/10.jpg" />
+        <TileImage src="/assets/mosaic/11.jpg" />
 
-        <TileImage src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773053125/h10_e6ax7u.jpg" />
+        <TileImage src="/assets/mosaic/12.jpg" />
         <TileText>
           <ScrollWeightHeading>PIÈCES</ScrollWeightHeading>
         </TileText>

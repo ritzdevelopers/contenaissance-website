@@ -8,7 +8,7 @@ interface AIQuoteProps {
 const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
     const arialFont = { fontFamily: 'Arial, sans-serif' };
 
-    const timelineImageUrl = "https://res.cloudinary.com/dbpx7aobb/image/upload/v1773730198/image_4_2_kuzssj.png";
+    const timelineImageUrl = "/assets/image/aiQuote.png";
 
     const slideCopies = 8;
 

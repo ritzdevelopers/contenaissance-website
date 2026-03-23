@@ -109,7 +109,7 @@ export default function VisualIdentify() {
             >
                 <video
                     ref={videoRef}
-                    src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651790/08_dwrbhx.mp4"
+                    src="/assets/Video/08.MP4"
                     autoPlay
                     muted
                     loop

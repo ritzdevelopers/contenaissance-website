@@ -91,7 +91,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                     className="w-full h-full object-cover rounded-xl pointer-events-none"
                 >
                     <source
-                        src="https://res.cloudinary.com/dbpx7aobb/video/upload/v1774000230/footervdo_hi6dtc.mp4"
+                        src="/assets/Video/footer.mp4"
                         type="video/mp4"
                     />
                 </video>

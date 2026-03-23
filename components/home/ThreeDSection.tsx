@@ -201,12 +201,12 @@ interface ThreeDSectionProps {
 
 export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
     const images = [
-        "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772515416/service1_pg5wmy.mp4",
-        "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651801/11_wnq0ki.mp4",
-        "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651800/03_suriqe.mp4",
-        "https://res.cloudinary.com/dbpx7aobb/video/upload/v1773651796/13_kn8ho3.mp4",
+        "/assets/Video/15.mp4",
+        "/assets/Video/14.mp4",
+        "/assets/Video/13.mp4",
+        "/assets/Video/12.mp4",
         // "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4",
-        "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686554/3d_wm31gf.mp4"
+        "/assets/Video/09.mp4"
     ];
 
     const sectionRef = useRef<HTMLDivElement | null>(null);

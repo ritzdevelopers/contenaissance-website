@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
   const currentPath = usePathname();
 
   const logoUrl =
-    "https://res.cloudinary.com/dbpx7aobb/image/upload/v1773733459/2_1_1_1_kpcs3b.png";
+    "/assets/image/logo.png";
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

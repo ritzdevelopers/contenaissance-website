@@ -27,7 +27,7 @@ export default function FooterCTA() {
                     className="flex items-center group outline-none cursor-pointer">
 
                     <img
-                        src="https://res.cloudinary.com/dbpx7aobb/image/upload/v1773733459/2_1_1_1_kpcs3b.png"
+                        src="/assets/image/logo.png"
                         alt="Contenaissance Logo"
                         className="h-[36px] sm:h-[48px] md:h-[5rem] cursor-pointer w-auto object-contain transition-all duration-700 group-hover:scale-105"
                     />
