@@ -51,7 +51,7 @@ export default function Page() {
       {isDarkMode && !isMobile && <SnowEffect />}
       {!isMobile && <ParticlesBg />}
       <SmoothScroll />
-      {/* <Hero /> */}
+      <Hero />
       <Hero1 isDarkMode={isDarkMode} />
       <AIQuote isDarkMode={isDarkMode} />
       <Reels isDarkMode={isDarkMode} />
@@ -66,7 +66,7 @@ export default function Page() {
         {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
       {/* <Butterfly /> */}
-      {/* <PageAnimations /> */}
+      <PageAnimations />
       <section className="" />
       <Footer isDarkMode={isDarkMode} />
     </main>

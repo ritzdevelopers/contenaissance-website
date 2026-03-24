@@ -330,8 +330,8 @@ export default function PageAnimations() {
                 const delta = currentX - prevX
 
                 if (Math.abs(delta) > 0.1) {
-                    if (delta > 0) rotateBird(-1)
-                    else if (delta < 0) rotateBird(1)
+                    if (delta > 0) rotateBird(1)
+                    else if (delta < 0) rotateBird(-1)
 
                     // Desktop tilt — mobile pe rotateAngle call nahi hoga (mm ke bahar hai)
                     const tilt = gsap.utils.clamp(-30, 30, delta * 0.2)

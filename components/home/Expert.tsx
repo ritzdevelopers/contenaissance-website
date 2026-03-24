@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,8 @@ interface ExpertSectionProps {
 }
 
 export default function Expert({ isDarkMode }: ExpertSectionProps) {
+    const router = useRouter();
+
     const videoRef1 = useRef<HTMLVideoElement | null>(null);
     const videoRef2 = useRef<HTMLVideoElement | null>(null);
 
@@ -108,7 +111,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                     ref={previewRef}
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
-                    className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden border border-white/10 cursor-pointer"
+                    className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden  cursor-pointer"
                 >
                     <video
                         ref={videoRef1}
@@ -156,7 +159,8 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                             <button
-                                className="
+                            onClick={()=>router.push('/contact')}
+                                className="cursor-pointer
                                 w-full sm:w-auto
                                 px-6 py-3
                                 text-sm sm:text-base
@@ -180,7 +184,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         <motion.div
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
-                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-auto sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[280px] cursor-pointer"
+                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-auto sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[380px] cursor-pointer"
                         >
                             <video
                                 ref={videoRef2}
@@ -190,7 +194,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                                 loop
                                 playsInline
                                 preload="none"
-                                className="w-full h-full object-contain rounded-2xl shadow-2xl border border-white/20 bg-black object-cover"
+                                className="w-full h-full  rounded-2xl shadow-2xl  bg-black object-cover"
                             />
                         </motion.div>
                     </motion.div>

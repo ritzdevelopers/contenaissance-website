@@ -9,7 +9,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import { useRef, useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
 
 // ================= CARD =================
 type CardProps = {
@@ -135,6 +135,8 @@ function Card({ url, index, progress }: CardProps) {
 
     if (!texture) return null;
 
+
+
     return (
         <mesh
             ref={ref}
@@ -212,6 +214,7 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
     const sectionRef = useRef<HTMLDivElement | null>(null);
     const [progress, setProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth <= 768);
@@ -289,8 +292,10 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
                                 </span>
                             </h1>
 
-                            <button className="pointer-events-auto mt-4 md:mt-6 px-6 md:px-8 py-3 md:py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105">
-                                Book a Call
+                            <button
+                                onClick={() => router.push('/contact')}
+                                className="pointer-events-auto cursor-pointer mt-4 md:mt-6 px-6 md:px-8 py-3 md:py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105">
+                                 Book a Call
                             </button>
 
                         </div>

@@ -54,7 +54,7 @@ export default function FooterCTA() {
                         Contact Us
                     </button> */}
                     <Link
-                        href="#services"
+                        href="/services"
                         className="px-4 py-1.5 rounded-full bg-white text-black hover:bg-gray-200 transition font-bold"
                     >
                         Explore AI

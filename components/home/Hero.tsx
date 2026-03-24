@@ -10,10 +10,11 @@ export default function Hero() {
         playsInline
         preload="auto"
         disablePictureInPicture
+        onLoadedData={(e) => e.currentTarget.play()}
         className="absolute inset-0 w-full h-full object-cover will-change-transform"
       >
         <source
-          src="https://res.cloudinary.com/dbpx7aobb/video/upload/q_auto,f_auto/v1773056668/Start_yqxfut.mp4"
+          src="/assets/Video/Start.mp4"
           type="video/mp4"
         />
       </video>

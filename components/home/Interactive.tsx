@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 interface InteractiveProps {
@@ -10,6 +11,7 @@ interface InteractiveProps {
 }
 
 export default function Interactive({ isDarkMode }: InteractiveProps) {
+    const router = useRouter();
     const sectionRef = useRef<HTMLDivElement>(null);
     const previewRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
@@ -23,8 +25,8 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             video.volume = 1;
 
             video.play().catch(() => {
-            console.log("Autoplay with sound blocked");
-        });
+                console.log("Autoplay with sound blocked");
+            });
         }
     };
 
@@ -35,6 +37,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         }
     };
 
+    
 
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current || !headingRef.current) return;
@@ -131,7 +134,9 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-center md:justify-end px-10 md:px-0 ">
 
                         {/* Book Now */}
-                        <button className="relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-white group rounded-xl whitespace-nowrap">
+                        <button
+                            onClick={() => router.push("/contact")}
+                            className="relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-white group rounded-xl whitespace-nowrap cursor-pointer">
                             <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-black ">
                                 Book Now
@@ -139,7 +144,9 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                         </button>
 
                         {/* Get Started */}
-                        <button className="rounded-xl relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-black bg-white group whitespace-nowrap">
+                        <button
+                            onClick={() => router.push("/services")}
+                            className="rounded-xl relative overflow-hidden w-full max-w-[220px] sm:w-auto px-6 py-3 border border-white/20 text-black bg-white group whitespace-nowrap cursor-pointer">
                             <span className="absolute inset-0 bg-zinc-950 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
                                 Get started

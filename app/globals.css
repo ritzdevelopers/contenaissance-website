@@ -125,3 +125,21 @@ html.lenis body {
     backface-visibility: hidden;
   }
 }
+
+
+@keyframes flap {
+  0% {
+    transform: scaleX(1) rotate(0deg);
+  }
+  50% {
+    transform: scaleX(0.85) rotate(2deg);
+  }
+  100% {
+    transform: scaleX(1) rotate(0deg);
+  }
+}
+
+.animate-flap {
+  animation: flap 0.4s ease-in-out infinite;
+  transform-origin: center;
+}
