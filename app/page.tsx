@@ -46,7 +46,7 @@ export default function Page() {
 
   return (
     <main className="relative page-wrapper bg-zinc-950 text-white">
-      <Header isDarkMode={isDarkMode} />
+      {/* <Header isDarkMode={isDarkMode} /> */}
       {/* Background effects */}
       {isDarkMode && !isMobile && <SnowEffect />}
       {!isMobile && <ParticlesBg />}

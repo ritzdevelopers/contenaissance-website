@@ -6,17 +6,23 @@ interface SnowEffectProps {
     count?: number;
 }
 
+const seededRandom = (seed: number) => {
+    const value = Math.sin(seed) * 10000;
+    return value - Math.floor(value);
+};
+
 const SnowEffect: React.FC<SnowEffectProps> = ({ count = 60 }) => {
-    // Generate random properties for each snowflake to create depth and variety
+    // Generate deterministic properties so SSR and hydration match.
     const snowflakes = useMemo(() => {
         return Array.from({ length: count }).map((_, i) => ({
             id: i,
-            size: Math.random() * 4 + 1,
-            left: `${Math.random() * 100}%`,
-            duration: Math.random() * 10 + 10, // 10s to 20s
-            delay: Math.random() * 10,
-            opacity: Math.random() * 0.5 + 0.2,
-            blur: Math.random() * 2,
+            size: seededRandom(i * 11 + 1) * 4 + 1,
+            left: `${seededRandom(i * 13 + 2) * 100}%`,
+            duration: seededRandom(i * 17 + 3) * 10 + 10, // 10s to 20s
+            delay: seededRandom(i * 19 + 4) * 10,
+            opacity: seededRandom(i * 23 + 5) * 0.5 + 0.2,
+            blur: seededRandom(i * 29 + 6) * 2,
+            drift: seededRandom(i * 31 + 7) * 50 - 25,
         }));
     }, [count]);
 
@@ -29,7 +35,7 @@ const SnowEffect: React.FC<SnowEffectProps> = ({ count = 60 }) => {
                     animate={{
                         y: ['0vh', '110vh'],
                         opacity: [0, flake.opacity, flake.opacity, 0],
-                        x: [0, Math.random() * 50 - 25], // Subtle horizontal sway
+                        x: [0, flake.drift], // Subtle horizontal sway
                     }}
                     transition={{
                         duration: flake.duration,

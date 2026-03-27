@@ -14,7 +14,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover will-change-transform"
       >
         <source
-          src="/assets/Video/Start.mp4"
+          src="/assets/Video/Start-1.mp4"
           type="video/mp4"
         />
       </video>

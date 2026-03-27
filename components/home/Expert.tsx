@@ -1,9 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+// import { useLayoutEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,9 +39,12 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
         }
     };
 
+    // const pathname = usePathname();
+
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current) return;
-
+        //  Kill old animations 
+        // ScrollTrigger.getAll().forEach((t) => t.kill());
         // Disable GSAP animations on mobile
         const isMobile = window.innerWidth < 768;
         if (isMobile) return;
@@ -96,7 +100,10 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
             );
         });
 
-        ScrollTrigger.refresh();
+        // setTimeout(() => {
+        //     ScrollTrigger.refresh();
+        // }, 200);
+
         return () => ctx.revert();
     }, []);
 
@@ -120,7 +127,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         muted
                         loop
                         playsInline
-                        preload="none"
+                        preload="metadata"
                         className="w-full h-full object-contain"
                     />
                 </div>
@@ -159,7 +166,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                             <button
-                            onClick={()=>router.push('/contact')}
+                                onClick={() => router.push('/contact')}
                                 className="cursor-pointer
                                 w-full sm:w-auto
                                 px-6 py-3

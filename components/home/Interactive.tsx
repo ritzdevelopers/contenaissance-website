@@ -18,7 +18,6 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     const videoRef1 = useRef<HTMLVideoElement | null>(null);
     const videoRef2 = useRef<HTMLVideoElement | null>(null);
 
-
     const handleMouseEnter = (video: HTMLVideoElement | null) => {
         if (video) {
             video.muted = false;
@@ -38,7 +37,6 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     };
 
     
-
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current || !headingRef.current) return;
 
