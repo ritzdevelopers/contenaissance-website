@@ -1,11 +1,13 @@
 import Bottom from "@/components/home/Bottom";
 import Contact from "@/components/layouts/Contact";
 import FooterCTA from "@/components/layouts/FooterCTA";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function ContactPage() {
   const isDarkMode = false;
   return (
     <main className="min-h-screen bg-zinc-950">
+      <SmoothScroll />
       <section >
         <Contact isDarkMode={isDarkMode} />
       </section>

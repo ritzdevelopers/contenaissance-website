@@ -22,6 +22,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
 
                 // Desktop pe CSS scale override karo
                 gsap.set(videoRef.current, { clearProps: "transform" })
+                gsap.set(".contact-section", { y: "120vh" })
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -37,7 +38,15 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                 tl.fromTo(
                     videoRef.current,
                     { scale: 0.5 },
-                    { scale: 1, ease: "none" }
+                    { scale: 1, ease: "none" },
+                    0
+                )
+
+                tl.fromTo(
+                    ".contact-section",
+                    { y: "120vh" },
+                    { y: "0vh", ease: "none" },
+                    0
                 )
             })
 
@@ -45,6 +54,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
             mm.add("(max-width: 767px)", () => {
 
                 gsap.set(videoRef.current, { force3D: true })
+                gsap.set(".contact-section", { y: "60vh" })
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -62,7 +72,15 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                 tl.fromTo(
                     videoRef.current,
                     { scale: 0.75 },
-                    { scale: 1, ease: "power1.out" }
+                    { scale: 1, ease: "power1.out" },
+                    0
+                )
+
+                tl.fromTo(
+                    ".contact-section",
+                    { y: "60vh" },
+                    { y: "0vh", ease: "none" },
+                    0
                 )
             })
 

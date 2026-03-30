@@ -317,9 +317,7 @@ export default function PageAnimations() {
             gsap.set(".butterfly", { autoAlpha: 0 })
             gsap.set(bird, { scaleX: 1 })
 
-            if (window.innerWidth <= 767) {
-                gsap.set(".contact-section", { y: "100vh" })
-            }
+
 
             // ── Ticker: RAF pe chalta hai (max 60fps)
             // onUpdate scroll events pe chalta tha — mobile pe 100+ events/sec = jitter
@@ -390,23 +388,9 @@ export default function PageAnimations() {
                     .to(".butterfly", { x: 0, y: -90, duration: 1, ease: "none" })
             })
 
-            /* ---------------- CONTACT SECTION ANIMATION ---------------- */
+            /* ---------------- CONTACT SECTION ANIMATION (MOVED TO BOTTOM.TSX) ---------------- */
 
             mm.add("(min-width: 768px)", () => {
-                gsap.fromTo(
-                    ".contact-section",
-                    { y: "120vh" },
-                    {
-                        y: "0vh",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".bottom-section",
-                            start: "top top",
-                            end: "bottom bottom",
-                            scrub: 2,
-                        },
-                    }
-                )
 
                 gsap.to(".butterfly", {
                     zIndex: 0,
@@ -421,22 +405,6 @@ export default function PageAnimations() {
 
             /* ── MOBILE ── */
             mm.add("(max-width: 767px)", () => {
-
-                gsap.fromTo(
-                    ".contact-section",
-                    { y: "60vh" },
-                    {
-                        y: "0vh",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".bottom-section",
-                            start: "top top",
-                            end: "+=200%",
-                            scrub: 0.5,
-                            invalidateOnRefresh: true,
-                        },
-                    }
-                )
 
                 gsap.to(".butterfly", {
                     zIndex: 0,
