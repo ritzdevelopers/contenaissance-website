@@ -9,7 +9,6 @@ export default function ServicesPage() {
       <Service isDarkMode={isDarkMode} />
       <Bottom >
         <FooterCTA />
-      {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
     </main>
   )

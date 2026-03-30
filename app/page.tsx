@@ -60,15 +60,16 @@ export default function Page() {
       <ThreeDSection isDarkMode={isDarkMode} />
       <Expert isDarkMode={isDarkMode} />
       <Mosaic isDarkMode={isDarkMode} />
-      {/* <FooterCTA /> */}
+      {/*------Footer start--  */}
       <Bottom >
         <FooterCTA />
-        {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
+      {/* ---------footer end-- */}
       {/* <Butterfly /> */}
       <PageAnimations />
-      <section className="" />
-      <Footer isDarkMode={isDarkMode} />
+      
+      {/* <Contact isDarkMode={isDarkMode} /> */}
+      
     </main>
 
   );

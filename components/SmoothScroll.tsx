@@ -38,6 +38,8 @@ export default function SmoothScroll() {
             })
 
             lenis.on("scroll", ScrollTrigger.update)
+            // Home remount: ScrollTrigger often measures before Lenis exists — refresh pin/layout.
+            requestAnimationFrame(() => ScrollTrigger.refresh())
 
             rafHandler = (time: number) => lenis.raf(time * 1000)
             gsap.ticker.add(rafHandler)

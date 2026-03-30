@@ -1,5 +1,4 @@
 import Bottom from "@/components/home/Bottom";
-import Contact from "@/components/layouts/Contact";
 import FooterCTA from "@/components/layouts/FooterCTA";
 import Portfolio from "@/components/portfolio/Portfolio";
 
@@ -10,7 +9,6 @@ export default function PortfolioPage() {
       <Portfolio />
       <Bottom >
         <FooterCTA />
-        {/* <Contact isDarkMode={isDarkMode} /> */}
       </Bottom>
     </main>
   )

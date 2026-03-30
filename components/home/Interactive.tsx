@@ -16,7 +16,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     const previewRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
     const videoRef1 = useRef<HTMLVideoElement | null>(null);
-    const videoRef2 = useRef<HTMLVideoElement | null>(null);
+    const videoRef2 = useRef<HTMLVideoElement | null>(null); 
 
     const handleMouseEnter = (video: HTMLVideoElement | null) => {
         if (video) {

@@ -62,39 +62,8 @@ export default function FooterCTA() {
                 </div>
             </div>
 
-            {/* Footer Links */}
-            {/* <div className="relative z-10 grid grid-cols-3 gap-4 sm:gap-8 mt-6 md:mt-8 mb-6 text-center text-[10px] sm:text-xs max-w-4xl mx-auto w-full">
-
-                <div>
-                    <p className="text-white/90 font-bold tracking-widest mb-2 text-[9px] sm:text-xs">NAVIGATION</p>
-                    <ul className="space-y-1">
-                        <li><a href="#hero" className="hover:text-white/70">Home</a></li>
-                        <li><a href="#genai" className="hover:text-white/70">Services</a></li>
-                        <li><a href="#aiquote" className="hover:text-white/70">Portfolio</a></li>
-                        <li><a href="#reels" className="hover:text-white/70">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <p className="text-white/90 font-bold tracking-widest mb-2 text-[9px] sm:text-xs">RESOURCES</p>
-                    <ul className="space-y-1">
-                        <li><a href="#blog" className="hover:text-white/70">Blog</a></li>
-                        <li><a href="#tutorials" className="hover:text-white/70">Tutorials</a></li>
-                        <li><a href="#guides" className="hover:text-white/70">Guides</a></li>
-                        <li><a href="#support" className="hover:text-white/70">Support</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <p className="text-white/90 font-bold tracking-widest mb-2 text-[9px] sm:text-xs">CONTACT</p>
-                    <ul className="space-y-1">
-                        <li><a href="#contact" className="hover:text-white/70">Contact Us</a></li>
-                        <li><a href="#about" className="hover:text-white/70">About</a></li>
-                        <li><a href="#careers" className="hover:text-white/70">Careers</a></li>
-                    </ul>
-                </div>
-
-            </div> */}
+           
+           
 
         </section>
     )

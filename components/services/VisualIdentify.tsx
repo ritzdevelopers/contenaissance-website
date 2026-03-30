@@ -58,7 +58,7 @@ export default function VisualIdentify() {
             {/* Main Heading */}
             <div className="max-w-6xl">
                 <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    Visual Identify System
+                    Visual Identity System
                     {/* Stories that captivate.
                     <br />
                     Intelligence that connects. */}

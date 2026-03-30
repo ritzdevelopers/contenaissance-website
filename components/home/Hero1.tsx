@@ -14,8 +14,9 @@ const Hero1: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { scrollY } = useScroll();
 
-  const opacity = useTransform(scrollY, [0, 1000], [1, 0]);
-  const y = useTransform(scrollY, [0, 1000], [0, -40]);
+  const opacity = useTransform(scrollY, [500, 1800], [1, 0]);
+  const y = useTransform(scrollY, [500, 1800], [0, -60]);
+
   const router = useRouter();
 
 

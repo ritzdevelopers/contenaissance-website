@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-1 md:py-5 flex items-center justify-between h-[95px]">
         {/* LOGO */}
         <button
-          onClick={() => router.push("/")}
+          onClick={() => (window.location.href = "/")}
           className="flex items-center group outline-none cursor-pointer"
         >
           <img

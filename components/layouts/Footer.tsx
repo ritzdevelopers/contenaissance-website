@@ -1,4 +1,5 @@
 
+"use client";
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -27,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, currentPage, navigateTo }) 
           onClick={scrollToTop}
           whileHover={{ scale: 1.1, y: -6 }}
           whileTap={{ scale: 0.95 }}
-          className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/10 bg-zinc-900 hover:bg-zinc-800 flex items-center justify-center transition-all duration-300 group shadow-lg shadow-black/40 hover:shadow-amber-500/20 overflow-hidden"
+          className="cursor-pointer relative w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/10 bg-zinc-900 hover:bg-zinc-800 flex items-center justify-center transition-all duration-300 group shadow-lg shadow-black/40 hover:shadow-amber-500/20 overflow-hidden"
           aria-label="Scroll to top"
         >
           <div className="absolute inset-0 rounded-full ring-1 ring-white/10 opacity-100 transition-opacity duration-300" />
