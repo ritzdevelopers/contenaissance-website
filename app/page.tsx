@@ -62,10 +62,10 @@ export default function Page() {
       <Mosaic isDarkMode={isDarkMode} />
       {/*------Footer start--  */}
       <Bottom >
-        <FooterCTA />
+        {/* <FooterCTA /> */}
       </Bottom>
       {/* ---------footer end-- */}
-      {/* <Butterfly /> */}
+      <Butterfly />
       <PageAnimations />
       
       {/* <Contact isDarkMode={isDarkMode} /> */}

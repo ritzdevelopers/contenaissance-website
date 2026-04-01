@@ -16,7 +16,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     const previewRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
     const videoRef1 = useRef<HTMLVideoElement | null>(null);
-    const videoRef2 = useRef<HTMLVideoElement | null>(null); 
+    const videoRef2 = useRef<HTMLVideoElement | null>(null);
 
     const handleMouseEnter = (video: HTMLVideoElement | null) => {
         if (video) {
@@ -36,7 +36,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
         }
     };
 
-    
+
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current || !headingRef.current) return;
 
@@ -99,7 +99,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
 
-                    className="w-full max-w-[1400px] aspect-video overflow-hidden will-change-transform px-4 md:px-0" style={{ transformOrigin: "center center cursor-pointer" }}
+                    className="w-full max-w-[1400px] aspect-video overflow-hidden rounded-xl md:rounded-none will-change-transform px-4 md:px-0" style={{ transformOrigin: "center center cursor-pointer" }}
                 >
                     <video
                         ref={videoRef1}
@@ -109,7 +109,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                         loop
                         playsInline
                         preload="none"
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-contain md:object-cover rounded-xl md:rounded-xl"
                     />
                 </div>
             </div>
@@ -118,7 +118,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             <div className="relative z-20 max-w-[1400px] mx-auto px-5 sm:px-6 md:px-12 lg:px-20 py-10 md:py-16">
                 <h1
                     ref={headingRef}
-                    className="text-[clamp(2rem,8vw,4.2rem)] leading-tight font-light mb-14"
+                    className="text-[1.5rem] sm:text-[clamp(2rem,8vw,4.2rem)] leading-tight font-light mb-14"
                     style={{ opacity: 0.5 }}
                 >
                     Launch your   <span className="font-extrabold">
