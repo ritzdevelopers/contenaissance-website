@@ -92,7 +92,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             className="relative bg-zinc-950 text-white overflow-x-hidden"
         >
             {/* TOP video section */}
-            <div className="pin-wrapper relative w-full flex justify-center py-12 md:py-20 lg:py-28 z-25">
+            <div className="pin-wrapper relative w-full flex justify-center py-5 md:py-10 lg:py-28 z-25">
 
                 <div
                     ref={previewRef}
@@ -118,7 +118,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             <div className="relative z-20 max-w-[1400px] mx-auto px-5 sm:px-6 md:px-12 lg:px-20 py-10 md:py-16">
                 <h1
                     ref={headingRef}
-                    className="text-[1.5rem] sm:text-[clamp(2rem,8vw,4.2rem)] leading-tight font-light mb-14"
+                    className="text-[1.5rem] md:text-[2.5rem] lg:text-[clamp(2rem,8vw,4.2rem)]  leading-tight font-light mb-14"
                     style={{ opacity: 0.5 }}
                 >
                     Launch your   <span className="font-extrabold">
@@ -129,7 +129,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                 <div
 
                     className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-20 items-center">
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-center md:justify-end px-10 md:px-0 ">
+                    <div className="flex flex-row sm:flex-row gap-4 sm:gap-6 items-center sm:items-center md:justify-end px-0 md:px-0 ">
 
                         {/* Book Now */}
                         <button

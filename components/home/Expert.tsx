@@ -112,7 +112,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
             {/* -----------First section----- */}
             <div
                 ref={sectionRef}
-                className="w-full flex justify-center mb-14 md:mb-10 px-5 md:px-10"
+                className="w-full flex justify-center mb-14 md:mb-10 px-4 md:px-10"
             >
                 <div
                     ref={previewRef}
@@ -141,11 +141,11 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 <div
                     className="
                     max-w-full mx-auto
-                    px-6 sm:px-8 lg:px-16
+                    px-4 sm:px-8 lg:px-16
                     py-5 sm:py-10 lg:pb-16
                     flex flex-col-reverse lg:flex-row
                     items-center justify-between
-                    gap-12 lg:gap-0
+                    gap-12 lg:gap-5
                 "
                 >
                     <motion.div ref={leftRef} className="w-full lg:w-1/2 z-10">
@@ -191,7 +191,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         <motion.div
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
-                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-auto sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[380px] cursor-pointer"
+                            className="w-full cursor-pointer"
                         >
                             <video
                                 ref={videoRef2}
@@ -201,7 +201,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                                 loop
                                 playsInline
                                 preload="none"
-                                className="w-full h-full  rounded-2xl shadow-2xl  bg-black object-cover"
+                                className="w-full h-full  rounded-2xl shadow-2xl  bg-black object-contain lg:object-contain"
                             />
                         </motion.div>
                     </motion.div>

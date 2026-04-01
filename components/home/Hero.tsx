@@ -2,7 +2,7 @@
 
 export default function Hero() {
   return (
-    <section className="relative w-full overflow-hidden pointer-events-none h-[110vh] sm:h-[90vh] xs:h-[70vh] bg-zinc-950">
+    <section className="relative w-full overflow-hidden pointer-events-none h-[60vh] sm:h-[90vh] xs:h-[70vh] bg-zinc-950">
       {/* <video
         autoPlay
         muted
