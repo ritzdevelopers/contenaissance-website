@@ -65,7 +65,7 @@ export default function Page() {
         {/* <FooterCTA /> */}
       </Bottom>
       {/* ---------footer end-- */}
-      {/* <Butterfly /> */}
+      <Butterfly />
       <PageAnimations />
       
       {/* <Contact isDarkMode={isDarkMode} /> */}
