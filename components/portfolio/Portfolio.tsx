@@ -18,7 +18,6 @@ export default function PortfolioPage() {
         <Reels isDarkMode={isDarkMode} />
       </div>
       {/* <Gallery /> */}
-     
     </div>
      {/* <Contact isDarkMode={isDarkMode}/> */}
    </>

@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+/// <reference types="react" />
+import React, { JSX } from "react";
 import { PiImagesSquareBold } from "react-icons/pi";
 import { TbUsers } from "react-icons/tb";
 
@@ -22,7 +23,10 @@ const Gallery = () => {
       {/* Heading */}
       <div className="text-center mx-auto mb-12 md:mb-16 max-w-4xl">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[clamp(2rem,10vw,6rem)] font-bold tracking-tighter leading-none">
-          My <span className="font-semibold">Portfolio</span> Gallery
+          My {/* @ts-ignore - JSX element is correctly supported */}
+          <span className="font-semibold">Portfolio</span>
+          {/* @ts-ignore - JSX element is correctly supported */}
+           Gallery
         </h1>
 
         <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">

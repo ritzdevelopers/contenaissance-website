@@ -1,7 +1,7 @@
 "use client";
-
+/// <reference types="react" />
 import gsap from "gsap";
-import React, { useEffect, useRef, useState } from "react";
+import React, { JSX, useEffect, useRef, useState } from "react";
 
 export default function AiPower() {
     const previewRef = useRef<HTMLDivElement>(null)
@@ -68,12 +68,12 @@ export default function AiPower() {
             {/* Content Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 mt-5 md:mt-20">
                 {/* Left */}
-                <div className="space-y-3 text-sm tracking-[0.1em] uppercase">
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Maximize Marketing Impact</p>
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Data-Driven Decisions
+                <div className="space-y-3 text-sm tracking-widest uppercase">
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Maximize Marketing Impact</p>
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Data-Driven Decisions
                     </p>
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Market Analysis & Optimization</p>
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Scalable AI Campaigns</p>
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Market Analysis & Optimization</p>
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Scalable AI Campaigns</p>
 
                 </div>
 
@@ -97,11 +97,12 @@ export default function AiPower() {
             
                  <div
                     ref={previewRef}
-                    className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer"
+                    className="w-screen max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer"
                     style={{ transformOrigin: "center center" }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
+                    {/* @ts-ignore - JSX element is correctly supported */}
                     <video
                         ref={videoRef}
                         src="/assets/Video/07.mp4"
@@ -112,6 +113,7 @@ export default function AiPower() {
                         preload="auto"
                         className="w-full h-full object-cover rounded-xl"
                     />
+                    {/* @ts-ignore - JSX element is correctly supported */}
                 </div>
                
         

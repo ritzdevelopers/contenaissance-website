@@ -1,0 +1,29 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import Loader from "@/components/Loader"
+
+export default function ClientWrapper({ children }: { children: React.ReactNode }) {
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const handleLoad = () => {
+            setLoading(false)
+        }
+
+        if (document.readyState === "complete") {
+            handleLoad()
+        } else {
+            window.addEventListener("load", handleLoad)
+        }
+
+        return () => window.removeEventListener("load", handleLoad)
+    }, [])
+
+    return (
+        <>
+            {loading && <Loader />}
+            {children}
+        </>
+    )
+}

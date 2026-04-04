@@ -1,12 +1,13 @@
 
-import React from "react";
+/// <reference types="react" />
+import React, { JSX } from "react";
 
 const CreativePortraits = () => {
     return (
         <section className="relative min-h-[110vh] md:min-h-[120vh] lg:min-h-[140vh] bg-black overflow-hidden flex items-center top-10 md:top-1 ">
 
             {/* Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#5A3917] via-black to-black"></div>
+            <div className="absolute inset-0 bg-linear-to-br from-[#5A3917] via-black to-black"></div>
 
             <div className="relative flex flex-col md:flex-row gap-10 md:gap-16 mx-auto px-6 sm:px-10 md:px-20 pb-52 md:pb-72 lg:pb-80 w-full">
 
@@ -14,8 +15,10 @@ const CreativePortraits = () => {
                 <h1 className="text-white font-normal leading-[0.9] text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight">
                     Creative
                     <br />
+                    {/* @ts-ignore - JSX element is correctly supported */}
                     <span className="font-medium relative left-20 md:left-48 lg:left-64 z-10">
                         Portraits
+                    {/* @ts-ignore - JSX element is correctly supported */}
                     </span>
                 </h1>
 

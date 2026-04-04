@@ -130,7 +130,7 @@ export default function Mosaic({ isDarkMode }: MosaicProps) {
 
 function TileImage({ src }: { src: string }) {
   return (
-    <div className="w-auto h-auto overflow-hidden flex-shrink-0">
+    <div className="w-auto h-auto overflow-hidden shrink-0">
       <img
         src={src}
         alt=""
@@ -142,7 +142,7 @@ function TileImage({ src }: { src: string }) {
 
 function TileText({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-[320px] h-[140px] flex items-center justify-center flex-shrink-0">
+    <div className="w-[320px] h-35 flex items-center justify-center shrink-0">
       {children}
     </div>
   );

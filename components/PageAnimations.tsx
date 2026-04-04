@@ -303,44 +303,9 @@ export default function PageAnimations() {
             const butterfly = document.querySelector(".butterfly")
             const bird = document.querySelector(".butterfly img")
 
-            let prevX = 0
-
-            const rotateBird = gsap.quickTo(bird, "scaleX", {
-                duration: 0.6,
-                ease: "power2.out"
-            })
-            const rotateAngle = gsap.quickTo(butterfly, "rotation", {
-                duration: 0.6,
-                ease: "power2.out"
-            })
-
-            gsap.set(".butterfly", { autoAlpha: 0 })
+            gsap.set(".butterfly", { autoAlpha: 1, duration: 0.01 })
             gsap.set(bird, { scaleX: 1 })
 
-
-
-            // ── Ticker: RAF pe chalta hai (max 60fps)
-            // onUpdate scroll events pe chalta tha — mobile pe 100+ events/sec = jitter
-            // Ticker scroll events se independent hai — smooth guaranteed
-            const onTick = () => {
-                if (!butterfly) return
-                const currentX = Number(gsap.getProperty(butterfly, "x")) || 0
-                const delta = currentX - prevX
-
-                if (Math.abs(delta) > 0.1) {
-                    if (delta > 0) rotateBird(1)
-                    else if (delta < 0) rotateBird(-1)
-
-                    // Desktop tilt — mobile pe rotateAngle call nahi hoga (mm ke bahar hai)
-                    const tilt = gsap.utils.clamp(-30, 30, delta * 0.2)
-                    rotateAngle(tilt)
-                }
-
-                prevX = currentX
-            }
-
-            // Ticker add — butterfly visible hone pe
-            gsap.ticker.add(onTick)
 
             const mm = gsap.matchMedia()
 
@@ -350,20 +315,48 @@ export default function PageAnimations() {
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".page-wrapper",
-                        start: "top top",
+                        start: "top 70%",
                         end: "bottom bottom",
-                        scrub: 1,
-                        // onUpdate HATAYA — ticker handle kar raha hai
+                        scrub: 0.3,
                     },
                 })
 
                 tl.to(".butterfly", { autoAlpha: 1, duration: 0.01 })
-                    .to(".butterfly", { x: 1000, y: -400, duration: 0.3, ease: "none" })
-                    .to(".butterfly", { x: -1600, y: 100, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 1000, y: 200, duration: 1, ease: "none" })
-                    .to(".butterfly", { y: 600, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 1000, y: 400, duration: 0.6, ease: "none" })
-                    .to(".butterfly", { x: 0, y: -110, duration: 1, ease: "none" })
+
+                    // start → left-up (perfect)✅
+                    .to(bird, { scaleX: -1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: -200, y: -300, duration: 0.2, ease: "none" })
+
+                    // left OUT (fast exit)✅
+                    .to(".butterfly", {
+                        x: -window.innerWidth - 200,
+                        y: -350,
+                        duration: 0.2,
+                        ease: "none"
+                    })
+
+                    // re-enter → right-down✅(fast exit)
+                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: 600, y: 200, duration: 0.2, ease: "power1.inOut" })
+
+                    // ------ slight left-up (controlled dip)✅(fast exit)
+                    .to(bird, { scaleX: -1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: -500, y: -360, duration: 0.4, ease: "power1.inOut" })
+
+                    // right-slight-down (fast exit)
+                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: 500, y: 350, duration: 0.4, ease: "power1.inOut" })
+
+                    // left-up again (fast exit)
+                    .to(bird, { scaleX: -1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: -500, y: -360, duration: 0.4, ease: "power1.inOut" })
+                    // right-slight-down again (fast exit)
+                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: 500, y: 350, duration: 0.4, ease: "power1.inOut" })
+
+                    // final settle (center-top feel)
+                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
+                    .to(".butterfly", { x: 0, y: -120, duration: 0.6, ease: "power1.out" })
             })
 
             /* ---------------- MOBILE ANIMATION ---------------- */
@@ -375,11 +368,11 @@ export default function PageAnimations() {
                         start: "top top",
                         end: "bottom bottom",
                         scrub: 1,
-                        // onUpdate HATAYA — ticker handle kar raha hai
+
                     },
                 })
 
-                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01, scale: 2 })
+                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01, scale: 1 })
                     .to(".butterfly", { x: 180, y: -360, duration: 0.6, ease: "none" })
                     .to(".butterfly", { x: -150, y: 80, duration: 1, ease: "none" })
                     .to(".butterfly", { x: 300, y: -100, duration: 1, ease: "none" })
@@ -421,7 +414,7 @@ export default function PageAnimations() {
 
         return () => {
             ctx.revert()
-            gsap.ticker.remove(() => { }) // ctx.revert() ticker bhi clean karega
+            gsap.ticker.remove(() => { })
         }
 
     }, [])

@@ -1,6 +1,7 @@
 
 "use client";
-import React from 'react';
+/// <reference types="react" />
+import React, { JSX } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -23,7 +24,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, currentPage, navigateTo }) 
   return (
     <>
       <footer className="bg-zinc-950 pt-5 " />
-      <div className="fixed bottom-5 right-5 z-[300]">
+      <div className="fixed bottom-5 right-5 z-300">
         <motion.button
           onClick={scrollToTop}
           whileHover={{ scale: 1.1, y: -6 }}

@@ -1,6 +1,6 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+/// <reference types="react" />
+import React, { useEffect, useState, JSX } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Home, Clapperboard, Film, Mail, X } from "lucide-react";
@@ -84,18 +84,18 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
         pointerEvents: hidden ? "none" : "auto",
       }}
       transition={{ y: { duration: 0.4 }, opacity: { duration: 0.35 } }}
-      className="fixed top-0 left-0 w-full z-[400] transition-colors duration-300 border-white/10"
+      className="fixed top-0 left-0 w-full z-400 transition-colors duration-300 border-white/10"
     >
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-1 md:py-5 flex items-center justify-between h-[95px]">
+      <div className="max-w-400 mx-auto px-6 md:px-12 py-1 md:py-5 flex items-center justify-between h-23.75">
         {/* LOGO */}
         <button
           onClick={() => (window.location.href = "/")}
-          className="flex items-center group outline-none cursor-pointer"
+          className="flex items-center group  cursor-pointer"
         >
           <img
             src={logoUrl}
             alt="Contenaissance Logo"
-            className={`h-[60px] sm:h-[5px] md:h-[4rem] w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? "brightness-125 contrast-125" : ""
+            className={`h-15 sm:h-1.25 md:h-16 w-auto max-w-full object-contain transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? "brightness-125 contrast-125" : ""
               }`}
           />
         </button>
@@ -114,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
           ))}
         </nav> */}
 
-        <div className="w-[42px] hidden md:block" />
+        <div className="w-10.5 hidden lg:block" />
 
         {/* MOBILE BUTTON */}
         <button
@@ -122,16 +122,16 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
           onClick={() => setMobileOpen(true)}
           className=" cursor-pointer inline-flex items-center justify-center rounded-full w-5 h-5 text-white"
         >
-          <div className="flex flex-col items-end gap-[5px]">
-            <span className="block w-6 h-[3px] bg-white rounded-full" />
-            <span className="block w-9 h-[3px] bg-white rounded-full" />
-            <span className="block w-7 h-[3px] bg-white rounded-full" />
+          <div className="flex flex-col items-end gap-1.25">
+            <span className="block w-6 rounded-full" style={{ height: '3px', backgroundColor: 'white' }} />
+            <span className="block w-9 rounded-full" style={{ height: '3px', backgroundColor: 'white' }} />
+            <span className="block w-7 rounded-full" style={{ height: '3px', backgroundColor: 'white' }} />
           </div>
         </button>
       </div>
 
 
-      {/* DESKTOP SIDE SLIDER */}
+      {/* DESKTOP SLIDER */}
       {mobileOpen &&
         createPortal(
           <>
@@ -141,120 +141,136 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed    hidden md:block"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-490 hidden lg:block"
             />
 
-            {/* SLIDER */}
+            {/* FULL WIDTH TOP SLIDE */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 180, damping: 24 }}
-              className="fixed top-0 right-0 h-full w-[420px] z-[500] hidden md:flex bg-gradient-to-b from-[#0b0f1a] to-black border-l border-white/10 backdrop-blur-xl"
+              initial={{ y: "-100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              transition={{
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="fixed top-0 left-0 w-full h-full z-500 hidden lg:block bg-linear-to-b from-[#0b0f1a] to-black "
             >
-              <div className="flex flex-col w-full p-10">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.04,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+                className="w-full h-full flex flex-col"
+              >
+                {/* CONTAINER */}
+                <div className="max-w-400 mx-auto px-6 md:px-12 py-1 md:py-5 w-full flex flex-col h-full">
 
-                {/* TOP BAR */}
-                <div className="flex items-center justify-between mb-10">
-                  <span className="text-[11px] tracking-[0.4em] uppercase text-white/40">
-                    Navigation
-                  </span>
-
-                  <button
-                    onClick={() => setMobileOpen(false)}
-                    className=" cursor-pointer w-11 h-11 rounded-full border border-white/10 
-              bg-white/5 hover:bg-white/10 flex items-center justify-center 
-              transition"
-                  >
-                    <X size={18} className="text-white" />
-                  </button>
-                </div>
-
-                {/* MENU */}
-                <div className="flex flex-col">
-
-                  {navItems.map((item, idx) => (
-                    <motion.button
-                      key={item.key}
-                      initial={{ opacity: 0, y: -30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        delay: idx * 0.1,              // stagger buttons top-to-bottom
-                        type: "spring",
-                        stiffness: 120,
-                        damping: 15
-                      }}
-                      onClick={() => {
-                        router.push(item.path);
-                        setMobileOpen(false);
-                      }}
-                      className={`group  text-left text-[3rem] font-bold  uppercase cursor-pointer
-                transition-all duration-300 hover:text-[#ab8922] ${currentPath === item.path
-                          ? "text-[#ab8922]"
-                          : "text-white "
-                        }`}
+                  {/* TOP BAR */}
+                  <div className="flex items-center justify-between h-23.75 mb-12">
+                    <button
+                      onClick={() => (window.location.href = "/")}
+                      className="flex items-center group cursor-pointer"
                     >
-                      <span className="flex items-center justify-between">
+                      <img
+                        src={logoUrl}
+                        alt="Logo"
+                        className={`h-15 md:h-16 transition-all duration-700 group-hover:scale-105 ${!isDarkMode ? "brightness-125 contrast-125" : ""
+                          }`}
+                      />
+                    </button>
 
-                        <span className="flex items-center gap-4">
-                          {/* {navIcons[item.key]} */}
-                          {item.label}
-                        </span>
-
-                        {/* <span className="w-10 h-[1px] bg-white/20 group-hover:bg-[#ab8922] transition" /> */}
-
-                      </span>
-                    </motion.button>
-                  ))}
-                </div>
-
-
-                <div className="mt-auto pt-3 border-t border-white/10">
-
-                  <p className="text-[#ab8922] text-md font-bold tracking-[0.2em] uppercase mb-2">
-                    Social Media
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-3 text-sm tracking-[0.2em] uppercase">
-
-                    <a
-                      href="https://www.linkedin.com/company/108385521/admin/dashboard/"
-                      target="_blank"
-                      className="flex items-center  text-white hover:text-[#ab8922] hover:font-bold transition group"
+                    <button
+                      onClick={() => setMobileOpen(false)}
+                      className="w-12 h-12 rounded-full border border-white/10 hover:border-[#ab8922] bg-white/5 hover:bg-white/10 flex items-center justify-center cursor-pointer "
                     >
-                      <span>LinkedIn</span>
-                      <GoArrowUpRight className="text-lg opacity-60 transition hover:font-bold" />
-                    </a>
-
-                    <a
-                      href="https://www.instagram.com/contenaissance/"
-                      target="_blank"
-                      className="flex items-center  text-white hover:text-[#ab8922] transition hover:font-bold group"                    >
-                      <span>Instagram</span>
-                      <GoArrowUpRight className="text-lg opacity-60 transition hover:font-bold" />
-                    </a>
-
-                    <a
-                      href="https://www.facebook.com/people/Contenaissance/61579738437856/"
-                      target="_blank"
-                      className="flex items-center  text-white hover:text-[#ab8922] transition hover:font-bold group"                      >
-                      <span>Facebook</span>
-                      <GoArrowUpRight className="text-lg opacity-60 transition hover:font-bold" />
-
-                    </a>
-
-                    <a
-                      href="https://www.youtube.com/@Contenaissance"
-                      target="_blank"
-                      className="flex items-center  text-white hover:text-[#ab8922] transition group hover:font-bold"                    >
-                      <span>YouTube</span>
-                      <GoArrowUpRight className="text-lg opacity-60  transition hover:font-bold" />
-                    </a>
-
+                      <X size={18} className="text-white hover:text-[#ab8922]" />
+                    </button>
                   </div>
-                </div>
 
-              </div>
+                  {/* MENU WITH STAGGER */}
+                  <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.08,
+                          delayChildren: 0.2,
+                        },
+                      },
+                    }}
+                    className="flex flex-wrap w-full px-4 md:px-[12%] mx-auto pt-10 gap-y-12 text-justify justify-between"                  >
+                    {navItems.map((item, idx) => (
+                      <div key={item.key} className="overflow-hidden flex group relative">
+
+                        {/* TEXT WRAPPER (animation applied here) */}
+                        <motion.p
+                          variants={{
+                            hidden: { y: 120, opacity: 0 },
+                            visible: {
+                              y: 0,
+                              opacity: 1,
+                              transition: {
+                                duration: 1.2,
+                                ease: [0.22, 1, 0.36, 1], // exact same as your SCSS
+                                delay: idx * 0.08,
+                              },
+                            },
+                          }}
+                          onClick={() => {
+                            router.push(item.path);
+                            setMobileOpen(false);
+                          }}
+                          className={`group cursor-pointer relative w-max pb-2 xl:text-[52px] text-[40px] font-bold uppercase leading-[117%] transition-colors duration-300 ${currentPath === item.path
+                            ? "text-[#ab8922]"
+                            : "text-white hover:text-[#ab8922]"
+                            }`}
+                        >
+                          {item.label}
+                          <div
+                            className={`pointer-events-none absolute left-0 bottom-0 h-0.5 w-full origin-left bg-[#ab8922] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${currentPath === item.path ? "scale-x-0 group-hover:scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                              }`}
+                          />
+
+
+                        </motion.p>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {/* SOCIAL */}
+                  <div className="mt-auto pt-5 border-t border-white/10 text-center">
+                    <p className="text-[#ab8922] text-md font-bold tracking-[0.2em] uppercase mb-5">
+                      Social Media
+                    </p>
+
+                    <div className="flex flex-row gap-6 justify-center text-sm uppercase">
+                      {[
+                        { name: "LinkedIn", url: "https://www.linkedin.com/company/contenaissance/" },
+                        { name: "Instagram", url: "https://www.instagram.com/contenaissance/" },
+                        { name: "Facebook", url: "https://www.facebook.com/people/Contenaissance/61579738437856/" },
+                        { name: "YouTube", url: "https://www.youtube.com/@Contenaissance" },
+                      ].map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-white hover:text-[#ab8922] transition"
+                        >
+                          {item.name}
+                          <GoArrowUpRight />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </motion.div>
             </motion.div>
           </>,
           document.body
@@ -268,7 +284,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
-            className="fixed inset-0 z-[500] md:hidden bg-[#05070d] overflow-y-auto"
+            className="fixed inset-0 z-500 lg:hidden bg-[#05070d] overflow-y-auto"
           >
             <div className="flex flex-col min-h-screen px-6 pt-6 pb-10 relative">
               {/* Top Bar */}
@@ -285,11 +301,11 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
 
               {/* Center Content */}
               <div className="flex-1 flex flex-col justify-center items-center">
-                <span className="text-[11px] tracking-[0.4em] uppercase text-white/40 my-5">
+                <div className="text-[11px] tracking-[0.4em] uppercase text-white/40 my-5">
                   Navigate
-                </span>
+                </div>
 
-                <div className="w-full max-w-[520px] space-y-4">
+                <div className="w-full max-w-130 space-y-4">
                   {navItems.map((item, idx) => (
                     <motion.button
                       key={item.key}
@@ -300,13 +316,13 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                         router.push(item.path);
                         setMobileOpen(false);
                       }}
-                      className=" cursor-pointer w-full px-6 py-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl text-white uppercase tracking-[0.35em] text-[12px] flex items-center justify-between"
+                      className=" cursor-pointer w-full px-6 py-4 rounded-2xl border border-white/10 bg-white/3 backdrop-blur-xl text-white uppercase tracking-[0.35em] text-[12px] flex items-center justify-between"
                     >
-                      <span className="flex items-center gap-4">
+                      <div className="flex items-center gap-4">
                         {navIcons[item.key]}
                         {item.label}
-                      </span>
-                      <span className="w-10 h-[1px] bg-white/20" />
+                      </div>
+                      <div className="w-10 h-px bg-white/20" />
                     </motion.button>
                   ))}
 
@@ -325,9 +341,9 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
 
               {/* Bottom Tagline */}
               <div className="mt-12 text-center">
-                <span className="text-[10px] tracking-[0.35em] uppercase text-white/30">
+                <p className="text-[10px] tracking-[0.35em] uppercase text-white/30">
                   Ritz Gen AI Storytelling Studios
-                </span>
+                </p>
               </div>
             </div>
           </motion.div>,
