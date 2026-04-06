@@ -113,13 +113,13 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
             {/* -----------First section----- */}
             <div
                 ref={sectionRef}
-                className="w-full flex justify-center mb-14 md:mb-10 px-4 md:px-10"
+                className="w-full flex justify-center mb-14 md:mb-10 px-4 md:px-10 z-23"
             >
                 <div
                     ref={previewRef}
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
-                    className="w-full max-w-full h-45 sm:h-60 md:h-auto rounded-2xl overflow-hidden  cursor-pointer"
+                    className="w-full max-w-full h-45 sm:h-60 md:h-auto rounded-2xl overflow-hidden  cursor-pointer "
                 >
                     <video
                         ref={videoRef1}

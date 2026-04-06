@@ -351,7 +351,7 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
                 ref={sectionRef}
                 className="relative hidden md:block h-[320vh]"
             >
-                <div className="sticky top-20 h-[calc(100vh-80px)] overflow-hidden">
+                <div className="sticky top-20 h-[calc(100vh-80px)] overflow-hidden z-21 ">
                     <Canvas
                         shadows
                         camera={{

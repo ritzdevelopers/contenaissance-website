@@ -57,7 +57,7 @@ const ServiceCard: React.FC<{
             p-5 sm:p-6 md:p-8 lg:p-5 text-justify
             overflow-hidden transition-all duration-500
             bg-linear-to-b from-white/2 to-white/1
-            backdrop-blur-xl cursor-pointer">
+            backdrop-blur-sm cursor-pointer">
 
         {/* Premium Gradient Glow */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
@@ -65,7 +65,7 @@ const ServiceCard: React.FC<{
         </div>
 
         {/* Inner Glass Container */}
-        <div className="font-sora bg-zinc-900/40 rounded-[22px] p-4 sm:p-5 md:p-6 lg:p-7 "
+        <div className="font-sora bg-zinc-900/30 rounded-[22px] p-4 sm:p-5 md:p-6 lg:p-7 "
         >
           {/* Badge */}
           <div className="inline-block mb-4 sm:mb-5">
@@ -182,11 +182,11 @@ const Services: React.FC<ServicesProps> = ({
   };
 
   return (
-    <div className="bg-zinc-950 ">
+    <div className="bg-zinc-950  ">
       <section
         id="services"
         ref={sectionRef}
-        className={`relative overflow-hidden min-h-screen bg-zinc-950 
+        className={`relative overflow-hidden min-h-screen  z-21
           ${isFullPage ? "pt-32 md:pt-48 lg:pt-56" : "-mt-6 py-12 md:py-16"} 
           px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 
           max-w-400 mx-auto`}

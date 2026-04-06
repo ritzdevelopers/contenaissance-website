@@ -306,7 +306,6 @@ export default function PageAnimations() {
             gsap.set(".butterfly", { autoAlpha: 1, duration: 0.01 })
             gsap.set(bird, { scaleX: 1 })
 
-
             const mm = gsap.matchMedia()
 
             /* ---------------- DESKTOP ANIMATION ---------------- */
@@ -315,49 +314,63 @@ export default function PageAnimations() {
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".page-wrapper",
-                        start: "top 70%",
+                        start: "top top",
                         end: "bottom bottom",
-                        scrub: 0.3,
+                        scrub: 2,
                     },
-                })
+                });
 
-                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01 })
+                const stepY = 150;   // how much it goes down each step
+                const stepX = 800;   // left-right distance
 
-                    // start → left-up (perfect)✅
-                    .to(bird, { scaleX: -1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: -200, y: -300, duration: 0.2, ease: "none" })
+                // start from top-center
+                tl.set(".butterfly", { x: 0, y: 0, autoAlpha: 1 });
 
-                    // left OUT (fast exit)✅
-                    .to(".butterfly", {
-                        x: -window.innerWidth - 200,
-                        y: -350,
-                        duration: 0.2,
+                let direction = -1; // start LEFT
+
+                for (let i = 0; i < 8; i++) {
+
+                    // flip direction
+                    tl.to(bird, {
+                        scaleX: direction === -1 ? 1 : -1,
+                        duration: 0.01
+                    }, "<");
+
+                    // zig-zag move
+                    tl.to(".butterfly", {
+                        x: direction * stepX,
+                        y: stepY,
+                        duration: 2.0,
+                        ease: "power2.inOut"
+                    });
+
+                    // small pause (natural feel)
+                    tl.to(".butterfly", {
+                        y: `-=${500}`,
+                        duration:
+                            i < 4 ? 0.6 :
+                                i === 4 ? 2.9 :
+                                    i === 5 ? 3.0 :
+                                        i === 6 ? 3.5 :
+                                            4.0,   // i === 7
                         ease: "none"
-                    })
+                    });
 
-                    // re-enter → right-down✅(fast exit)
-                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: 600, y: 200, duration: 0.2, ease: "power1.inOut" })
+                    // switch direction
+                    direction *= -1;
+                }
 
-                    // ------ slight left-up (controlled dip)✅(fast exit)
-                    .to(bird, { scaleX: -1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: -500, y: -360, duration: 0.4, ease: "power1.inOut" })
+                // 🎯 final settle → bottom-top center
+                tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
 
-                    // right-slight-down (fast exit)
-                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: 500, y: 350, duration: 0.4, ease: "power1.inOut" })
+                tl.to(".butterfly", {
+                    x: 0,
+                    y: window.innerHeight - 500,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
 
-                    // left-up again (fast exit)
-                    .to(bird, { scaleX: -1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: -500, y: -360, duration: 0.4, ease: "power1.inOut" })
-                    // right-slight-down again (fast exit)
-                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: 500, y: 350, duration: 0.4, ease: "power1.inOut" })
-
-                    // final settle (center-top feel)
-                    .to(bird, { scaleX: 1, duration: 0.01 }, "<")
-                    .to(".butterfly", { x: 0, y: -120, duration: 0.6, ease: "power1.out" })
-            })
+            });
 
             /* ---------------- MOBILE ANIMATION ---------------- */
             mm.add("(max-width: 767px)", () => {
