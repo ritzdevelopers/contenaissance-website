@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Home, Clapperboard, Film, Mail, X } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { GoArrowUpRight } from "react-icons/go";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 interface HeaderProps {
   isDarkMode: boolean;
@@ -15,8 +16,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
   const router = useRouter();
   const currentPath = usePathname();
 
-  const logoUrl =
-    "/assets/image/logo.png";
+  const logoUrl = getAssetUrl("assets/image/logo.png");
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

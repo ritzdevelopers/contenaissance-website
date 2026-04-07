@@ -5,6 +5,7 @@ import { useLayoutEffect, useEffect, useRef, JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname, useRouter } from "next/navigation";
+import { getAssetUrl } from "@/lib/assetUrl";
 // import { useLayoutEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -123,7 +124,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 >
                     <video
                         ref={videoRef1}
-                        src="/assets/Video/08.MP4"
+                        src={getAssetUrl("assets/Video/08.MP4")}
                         autoPlay
                         muted
                         loop
@@ -196,7 +197,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         >
                             <video
                                 ref={videoRef2}
-                                src="/assets/Video/06.mp4"
+                                src={getAssetUrl("assets/Video/06.mp4")}
                                 autoPlay
                                 muted
                                 loop

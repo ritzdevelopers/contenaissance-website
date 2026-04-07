@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 export default function FooterCTA() {
     const router = useRouter();
@@ -27,7 +28,7 @@ export default function FooterCTA() {
                     className="flex items-center group outline-none cursor-pointer">
 
                     <img
-                        src="/assets/image/logo.png"
+                        src={getAssetUrl("assets/image/logo.png")}
                         alt="Contenaissance Logo"
                         className="h-[36px] sm:h-[48px] md:h-[5rem] cursor-pointer w-auto object-contain transition-all duration-700 group-hover:scale-105"
                     />

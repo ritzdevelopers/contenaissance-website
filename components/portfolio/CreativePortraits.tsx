@@ -1,6 +1,7 @@
 
 /// <reference types="react" />
 import React, { JSX } from "react";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 const CreativePortraits = () => {
     return (
@@ -30,28 +31,28 @@ const CreativePortraits = () => {
 
                 {/* Image 1 */}
                 <img
-                    src="/assets/image/portfolio1.png"
+                    src={getAssetUrl("assets/image/portfolio1.png")}
                     className="absolute top-[58%] sm:top-[56%] md:top-72 left-4 sm:left-10 md:left-20 
                      w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
                 />
 
                 {/* Image 2 */}
                 <img
-                    src="/assets/image/portfolio2.png"
+                    src={getAssetUrl("assets/image/portfolio2.png")}
                     className="absolute top-[64%] sm:top-[62%] md:top-80 left-[37%] sm:left-[34%] md:left-[29%] 
                     w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
                 />
 
                 {/* Image 3 */}
                 <img
-                    src="/assets/image/portfolio3.png"
+                    src={getAssetUrl("assets/image/portfolio3.png")}
                     className="absolute top-[46%] sm:top-[44%] md:top-44 left-[66%] sm:left-[62%] md:left-[50%] 
           w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-9deg]"
                 />
 
                 {/* Image 4 (hidden on very small screens) */}
                 <img
-                    src="/assets/image/portfolio4.png"
+                    src={getAssetUrl("assets/image/portfolio4.png")}
                     className="hidden sm:block absolute top-[74%] md:top-[50%] right-4 sm:right-10 md:right-20 
           w-28 sm:w-36 md:w-52 lg:w-60 shadow-2xl rotate-[-8deg]"
                 />

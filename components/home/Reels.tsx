@@ -5,6 +5,7 @@ import React, { useMemo, useRef, useState, useEffect, JSX } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import { X } from "lucide-react";
+import { getAssetUrl } from '@/lib/assetUrl';
 
 interface ReelsProps {
   isDarkMode: boolean;
@@ -144,23 +145,23 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const baseReels = useMemo(() => [
     {
       title: "Storytelling",
-      video: "/assets/Video/auto.mp4"
+      video: getAssetUrl("assets/Video/auto.mp4")
     },
     {
       title: "Studio Vision",
-      video: "/assets/Video/01.mp4"
+      video: getAssetUrl("assets/Video/01.mp4")
     },
     {
       title: "AI Model",
-      video: "/assets/Video/02.MP4"
+      video: getAssetUrl("assets/Video/02.MP4")
     },
     {
       title: "Cinematic Flow",
-      video: "/assets/Video/05.MP4"
+      video: getAssetUrl("assets/Video/05.MP4")
     },
     {
       title: "Neural Core",
-      video: "/assets/Video/09.mp4"
+      video: getAssetUrl("assets/Video/09.mp4")
     }
   ], []);
 

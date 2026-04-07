@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import React, { JSX, useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 gsap.registerPlugin(ScrollTrigger);
 export default function VisualIdentify() {
@@ -110,7 +111,7 @@ export default function VisualIdentify() {
                 {/* @ts-ignore - JSX element is correctly supported */}
                 <video
                     ref={videoRef}
-                    src="/assets/Video/08.MP4"
+                    src={getAssetUrl("assets/Video/08.MP4")}
                     autoPlay
                     muted
                     loop

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 interface MosaicProps { isDarkMode?: boolean; }
 
@@ -77,23 +78,23 @@ function SlidingRow({
 ========================= */
 export default function Mosaic({ isDarkMode }: MosaicProps) {
   return (
-    <main className="bg-zinc-950 p-4 space-y-4 overflow-x-hidden">
+    <main className=" p-4 space-y-4 overflow-x-hidden z-[21]  relative">
 
       {/* ROW 1 */}
       <SlidingRow direction={-1}>
-        <TileImage src="/assets/mosaic/1.jpg" />
-        <TileImage src="/assets/mosaic/2.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/1.jpg")} />
+        <TileImage src={getAssetUrl("assets/mosaic/2.jpg")} />
         <TileText>
           <ScrollWeightHeading>ÉDITION</ScrollWeightHeading>
         </TileText>
-        <TileImage src="/assets/mosaic/3.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/3.jpg")} />
       </SlidingRow>
 
       {/* ROW 2 */}
       <SlidingRow direction={1}>
-        <TileImage src="/assets/mosaic/4.jpg" />
-        <TileImage src="/assets/mosaic/5.jpg" />
-        <TileImage src="/assets/mosaic/6.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/4.jpg")} />
+        <TileImage src={getAssetUrl("assets/mosaic/5.jpg")} />
+        <TileImage src={getAssetUrl("assets/mosaic/6.jpg")} />
         <TileText>
           <ScrollWeightHeading>LIMITÉE</ScrollWeightHeading>
         </TileText>
@@ -101,20 +102,20 @@ export default function Mosaic({ isDarkMode }: MosaicProps) {
 
       {/* ROW 3 */}
       <SlidingRow direction={-1}>
-        <TileImage src="/assets/mosaic/7.jpg" />
-        <TileImage src="/assets/mosaic/8.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/7.jpg")} />
+        <TileImage src={getAssetUrl("assets/mosaic/8.jpg")} />
         <TileText>
           <ScrollWeightHeading>1500</ScrollWeightHeading>
         </TileText>
-        <TileImage src="/assets/mosaic/9.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/9.jpg")} />
       </SlidingRow>
 
       {/* ROW 4 */}
       <SlidingRow direction={1}>
-        <TileImage src="/assets/mosaic/10.jpg" />
-        <TileImage src="/assets/mosaic/11.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/10.jpg")} />
+        <TileImage src={getAssetUrl("assets/mosaic/11.jpg")} />
 
-        <TileImage src="/assets/mosaic/12.jpg" />
+        <TileImage src={getAssetUrl("assets/mosaic/12.jpg")} />
         <TileText>
           <ScrollWeightHeading>PIÈCES</ScrollWeightHeading>
         </TileText>

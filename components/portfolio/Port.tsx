@@ -4,6 +4,7 @@
 import React, { JSX, useMemo, useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getAssetUrl } from '@/lib/assetUrl';
 
 
 interface PortProps {
@@ -120,22 +121,22 @@ const Port: React.FC<PortProps> = ({ isDarkMode }) => {
     {
       title: "Gulshan Luxury",
       category: "Architectural Narrative",
-      video: "/assets/Video/04.mp4"
+      video: getAssetUrl("assets/Video/04.mp4")
     },
     {
       title: "Namah Wellness",
       category: "Cinematic Identity",
-      video: "/assets/Video/06.mp4"
+      video: getAssetUrl("assets/Video/06.mp4")
     },
     {
       title: "MPF Narrative",
       category: "Horizontal Narrative",
-      video: "/assets/Video/08.MP4"
+      video: getAssetUrl("assets/Video/08.MP4")
     },
     {
       title: "RMW Synthesis",
       category: "Neural Core",
-      video: "/assets/Video/04.mp4"
+      video: getAssetUrl("assets/Video/04.mp4")
     },
     // {
     //   title: "Lumora Safari",

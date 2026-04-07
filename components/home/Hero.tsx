@@ -1,5 +1,7 @@
 "use client"
 
+import { getAssetUrl } from "@/lib/assetUrl"
+
 export default function Hero() {
   return (
     <section className="relative w-full overflow-hidden pointer-events-none h-[60vh] sm:h-[90vh] xs:h-[70vh] bg-zinc-950">
@@ -31,7 +33,7 @@ export default function Hero() {
         <source src="/assets/Video/light.mp4" type="video/mp4" />
       </video> */}
       <img
-        src="/assets/image/flower.png"
+        src={getAssetUrl("assets/image/flower.png")}
         alt="Hero Image"
         className="absolute inset-0 w-full h-full object-cover will-change-transform bg-zinc-950"
       />

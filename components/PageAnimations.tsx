@@ -284,18 +284,18 @@
 
 //     return null
 // }
-
+// -----docfile - final-animation.txt
 
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef, useState, } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function PageAnimations() {
-
+    const [scrollCount, setScrollY] = useState(0);
     useEffect(() => {
 
         const ctx = gsap.context(() => {
@@ -316,57 +316,83 @@ export default function PageAnimations() {
                         trigger: ".page-wrapper",
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 2,
+                        scrub: 1, // ⬅️ slower scroll sync
                     },
                 });
 
-                const stepY = 150;   // how much it goes down each step
-                const stepX = 800;   // left-right distance
+                const stepY = 150;
+                const stepX = 800;
+                const butterflyHoverScale = 1.30;
 
-                // start from top-center
-                tl.set(".butterfly", { x: 0, y: 0, autoAlpha: 1 });
-
-                let direction = -1; // start LEFT
+                tl.set(".butterfly", {
+                    x: 0,
+                    y: -window.innerHeight * 0.15, // ⬅️ 15% upper
+                    autoAlpha: 1,
+                    scale: 1
+                });
+                let direction = -1;
 
                 for (let i = 0; i < 8; i++) {
 
-                    // flip direction
                     tl.to(bird, {
                         scaleX: direction === -1 ? 1 : -1,
                         duration: 0.01
                     }, "<");
 
-                    // zig-zag move
-                    tl.to(".butterfly", {
-                        x: direction * stepX,
-                        y: stepY,
-                        duration: 2.0,
-                        ease: "power2.inOut"
-                    });
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            duration: 6.0, // ⬅️ slower move
+                            ease: "linear"
+                        });
+                    } else {
+                        ``
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            y: stepY,
+                            duration: 15.5, // ⬅️ slower move
+                            ease: "linear"
+                        });
+                    }
 
-                    // small pause (natural feel)
+                    // ⬇️ smoother pauses
+                    const pauseDuration =
+                        i < 4 ? 1.0 :
+                            i === 4 ? 1.5 :
+                                i === 5 ? 2.9 :
+                                    i === 6 ? 3.0 :
+                                        3.5;
+
                     tl.to(".butterfly", {
                         y: `-=${500}`,
-                        duration:
-                            i < 4 ? 0.6 :
-                                i === 4 ? 2.9 :
-                                    i === 5 ? 3.0 :
-                                        i === 6 ? 3.5 :
-                                            4.0,   // i === 7
-                        ease: "none"
+                        duration: pauseDuration,
+                        ease: "none",
+                        ...(i === 7 ? { scale: 1 } : {}),
                     });
 
-                    // switch direction
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            scale: butterflyHoverScale,
+                            duration: 1, // ⬅️ slower scale
+                            ease: "power2.out",
+                        });
+                    }
+
                     direction *= -1;
                 }
 
-                // 🎯 final settle → bottom-top center
                 tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
+                tl.call(() => {
+                    if (bird) {
+                        (bird as HTMLImageElement).src = "/assets/image/new.gif"; // ⬅️ new butterfly
+                    }
+                });
 
                 tl.to(".butterfly", {
                     x: 0,
                     y: window.innerHeight - 500,
-                    duration: 0.8,
+                    scale: 1,
+                    duration: 1.5, // ⬅️ smoother landing
                     ease: "power2.out"
                 });
 
@@ -380,19 +406,80 @@ export default function PageAnimations() {
                         trigger: ".page-wrapper",
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 1,
-
+                        scrub: 1.5,
                     },
-                })
+                });
 
-                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01, scale: 1 })
-                    .to(".butterfly", { x: 180, y: -360, duration: 0.6, ease: "none" })
-                    .to(".butterfly", { x: -150, y: 80, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 300, y: -100, duration: 1, ease: "none" })
-                    .to(".butterfly", { y: 300, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 350, y: 0, duration: 0.6, ease: "none" })
-                    .to(".butterfly", { x: 0, y: -90, duration: 1, ease: "none" })
-            })
+                const stepY = 500;   // smaller vertical movement
+                const stepX = 220;   // controlled horizontal (no overflow)
+                const butterflyHoverScale = 1.25;
+
+                tl.set(".butterfly", { x: 0, y: 0, autoAlpha: 1, scale: 1 });
+
+                let direction = -1;
+
+                for (let i = 0; i < 8; i++) {
+
+                    // flip direction
+                    tl.to(bird, {
+                        scaleX: direction === -1 ? 1 : -1,
+                        duration: 0.01
+                    }, "<");
+
+                    // zig-zag move (NO initial drop)
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            duration: 2.0,
+                            ease: "power2.out"
+                        });
+                    } else {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            y: stepY,
+                            duration: 1.2,
+                            ease: "power2.inOut"
+                        });
+                    }
+
+                    // hover (lighter for mobile); last pause returns scale to 1
+                    const mobilePauseDuration =
+                        i < 4 ? 1.5 :
+                            i === 4 ? 2.5 :
+                                i === 5 ? 3.8 :
+                                    i === 6 ? 4.2 :
+                                        5.0;
+
+                    tl.to(".butterfly", {
+                        y: `-=${200}`,
+                        duration: mobilePauseDuration,
+                        ease: "none",
+                        ...(i === 7 ? { scale: 1 } : {}),
+                    });
+
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            scale: butterflyHoverScale,
+                            duration: 0.5,
+                            ease: "power2.out",
+                        });
+                    }
+
+                    direction *= -1;
+                }
+
+                // final settle
+                tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
+
+                tl.to(".butterfly", {
+                    x: 0,
+                    y: window.innerHeight - 250,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+
+            });
 
             /* ---------------- CONTACT SECTION ANIMATION (MOVED TO BOTTOM.TSX) ---------------- */
 
@@ -430,7 +517,34 @@ export default function PageAnimations() {
             gsap.ticker.remove(() => { })
         }
 
-    }, [])
+    }, []);
+
+
+
+    const prevScrollRef = useRef(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const current = window.scrollY;
+            const prev = prevScrollRef.current;
+
+            if (current > prev) {
+                setScrollY((prev) => prev + 1); // scrolling down
+            } else if (current < prev) {
+                setScrollY((prev) => prev - 1); // scrolling up
+            }
+
+            prevScrollRef.current = current;
+
+            console.log("COUNT:", scrollCount);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return null
 }

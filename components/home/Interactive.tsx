@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRouter } from "next/navigation";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 gsap.registerPlugin(ScrollTrigger);
 interface InteractiveProps {
@@ -104,7 +105,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     {/* @ts-ignore - JSX video element is correctly supported */}
                     <video
                         ref={videoRef1}
-                        src="/assets/Video/04.mp4"
+                        src={getAssetUrl("assets/Video/04.mp4")}
                         autoPlay
                         muted
                         loop
@@ -169,7 +170,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                             {/* @ts-ignore - JSX video element is correctly supported */}
                             <video
                                 ref={videoRef2}
-                                src="/assets/Video/11.mp4"
+                                src={getAssetUrl("assets/Video/11.mp4")}
                                 autoPlay
                                 loop
                                 muted

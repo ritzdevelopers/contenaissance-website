@@ -2,6 +2,7 @@
 /// <reference types="react" />
 import gsap from "gsap";
 import React, { JSX, useEffect, useRef, useState } from "react";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 export default function Digital() {
     const previewRef = useRef<HTMLDivElement>(null)
@@ -108,7 +109,7 @@ export default function Digital() {
                 {/* @ts-ignore - JSX element is correctly supported */}
                 <video
                     ref={videoRef}
-                    src="/assets/Video/06.mp4"
+                    src={getAssetUrl("assets/Video/06.mp4")}
                     autoPlay
                     muted
                     loop

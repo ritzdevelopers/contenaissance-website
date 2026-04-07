@@ -12,6 +12,7 @@ import React, { useRef, useEffect, useState, JSX } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -205,12 +206,12 @@ interface ThreeDSectionProps {
 
 export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
     const images = [
-        "/assets/Video/15.mp4",
-        "/assets/Video/14.mp4",
-        "/assets/Video/13.mp4",
-        "/assets/Video/12.mp4",
+        getAssetUrl("assets/Video/15.mp4"),
+        getAssetUrl("assets/Video/14.mp4"),
+        getAssetUrl("assets/Video/13.mp4"),
+        getAssetUrl("assets/Video/12.mp4"),
         // "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4",
-        "/assets/Video/09.mp4"
+        getAssetUrl("assets/Video/09.mp4")
     ];
 
     const sectionRef = useRef<HTMLDivElement | null>(null);

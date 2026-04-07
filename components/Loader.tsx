@@ -2,6 +2,7 @@
 /// <reference types="react" />
 import { useEffect, useRef, JSX } from "react"
 import gsap from "gsap"
+import { getAssetUrl } from "@/lib/assetUrl"
 
 export default function Loader() {
     const loaderRef = useRef<HTMLDivElement | null>(null)
@@ -90,7 +91,7 @@ export default function Loader() {
 
                 {/* Logo */}
                 <img
-                    src="/assets/image/logo.png"
+                    src={getAssetUrl("assets/image/logo.png")}
                     alt="logo"
                     className="absolute top-20 md:top-22 left-1/2 
                                w-15 sm:w-20 md:w-25 

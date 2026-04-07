@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { getAssetUrl } from "@/lib/assetUrl"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -115,7 +116,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
                 </video> */}
 
                 <img
-                    src="/assets/image/Group.png"
+                    src={getAssetUrl("assets/image/Group.png")}
                     alt="Footer Image"
                     className="w-full h-full object-contain rounded-xl pointer-events-none"
                 />
