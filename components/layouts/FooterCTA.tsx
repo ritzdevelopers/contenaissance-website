@@ -6,17 +6,6 @@ import { getAssetUrl } from "@/lib/assetUrl";
 export default function FooterCTA() {
     const router = useRouter();
 
-
-    // const handleContactClick = () => {
-    //     const contactSection = document.getElementById("contact");
-
-    //     if (contactSection) {
-    //         contactSection.scrollIntoView({ behavior: "smooth" });
-    //     } else {
-    //         // fallback if user is on another page
-    //         router.push("/#contact");
-    //     }
-    // };
     return (
         <section  className="contact-section absolute left-0 w-full min-h-screen px-4 sm:px-8 md:px-16 z-[100] flex flex-col justify-center pt-60 md:pt-65  pointer-events-auto">
 

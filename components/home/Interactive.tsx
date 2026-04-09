@@ -82,6 +82,32 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     },
                 }
             );
+
+            // gsap.to("#cloud-1", {
+            //     x: "20%",
+            //     duration: 40,
+            //     repeat: -1,
+            //     yoyo: true,
+            //     ease: "sine.inOut"
+            // })
+
+            // 🌥️ MID
+            gsap.to("#cloud-2", {
+                x: "-25%",
+                duration: 40,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            })
+
+            // 🌥️ FRONT (fastest)
+            gsap.to("#cloud-3", {
+                x: "30%",
+                duration: 20,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            })
         });
 
         return () => ctx.revert();
@@ -126,13 +152,36 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     {/* @ts-ignore - JSX span element is correctly supported */}
                     Launch your   <span className="font-extrabold">
                         Interactive 3D Website
-                    {/* @ts-ignore - JSX span closing element */}
+                        {/* @ts-ignore - JSX span closing element */}
                     </span> with Stunning Visuals
                 </h1>
 
                 <div
-
                     className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-20 items-center">
+                    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+
+                        {/* BACK CLOUD (slow + big) */}
+                        {/* <img
+                            src={getAssetUrl("assets/image/cloud.png")}
+                            className="absolute top-10 left-0 w-[180%] opacity-20"
+                            id="cloud-1"
+                        /> */}
+
+                        {/* MID CLOUD */}
+                        <img
+                            src={getAssetUrl("assets/image/cloud.png")}
+                            className="absolute top-50 left-[-20%]  opacity-45"
+                            id="cloud-2"
+                        />
+
+                        {/* FRONT CLOUD (faster) */}
+                        <img
+                            src={getAssetUrl("assets/image/cloud.png")}
+                            className="absolute top-50 left-[-10%]  opacity-60"
+                            id="cloud-3"
+                        />
+
+                    </div>
                     <div className="flex flex-row sm:flex-row gap-4 sm:gap-6 items-center sm:items-center md:justify-end px-0 md:px-0 ">
 
                         {/* Book Now */}
@@ -144,7 +193,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                             {/* @ts-ignore - JSX span element is correctly supported */}
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-black ">
                                 Book Now
-                            {/* @ts-ignore - JSX span closing element */}
+                                {/* @ts-ignore - JSX span closing element */}
                             </span>
                         </button>
 
@@ -157,7 +206,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                             {/* @ts-ignore - JSX span element is correctly supported */}
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
                                 Get started
-                            {/* @ts-ignore - JSX span closing element */}
+                                {/* @ts-ignore - JSX span closing element */}
                             </span>
                         </button>
                     </div>

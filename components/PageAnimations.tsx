@@ -288,20 +288,20 @@
 
 "use client"
 
-import { useEffect, useRef, useState, } from "react"
+import { useEffect } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function PageAnimations() {
-    const [scrollCount, setScrollY] = useState(0);
+
     useEffect(() => {
 
         const ctx = gsap.context(() => {
 
             const butterfly = document.querySelector(".butterfly")
-            const bird = document.querySelector(".butterfly img")
+            const bird = document.querySelector<HTMLImageElement>(".butterfly img")
 
             gsap.set(".butterfly", { autoAlpha: 1, duration: 0.01 })
             gsap.set(bird, { scaleX: 1 })
@@ -310,14 +310,21 @@ export default function PageAnimations() {
 
             /* ---------------- DESKTOP ANIMATION ---------------- */
             mm.add("(min-width: 768px)", () => {
+                let timelineDirection = 1;
+                let lastTime = 0;
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: ".page-wrapper",
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 1, // ⬅️ slower scroll sync
+                        scrub: 1,
                     },
+                    onUpdate: function () {
+                        const currentTime = this.time();
+                        timelineDirection = currentTime > lastTime ? 1 : -1;
+                        lastTime = currentTime;
+                    }
                 });
 
                 const stepY = 150;
@@ -326,10 +333,11 @@ export default function PageAnimations() {
 
                 tl.set(".butterfly", {
                     x: 0,
-                    y: -window.innerHeight * 0.15, // ⬅️ 15% upper
+                    y: -window.innerHeight * 0.15,
                     autoAlpha: 1,
                     scale: 1
                 });
+
                 let direction = -1;
 
                 for (let i = 0; i < 8; i++) {
@@ -342,38 +350,66 @@ export default function PageAnimations() {
                     if (i === 0) {
                         tl.to(".butterfly", {
                             x: direction * stepX,
-                            duration: 6.0, // ⬅️ slower move
+                            duration: 3.0,
                             ease: "linear"
                         });
                     } else {
-                        ``
                         tl.to(".butterfly", {
                             x: direction * stepX,
                             y: stepY,
-                            duration: 15.5, // ⬅️ slower move
+                            duration: 15.5,
                             ease: "linear"
                         });
                     }
 
-                    // ⬇️ smoother pauses
                     const pauseDuration =
-                        i < 4 ? 1.0 :
-                            i === 4 ? 1.5 :
-                                i === 5 ? 2.9 :
-                                    i === 6 ? 3.0 :
-                                        3.5;
+                        i === 0 ? 0.1 :
+                            i < 4 ? 1.0 :
+                                i === 4 ? 1.5 :
+                                    i === 5 ? 2.9 :
+                                        i === 6 ? 3.0 :
+                                            1.0;
 
                     tl.to(".butterfly", {
-                        y: `-=${500}`,
+                        y: `-=${400}`,
                         duration: pauseDuration,
                         ease: "none",
-                        ...(i === 7 ? { scale: 1 } : {}),
                     });
+
+                    //--------------butterfly change on step 6 and 7 -----------
+                    if (i === 6) {
+                        tl.addLabel("step6Start");
+
+                        // Forward - on step 6  with image change
+                        tl.add(() => {
+                            if (timelineDirection === 1) {
+                                setTimeout(() => {
+                                    bird && (bird.src = "/assets/image/new.gif");
+                                    console.log("🎯 Forward Step 6: new.gif (delayed)");
+                                }, 800);
+                            }
+                        }, "step6Start+=0.5");
+
+                        tl.addLabel("step6End", `+=${pauseDuration}`);
+                    }
+
+                    // Step 7  reverse image change
+                    if (i === 7) {
+                        tl.addLabel("step7Start");
+
+                        // Reverse - step 7  image change
+                        tl.add(() => {
+                            if (timelineDirection === -1) {
+                                bird && (bird.src = "/assets/image/new1.gif");
+                                console.log("🎯 Reverse Step 7: new1.gif (immediate)");
+                            }
+                        }, "step7Start");
+                    }
 
                     if (i === 0) {
                         tl.to(".butterfly", {
                             scale: butterflyHoverScale,
-                            duration: 1, // ⬅️ slower scale
+                            duration: 1,
                             ease: "power2.out",
                         });
                     }
@@ -382,24 +418,27 @@ export default function PageAnimations() {
                 }
 
                 tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
-                tl.call(() => {
-                    if (bird) {
-                        (bird as HTMLImageElement).src = "/assets/image/new.gif"; // ⬅️ new butterfly
-                    }
-                });
 
                 tl.to(".butterfly", {
-                    x: 0,
-                    y: window.innerHeight - 500,
+                    x: 120,
+                    y: window.innerHeight - 650,
                     scale: 1,
-                    duration: 1.5, // ⬅️ smoother landing
+                    duration: 3.5,
                     ease: "power2.out"
                 });
-
             });
 
             /* ---------------- MOBILE ANIMATION ---------------- */
+            // ─── Mobile (<768px) — scaled-down version ────────────────────────────────
             mm.add("(max-width: 767px)", () => {
+                let timelineDirection = 1;
+                let lastTime = 0;
+
+                // On mobile: narrower swing, smaller vertical steps, fewer loops
+                const stepY = 150;
+                const stepX = window.innerWidth * 0.70; // ~38vw instead of fixed 800px
+                const butterflyHoverScale = 1.5;        // subtler scale-up on small screens
+                const STEPS = 6;                          // fewer zigzag passes (was 8)
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -408,77 +447,100 @@ export default function PageAnimations() {
                         end: "bottom bottom",
                         scrub: 1.5,
                     },
+                    onUpdate: function () {
+                        const currentTime = this.time();
+                        timelineDirection = currentTime > lastTime ? 1 : -1;
+                        lastTime = currentTime;
+                    }
                 });
 
-                const stepY = 500;   // smaller vertical movement
-                const stepX = 220;   // controlled horizontal (no overflow)
-                const butterflyHoverScale = 1.25;
-
-                tl.set(".butterfly", { x: 0, y: 0, autoAlpha: 1, scale: 1 });
+                tl.set(".butterfly", {
+                    x: 0,
+                    y: -window.innerHeight * 0.10, // slightly less offset on mobile
+                    autoAlpha: 1,
+                    scale: 1.0                      // start smaller on mobile
+                });
 
                 let direction = -1;
 
-                for (let i = 0; i < 8; i++) {
+                for (let i = 0; i < STEPS; i++) {
 
-                    // flip direction
                     tl.to(bird, {
                         scaleX: direction === -1 ? 1 : -1,
                         duration: 0.01
                     }, "<");
 
-                    // zig-zag move (NO initial drop)
+                    // Horizontal sweep — shorter duration for quicker mobile scroll feel
                     if (i === 0) {
                         tl.to(".butterfly", {
                             x: direction * stepX,
-                            duration: 2.0,
-                            ease: "power2.out"
+                            duration: 4.0,
+                            ease: "linear"
                         });
                     } else {
                         tl.to(".butterfly", {
                             x: direction * stepX,
                             y: stepY,
-                            duration: 1.2,
-                            ease: "power2.inOut"
+                            duration: 10.0, // was 15.5 — proportionally shorter
+                            ease: "linear"
                         });
                     }
 
-                    // hover (lighter for mobile); last pause returns scale to 1
-                    const mobilePauseDuration =
-                        i < 4 ? 1.5 :
-                            i === 4 ? 2.5 :
-                                i === 5 ? 3.8 :
-                                    i === 6 ? 4.2 :
-                                        5.0;
+                    // Pause durations — shortened to match fewer steps
+                    const pauseDuration =
+                        i === 0 ? 3.0 :
+                            i < 3 ? 3.0 :
+                                i === 3 ? 3.5 :
+                                    3.0;
 
                     tl.to(".butterfly", {
-                        y: `-=${200}`,
-                        duration: mobilePauseDuration,
+                        y: `-=${350}`,         // was 400 — less vertical travel on mobile
+                        duration: pauseDuration,
                         ease: "none",
-                        ...(i === 7 ? { scale: 1 } : {}),
                     });
+
+                    // ── Image swap on step 3 (was step 6 on desktop) ──────────────────
+                    if (i === 3) {
+                        tl.addLabel("mobileStep3Start");
+                        tl.add(() => {
+                            if (timelineDirection === 1) {
+                                setTimeout(() => {
+                                    bird && (bird.src = "/assets/image/new.gif");
+                                }, 800);
+                            }
+                        }, "mobileStep3Start+=0.5");
+                    }
+
+                    // ── Reverse image swap on last step ───────────────────────────────
+                    if (i === STEPS - 1) {
+                        tl.addLabel("mobileLastStep");
+                        tl.add(() => {
+                            if (timelineDirection === -1) {
+                                bird && (bird.src = "/assets/image/new1.gif");
+                            }
+                        }, "mobileLastStep");
+                    }
 
                     if (i === 0) {
                         tl.to(".butterfly", {
                             scale: butterflyHoverScale,
-                            duration: 0.5,
+                            duration: 1,
                             ease: "power2.out",
                         });
                     }
-
                     direction *= -1;
                 }
 
-                // final settle
                 tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
 
+                // Final landing — land closer to center on narrow screens
                 tl.to(".butterfly", {
-                    x: 0,
-                    y: window.innerHeight - 250,
-                    scale: 1,
-                    duration: 0.8,
+                    x: 0,                              // center instead of x:120
+                    y: window.innerHeight - 400,       // slightly higher landing point
+                    scale: 1.0,
+                    duration: 2.5,
                     ease: "power2.out"
                 });
-
             });
 
             /* ---------------- CONTACT SECTION ANIMATION (MOVED TO BOTTOM.TSX) ---------------- */
@@ -517,34 +579,7 @@ export default function PageAnimations() {
             gsap.ticker.remove(() => { })
         }
 
-    }, []);
-
-
-
-    const prevScrollRef = useRef(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const current = window.scrollY;
-            const prev = prevScrollRef.current;
-
-            if (current > prev) {
-                setScrollY((prev) => prev + 1); // scrolling down
-            } else if (current < prev) {
-                setScrollY((prev) => prev - 1); // scrolling up
-            }
-
-            prevScrollRef.current = current;
-
-            console.log("COUNT:", scrollCount);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    }, [])
 
     return null
 }

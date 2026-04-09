@@ -7,18 +7,18 @@ import { TbUsers } from "react-icons/tb";
 
 const Gallery = () => {
   const images = [
-    "https://images.unsplash.com/photo-1767431199061-3237ddd5de9f?w=600&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
-    "https://images.unsplash.com/photo-1772630204917-5e649dcb0d68?w=600&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
-    "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-    "https://images.unsplash.com/photo-1624700636207-a02b569c9457?w=600&auto=format&fit=crop&q=60",
-    "https://plus.unsplash.com/premium_photo-1771589559652-5db731a039ea?w=600&auto=format&fit=crop&q=60",
+    "/assets/portfolio/G1.jpg",
+    "/assets/portfolio/G2.jpg",
+    "/assets/portfolio/G3.jpg",
+    "/assets/portfolio/G4.jpg",
+    "/assets/portfolio/G5.jpg",
+    "/assets/portfolio/G6.jpg",
+    "/assets/portfolio/G7.png",
+    "/assets/portfolio/G8.jpg",
   ];
 
   return (
-    <section className="bg-black text-white py-16 md:py-20 px-4 sm:px-6 md:px-10">
+    <section className="bg-zinc-950 text-white py-16 md:py-20 px-4 sm:px-6 md:px-10">
       
       {/* Heading */}
       <div className="text-center mx-auto mb-12 md:mb-16 max-w-4xl">

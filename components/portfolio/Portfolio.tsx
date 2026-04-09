@@ -17,7 +17,7 @@ export default function PortfolioPage() {
       <div className="max-w-[1400px] mx-auto mt-8 bg-zinc-950">
         <Reels isDarkMode={isDarkMode} />
       </div>
-      {/* <Gallery /> */}
+      <Gallery />
     </div>
      {/* <Contact isDarkMode={isDarkMode}/> */}
    </>
