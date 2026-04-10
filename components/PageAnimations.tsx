@@ -384,8 +384,8 @@ export default function PageAnimations() {
                         tl.add(() => {
                             if (timelineDirection === 1) {
                                 setTimeout(() => {
-                                    bird && (bird.src = "/assets/image/new.gif");
-                                    console.log("🎯 Forward Step 6: new.gif (delayed)");
+                                    bird && (bird.src = "/assets/image/footer-butterfly.gif");
+                                    console.log("🎯 Forward Step 6: footer-butterfly.gif (delayed)");
                                 }, 800);
                             }
                         }, "step6Start+=0.5");
