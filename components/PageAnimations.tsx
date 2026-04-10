@@ -392,7 +392,7 @@ export default function PageAnimations() {
 
                         tl.addLabel("step6End", `+=${pauseDuration}`);
                     }
-
+                    
                     // Step 7  reverse image change
                     if (i === 7) {
                         tl.addLabel("step7Start");
