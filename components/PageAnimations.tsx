@@ -505,7 +505,7 @@ export default function PageAnimations() {
                         tl.add(() => {
                             if (timelineDirection === 1) {
                                 setTimeout(() => {
-                                    bird && (bird.src = "/assets/image/new.gif");
+                                    bird && (bird.src = "/assets/image/footer-butterfly.gif");
                                 }, 800);
                             }
                         }, "mobileStep3Start+=0.5");
