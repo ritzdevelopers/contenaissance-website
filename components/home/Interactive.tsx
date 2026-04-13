@@ -1,6 +1,6 @@
 "use client";
 /// <reference types="react" />
-import React, { useEffect, useRef, useState, JSX } from "react";
+import React, { useEffect, useRef, JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRouter } from "next/navigation";
@@ -41,12 +41,111 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current || !headingRef.current) return;
 
-        // Disable animations on mobile
-        const isMobile = window.innerWidth < 768;
-        if (isMobile) return;
+        const mm = gsap.matchMedia();
 
-        const ctx = gsap.context(() => {
-            // Video scale animation
+        const headingFade = (
+            start: string,
+            end: string,
+            scrub: number,
+            toOpacity: number
+        ) => {
+            gsap.fromTo(
+                headingRef.current,
+                { opacity: 1 },
+                {
+                    opacity: toOpacity,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: headingRef.current,
+                        start,
+                        end,
+                        scrub,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+        };
+
+        const cloudDrift = (
+            midX: string,
+            frontX: string,
+            midDur: number,
+            frontDur: number
+        ) => {
+            gsap.to("#cloud-2", {
+                x: midX,
+                duration: midDur,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+            });
+            gsap.to("#cloud-3", {
+                x: frontX,
+                duration: frontDur,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+            });
+        };
+
+        // Small viewports: no pin (stable on iOS / short screens), light scrub scale
+        mm.add("(max-width: 767px)", () => {
+            gsap.fromTo(
+                previewRef.current,
+                { scale: 0.9, borderRadius: "16px" },
+                {
+                    scale: 1,
+                    borderRadius: "12px",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 88%",
+                        end: "top 22%",
+                        scrub: 0.85,
+                        pin: false,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+            headingFade("top 90%", "top 38%", 0.85, 0.45);
+            cloudDrift("-12%", "14%", 30, 18);
+        });
+
+        // Tablet: pinned hero with less travel than desktop; scale from bottom so 768px pin + zoom feels stable
+        mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
+            gsap.fromTo(
+                previewRef.current,
+                {
+                    scale: 0.52,
+                    borderRadius: "22px",
+                    transformOrigin: "50% 100%",
+                    y: 64,
+                },
+                {
+                    scale: 1,
+                    borderRadius: "0px",
+                    y: 0,
+                    transformOrigin: "50% 100%",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "+=68%",
+                        scrub: 1.45,
+                        pin: ".pin-wrapper",
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+            headingFade("top 82%", "top 12%", 1, 0.25);
+            cloudDrift("-20%", "26%", 38, 22);
+        });
+
+        // Desktop and up: full pin + scale range
+        mm.add("(min-width: 1024px)", () => {
             gsap.fromTo(
                 previewRef.current,
                 { scale: 0.3, borderRadius: "30px" },
@@ -66,51 +165,19 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     },
                 }
             );
-
-            // Heading fade animation
-            gsap.fromTo(
-                headingRef.current,
-                { opacity: 1 },
-                {
-                    opacity: 0.2,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: headingRef.current,
-                        start: "top 80%",
-                        end: "top 10%",
-                        scrub: 1,
-                    },
-                }
-            );
-
-            // gsap.to("#cloud-1", {
-            //     x: "20%",
-            //     duration: 40,
-            //     repeat: -1,
-            //     yoyo: true,
-            //     ease: "sine.inOut"
-            // })
-
-            // 🌥️ MID
-            gsap.to("#cloud-2", {
-                x: "-25%",
-                duration: 40,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            })
-
-            // 🌥️ FRONT (fastest)
-            gsap.to("#cloud-3", {
-                x: "30%",
-                duration: 20,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            })
+            headingFade("top 80%", "top 10%", 1, 0.2);
+            cloudDrift("-25%", "30%", 40, 20);
         });
 
-        return () => ctx.revert();
+        const onResize = () => {
+            ScrollTrigger.refresh();
+        };
+        window.addEventListener("resize", onResize);
+
+        return () => {
+            window.removeEventListener("resize", onResize);
+            mm.revert();
+        };
     }, []);
 
     return (
@@ -126,7 +193,8 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
 
-                    className="w-full max-w-350 aspect-video overflow-hidden rounded-xl md:rounded-none will-change-transform px-4 md:px-0" style={{ transformOrigin: "center center cursor-pointer" }}
+                    className="w-full max-w-350 aspect-video overflow-hidden rounded-xl md:rounded-none will-change-transform px-4 md:px-0 cursor-pointer"
+                    style={{ transformOrigin: "center center" }}
                 >
                     {/* @ts-ignore - JSX video element is correctly supported */}
                     <video

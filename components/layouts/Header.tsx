@@ -225,7 +225,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                             router.push(item.path);
                             setMobileOpen(false);
                           }}
-                          className={`group cursor-pointer relative w-max pb-2 xl:text-[52px] text-[40px] font-bold uppercase leading-[117%] transition-colors duration-300 ${currentPath === item.path
+                          className={`group cursor-pointer relative w-max pb-2 text-[40px] min-[1240px]:text-[52px] font-bold uppercase leading-[117%] transition-colors duration-300 ${currentPath === item.path
                             ? "text-[#ab8922]"
                             : "text-white hover:text-[#ab8922]"
                             }`}

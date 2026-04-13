@@ -5,7 +5,7 @@ import { getAssetUrl } from "@/lib/assetUrl";
 
 const CreativePortraits = () => {
     return (
-        <section className="relative min-h-[110vh] md:min-h-[120vh] lg:min-h-[140vh] bg-black overflow-hidden flex items-center top-10 md:top-1 ">
+        <section className="relative min-h-[110vh] md:min-h-[120vh] lg:min-h-[140vh] bg-black overflow-hidden flex items-center  ">
 
             {/* Gradient background */}
             <div className="absolute inset-0 bg-linear-to-br from-[#5A3917] via-black to-black"></div>

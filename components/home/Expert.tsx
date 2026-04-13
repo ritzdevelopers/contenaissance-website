@@ -45,14 +45,122 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
 
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current) return;
-        //  Kill old animations 
-        // ScrollTrigger.getAll().forEach((t) => t.kill());
-        // Disable GSAP animations on mobile
-        const isMobile = window.innerWidth < 768;
-        if (isMobile) return;
 
-        const ctx = gsap.context(() => {
-            // First section: video scale animation
+        const mm = gsap.matchMedia();
+
+        // Small screens: no pin (better on iOS / short viewports), subtler scale scrub
+        mm.add("(max-width: 767px)", () => {
+            gsap.fromTo(
+                previewRef.current,
+                {
+                    scale: 0.88,
+                    borderRadius: "16px",
+                },
+                {
+                    scale: 1,
+                    borderRadius: "12px",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 88%",
+                        end: "top 28%",
+                        scrub: 0.85,
+                        pin: false,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+
+            if (!secondSectionRef.current || !leftRef.current || !rightRef.current)
+                return;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: secondSectionRef.current,
+                    start: "top 82%",
+                    toggleActions: "play reverse play reverse",
+                    invalidateOnRefresh: true,
+                },
+            });
+
+            tl.from(leftRef.current, {
+                opacity: 0,
+                y: 28,
+                duration: 0.65,
+                ease: "power3.out",
+            }).from(
+                rightRef.current,
+                {
+                    opacity: 0,
+                    y: 28,
+                    duration: 0.65,
+                    ease: "power3.out",
+                },
+                "-=0.35"
+            );
+        });
+
+        // Tablet: pinned scrub with a shorter travel than desktop
+        mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
+            gsap.fromTo(
+                previewRef.current,
+                {
+                    scale: 0.55,
+                    borderRadius: "24px",
+                    transformOrigin: "50% 100%",
+                    y: 48,
+                },
+                {
+                    scale: 1,
+                    borderRadius: "0px",
+                    y: 0,
+                    transformOrigin: "50% 100%",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 32%",
+                        end: "+=65%",
+                        scrub: 1.2,
+                        pin: true,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+
+            if (!secondSectionRef.current || !leftRef.current || !rightRef.current)
+                return;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: secondSectionRef.current,
+                    start: "top 78%",
+                    toggleActions: "play reverse play reverse",
+                    invalidateOnRefresh: true,
+                },
+            });
+
+            tl.from(leftRef.current, {
+                opacity: 0,
+                x: -56,
+                duration: 0.75,
+                ease: "power3.out",
+            }).from(
+                rightRef.current,
+                {
+                    opacity: 0,
+                    x: 56,
+                    duration: 0.75,
+                    ease: "power3.out",
+                },
+                "-=0.38"
+            );
+        });
+
+        // Large screens: full hero scale + pin
+        mm.add("(min-width: 1024px)", () => {
             gsap.fromTo(
                 previewRef.current,
                 {
@@ -76,12 +184,15 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 }
             );
 
-            // Second section: slide-in animation
+            if (!secondSectionRef.current || !leftRef.current || !rightRef.current)
+                return;
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: secondSectionRef.current,
                     start: "top 75%",
                     toggleActions: "play reverse play reverse",
+                    invalidateOnRefresh: true,
                 },
             });
 
@@ -102,11 +213,15 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
             );
         });
 
-        // setTimeout(() => {
-        //     ScrollTrigger.refresh();
-        // }, 200);
+        const onResize = () => {
+            ScrollTrigger.refresh();
+        };
+        window.addEventListener("resize", onResize);
 
-        return () => ctx.revert();
+        return () => {
+            window.removeEventListener("resize", onResize);
+            mm.revert();
+        };
     }, []);
 
     return (
@@ -121,7 +236,7 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
                     className="w-full max-w-full h-45 sm:h-60 md:h-auto rounded-2xl overflow-hidden  cursor-pointer "
-                >
+                >   
                     <video
                         ref={videoRef1}
                         src={getAssetUrl("assets/Video/08.MP4")}
