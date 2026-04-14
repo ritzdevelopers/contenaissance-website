@@ -18,7 +18,7 @@ const Gallery = () => {
   ];
 
   return (
-    <section className="bg-zinc-950 text-white py-16 md:py-20 px-4 sm:px-6 md:px-10">
+    <section className="bg-zinc-950 text-white pb-16 md:pb-20 px-4 sm:px-6 md:px-10">
 
       {/* Heading */}
       <div className="text-center mx-auto mb-12 md:mb-16 max-w-4xl">
