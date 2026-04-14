@@ -304,7 +304,7 @@ export default function PageAnimations() {
             const bird = document.querySelector<HTMLImageElement>(".butterfly img")
 
             gsap.set(".butterfly", { autoAlpha: 1, duration: 0.01 })
-            gsap.set(bird, { scaleX: 1.10 })
+            gsap.set(bird, { scaleX: 1 })
 
             const mm = gsap.matchMedia()
 
@@ -329,7 +329,7 @@ export default function PageAnimations() {
 
                 const stepY = 150;
                 const stepX = 800;
-                const butterflyHoverScale = 1.40;
+                const butterflyHoverScale = 1.30;
 
                 tl.set(".butterfly", {
                     x: 0,
@@ -377,34 +377,34 @@ export default function PageAnimations() {
                     });
 
                     //--------------butterfly change on step 6 and 7 -----------
-                    if (i === 6) {
-                        tl.addLabel("step6Start");
+                    // if (i === 6) {
+                    //     tl.addLabel("step6Start");
 
-                        // Forward - on step 6  with image change
-                        tl.add(() => {
-                            if (timelineDirection === 1) {
-                                setTimeout(() => {
-                                    bird && (bird.src = "/assets/image/footer-butterfly.gif");
-                                    console.log("🎯 Forward Step 6: footer-butterfly.gif (delayed)");
-                                }, 800);
-                            }
-                        }, "step6Start+=0.5");
+                    //     // Forward - on step 6  with image change
+                    //     tl.add(() => {
+                    //         if (timelineDirection === 1) {
+                    //             setTimeout(() => {
+                    //                 bird && (bird.src = "/assets/image/footer-butterfly.gif");
+                    //                 console.log("🎯 Forward Step 6: footer-butterfly.gif (delayed)");
+                    //             }, 800);
+                    //         }
+                    //     }, "step6Start+=0.5");
 
-                        tl.addLabel("step6End", `+=${pauseDuration}`);
-                    }
+                    //     tl.addLabel("step6End", `+=${pauseDuration}`);
+                    // }
                     
-                    // Step 7  reverse image change
-                    if (i === 7) {
-                        tl.addLabel("step7Start");
+                    // // Step 7  reverse image change
+                    // if (i === 7) {
+                    //     tl.addLabel("step7Start");
 
-                        // Reverse - step 7  image change
-                        tl.add(() => {
-                            if (timelineDirection === -1) {
-                                bird && (bird.src = "/assets/image/new1.gif");
-                                console.log("🎯 Reverse Step 7: new1.gif (immediate)");
-                            }
-                        }, "step7Start");
-                    }
+                    //     // Reverse - step 7  image change
+                    //     tl.add(() => {
+                    //         if (timelineDirection === -1) {
+                    //             bird && (bird.src = "/assets/image/new1.gif");
+                    //             console.log("🎯 Reverse Step 7: new1.gif (immediate)");
+                    //         }
+                    //     }, "step7Start");
+                    // }
 
                     if (i === 0) {
                         tl.to(".butterfly", {
@@ -417,11 +417,11 @@ export default function PageAnimations() {
                     direction *= -1;
                 }
 
-                tl.to(bird, { scaleX: 1.10, duration: 0.01 }, "<");
+                tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
 
                 tl.to(".butterfly", {
                     x: 120,
-                    y: window.innerHeight - 580,
+                    y: window.innerHeight - 650,
                     scale: 1,
                     duration: 3.5,
                     ease: "power2.out"
@@ -501,29 +501,29 @@ export default function PageAnimations() {
                         ease: "none",
                     });
 
-                    if (i === 6) {
-                        tl.addLabel("step6Start");
+                    // if (i === 6) {
+                    //     tl.addLabel("step6Start");
 
-                        tl.add(() => {
-                            if (timelineDirection === 1) {
-                                setTimeout(() => {
-                                    bird && (bird.src = "/assets/image/footer-butterfly.gif");
-                                }, 800);
-                            }
-                        }, "step6Start+=0.5");
+                    //     tl.add(() => {
+                    //         if (timelineDirection === 1) {
+                    //             setTimeout(() => {
+                    //                 bird && (bird.src = "/assets/image/footer-butterfly.gif");
+                    //             }, 800);
+                    //         }
+                    //     }, "step6Start+=0.5");
 
-                        tl.addLabel("step6End", `+=${pauseDuration}`);
-                    }
+                    //     tl.addLabel("step6End", `+=${pauseDuration}`);
+                    // }
 
-                    if (i === 7) {
-                        tl.addLabel("step7Start");
+                    // if (i === 7) {
+                    //     tl.addLabel("step7Start");
 
-                        tl.add(() => {
-                            if (timelineDirection === -1) {
-                                bird && (bird.src = "/assets/image/new1.gif");
-                            }
-                        }, "step7Start");
-                    }
+                    //     tl.add(() => {
+                    //         if (timelineDirection === -1) {
+                    //             bird && (bird.src = "/assets/image/new1.gif");
+                    //         }
+                    //     }, "step7Start");
+                    // }
 
                     if (i === 0) {
                         tl.to(".butterfly", {

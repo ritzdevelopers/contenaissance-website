@@ -9,6 +9,8 @@ export default function Loader() {
     const circleRef = useRef<SVGCircleElement | null>(null)
 
     useEffect(() => {
+        let isMounted = true
+
         const ctx = gsap.context(() => {
 
             // start instantly
@@ -34,11 +36,14 @@ export default function Loader() {
                 ease: "power2.out",
             })
 
-            // hide AFTER loading feel (not actual load)
+        }, loaderRef)
+
+        const hideLoader = () => {
+            if (!isMounted || !loaderRef.current) return
+
             gsap.to(loaderRef.current, {
                 opacity: 0,
                 duration: 0.8,
-                delay: 2.2,
                 ease: "power2.out",
                 onComplete: () => {
                     if (loaderRef.current) {
@@ -46,10 +51,72 @@ export default function Loader() {
                     }
                 },
             })
+        }
 
-        }, loaderRef)
+        const waitForMediaToLoad = () => {
+            const images = Array.from(document.querySelectorAll("img"))
+            const videos = Array.from(document.querySelectorAll("video"))
+            const pendingPromises: Promise<void>[] = []
 
-        return () => ctx.revert()
+            images.forEach((img) => {
+                if (img.complete) return
+
+                pendingPromises.push(
+                    new Promise((resolve) => {
+                        const onLoadOrError = () => {
+                            img.removeEventListener("load", onLoadOrError)
+                            img.removeEventListener("error", onLoadOrError)
+                            resolve()
+                        }
+
+                        img.addEventListener("load", onLoadOrError, { once: true })
+                        img.addEventListener("error", onLoadOrError, { once: true })
+                    })
+                )
+            })
+
+            videos.forEach((video) => {
+                if (video.readyState >= 3 || video.ended) return
+
+                pendingPromises.push(
+                    new Promise((resolve) => {
+                        const onReadyOrError = () => {
+                            video.removeEventListener("loadeddata", onReadyOrError)
+                            video.removeEventListener("canplaythrough", onReadyOrError)
+                            video.removeEventListener("error", onReadyOrError)
+                            resolve()
+                        }
+
+                        video.addEventListener("loadeddata", onReadyOrError, { once: true })
+                        video.addEventListener("canplaythrough", onReadyOrError, { once: true })
+                        video.addEventListener("error", onReadyOrError, { once: true })
+                    })
+                )
+            })
+
+            if (!pendingPromises.length) {
+                hideLoader()
+                return
+            }
+
+            Promise.all(pendingPromises).then(hideLoader)
+        }
+
+        const onWindowLoaded = () => {
+            waitForMediaToLoad()
+        }
+
+        if (document.readyState === "complete") {
+            onWindowLoaded()
+        } else {
+            window.addEventListener("load", onWindowLoaded, { once: true })
+        }
+
+        return () => {
+            isMounted = false
+            window.removeEventListener("load", onWindowLoaded)
+            ctx.revert()
+        }
     }, [])
 
     return (
