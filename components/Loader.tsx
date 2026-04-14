@@ -10,17 +10,21 @@ export default function Loader() {
 
     useEffect(() => {
         let isMounted = true
+        let circleTween: gsap.core.Tween | null = null
+        let ringRotateTween: gsap.core.Tween | null = null
 
         const ctx = gsap.context(() => {
 
-            // start instantly
-            gsap.to(circleRef.current, {
+            // Stroke keeps animating until page is ready (killed in hideLoader)
+            circleTween = gsap.to(circleRef.current, {
                 strokeDashoffset: 0,
-                duration: 2,
-                ease: "power2.out",
+                duration: 1.25,
+                ease: "power2.inOut",
+                repeat: -1,
+                yoyo: true,
             })
 
-            gsap.to(".progress-ring", {
+            ringRotateTween = gsap.to(".progress-ring", {
                 rotate: 360,
                 duration: 2,
                 repeat: -1,
@@ -40,6 +44,9 @@ export default function Loader() {
 
         const hideLoader = () => {
             if (!isMounted || !loaderRef.current) return
+
+            circleTween?.kill()
+            ringRotateTween?.kill()
 
             gsap.to(loaderRef.current, {
                 opacity: 0,
@@ -158,7 +165,7 @@ export default function Loader() {
 
                 {/* Logo */}
                 <img
-                    src={getAssetUrl("assets/image/logo.png")}
+                    src="/assets/image/logo.png"
                     alt="logo"
                     className="absolute top-20 md:top-22 left-1/2 
                                w-15 sm:w-20 md:w-25 
