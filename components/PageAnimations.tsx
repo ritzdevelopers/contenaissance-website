@@ -300,18 +300,21 @@ export default function PageAnimations() {
 
         const ctx = gsap.context(() => {
 
-            const butterfly = document.querySelector(".butterfly")
-            const bird = document.querySelector<HTMLImageElement>(".butterfly img")
-
             gsap.set(".butterfly", { autoAlpha: 1, duration: 0.01 })
-            gsap.set(bird, { scaleX: 1 })
+            gsap.set([".butterfly-primary", ".butterfly-footer"], {
+                scaleX: 1.10,
+                transformOrigin: "50% 50%",
+            })
+            gsap.set(".butterfly-footer-wrap", {
+                autoAlpha: 0,
+                scale: 1,
+                transformOrigin: "50% 50%",
+            })
 
             const mm = gsap.matchMedia()
 
             /* ---------------- DESKTOP ANIMATION ---------------- */
             mm.add("(min-width: 768px)", () => {
-                let timelineDirection = 1;
-                let lastTime = 0;
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -320,16 +323,11 @@ export default function PageAnimations() {
                         end: "bottom bottom",
                         scrub: 1,
                     },
-                    onUpdate: function () {
-                        const currentTime = this.time();
-                        timelineDirection = currentTime > lastTime ? 1 : -1;
-                        lastTime = currentTime;
-                    }
                 });
 
                 const stepY = 150;
                 const stepX = 800;
-                const butterflyHoverScale = 1.30;
+                const butterflyHoverScale = 1.40;
 
                 tl.set(".butterfly", {
                     x: 0,
@@ -342,8 +340,20 @@ export default function PageAnimations() {
 
                 for (let i = 0; i < 8; i++) {
 
-                    tl.to(bird, {
+                    // tl.to([".butterfly-primary", ".butterfly-footer"], {
+                    //     scaleX: direction === -1 ? 1 : -1,
+                    //     duration: 0.01
+                    // }, "<");
+
+                    // Primary butterfly (normal direction)
+                    tl.to(".butterfly-primary", {
                         scaleX: direction === -1 ? 1 : -1,
+                        duration: 0.01
+                    }, "<");
+
+                    // Footer butterfly (reverse direction)
+                    tl.to(".butterfly-footer", {
+                        scaleX: direction === -1 ? -1 : 1,
                         duration: 0.01
                     }, "<");
 
@@ -376,35 +386,25 @@ export default function PageAnimations() {
                         ease: "none",
                     });
 
-                    //--------------butterfly change on step 6 and 7 -----------
-                    // if (i === 6) {
-                    //     tl.addLabel("step6Start");
+                    // Crossfade + scale on footer wrap (scrubs both ways; avoids wrong size on reverse)
+                    if (i === 7) {
+                        tl.addLabel("step7Start");
 
-                    //     // Forward - on step 6  with image change
-                    //     tl.add(() => {
-                    //         if (timelineDirection === 1) {
-                    //             setTimeout(() => {
-                    //                 bird && (bird.src = "/assets/image/footer-butterfly.gif");
-                    //                 console.log("🎯 Forward Step 6: footer-butterfly.gif (delayed)");
-                    //             }, 800);
-                    //         }
-                    //     }, "step6Start+=0.5");
+                        tl.to(".butterfly-footer-wrap", {
+                            autoAlpha: 1,
+                            scale: 3.3,
+                            duration: 1.2,
+                            ease: "power3.out",
+                        }, "step7Start");
 
-                    //     tl.addLabel("step6End", `+=${pauseDuration}`);
-                    // }
-                    
-                    // // Step 7  reverse image change
-                    // if (i === 7) {
-                    //     tl.addLabel("step7Start");
+                        tl.to(".butterfly-primary", {
+                            autoAlpha: 0,
+                            duration: 0.45,
+                            ease: "power1.inOut",
+                        }, "step7Start");
 
-                    //     // Reverse - step 7  image change
-                    //     tl.add(() => {
-                    //         if (timelineDirection === -1) {
-                    //             bird && (bird.src = "/assets/image/new1.gif");
-                    //             console.log("🎯 Reverse Step 7: new1.gif (immediate)");
-                    //         }
-                    //     }, "step7Start");
-                    // }
+                        tl.addLabel("step7End", `+=${pauseDuration}`);
+                    }
 
                     if (i === 0) {
                         tl.to(".butterfly", {
@@ -417,11 +417,11 @@ export default function PageAnimations() {
                     direction *= -1;
                 }
 
-                tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
+                // tl.to(bird, { scaleX: 1.10, duration: 0.01 }, "<");
 
                 tl.to(".butterfly", {
                     x: 120,
-                    y: window.innerHeight - 650,
+                    y: window.innerHeight - 600,
                     scale: 1,
                     duration: 3.5,
                     ease: "power2.out"
@@ -431,8 +431,6 @@ export default function PageAnimations() {
             /* ---------------- MOBILE ANIMATION ---------------- */
             // Same timeline structure as desktop; horizontal amplitude scales with viewport.
             mm.add("(max-width: 767px)", () => {
-                let timelineDirection = 1;
-                let lastTime = 0;
 
                 const w = window.innerWidth;
                 const h = window.innerHeight;
@@ -449,11 +447,6 @@ export default function PageAnimations() {
                         end: "bottom bottom",
                         scrub: 1,
                     },
-                    onUpdate: function () {
-                        const currentTime = this.time();
-                        timelineDirection = currentTime > lastTime ? 1 : -1;
-                        lastTime = currentTime;
-                    }
                 });
 
                 tl.set(".butterfly", {
@@ -467,7 +460,7 @@ export default function PageAnimations() {
 
                 for (let i = 0; i < 8; i++) {
 
-                    tl.to(bird, {
+                    tl.to([".butterfly-primary", ".butterfly-footer"], {
                         scaleX: direction === -1 ? 1 : -1,
                         duration: 0.01
                     }, "<");
@@ -501,29 +494,24 @@ export default function PageAnimations() {
                         ease: "none",
                     });
 
-                    // if (i === 6) {
-                    //     tl.addLabel("step6Start");
+                    if (i === 6) {
+                        tl.addLabel("step6Start");
 
-                    //     tl.add(() => {
-                    //         if (timelineDirection === 1) {
-                    //             setTimeout(() => {
-                    //                 bird && (bird.src = "/assets/image/footer-butterfly.gif");
-                    //             }, 800);
-                    //         }
-                    //     }, "step6Start+=0.5");
+                        tl.to(".butterfly-footer-wrap", {
+                            autoAlpha: 1,
+                            scale: 2.2,
+                            duration: 1.2,
+                            ease: "power3.out",
+                        }, "step6Start");
 
-                    //     tl.addLabel("step6End", `+=${pauseDuration}`);
-                    // }
+                        tl.to(".butterfly-primary", {
+                            autoAlpha: 0,
+                            duration: 0.45,
+                            ease: "power1.inOut",
+                        }, "step6Start");
 
-                    // if (i === 7) {
-                    //     tl.addLabel("step7Start");
-
-                    //     tl.add(() => {
-                    //         if (timelineDirection === -1) {
-                    //             bird && (bird.src = "/assets/image/new1.gif");
-                    //         }
-                    //     }, "step7Start");
-                    // }
+                        tl.addLabel("step6End", `+=${pauseDuration}`);
+                    }
 
                     if (i === 0) {
                         tl.to(".butterfly", {
@@ -536,7 +524,7 @@ export default function PageAnimations() {
                     direction *= -1;
                 }
 
-                tl.to(bird, { scaleX: 1, duration: 0.01 }, "<");
+                tl.to([".butterfly-primary", ".butterfly-footer"], { scaleX: 1, duration: 0.01 }, "<");
 
                 tl.to(".butterfly", {
                     x: finalX,
