@@ -67,7 +67,7 @@ export default function VisualIdentify() {
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 mt-5 md:mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 my-5 md:my-10 ">
                 {/* Left */}
                 <div className="space-y-3 text-sm tracking-widest uppercase">
                     <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">

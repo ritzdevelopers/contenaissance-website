@@ -16,21 +16,21 @@ export default function Loader() {
         const ctx = gsap.context(() => {
 
             // Stroke keeps animating until page is ready (killed in hideLoader)
-            circleTween = gsap.to(circleRef.current, {
-                strokeDashoffset: 0,
-                duration: 1.25,
-                ease: "power2.inOut",
-                repeat: -1,
-                yoyo: true,
-            })
-
-            ringRotateTween = gsap.to(".progress-ring", {
+            gsap.to(circleRef.current, {
                 rotate: 360,
-                duration: 2,
-                repeat: -1,
+                duration: 1.6,
                 ease: "linear",
+                repeat: -1,
                 transformOrigin: "50% 50%",
             })
+
+            // ringRotateTween = gsap.to(".progress-ring", {
+            //     rotate: 360,
+            //     duration: 1.8,
+            //     repeat: -1,
+            //     ease: "linear",
+            //     transformOrigin: "50% 50%",
+            // })
 
             gsap.from(".loader-text", {
                 opacity: 0,
@@ -45,8 +45,8 @@ export default function Loader() {
         const hideLoader = () => {
             if (!isMounted || !loaderRef.current) return
 
-            circleTween?.kill()
-            ringRotateTween?.kill()
+            // circleTween?.kill()
+            // ringRotateTween?.kill()
 
             gsap.to(loaderRef.current, {
                 opacity: 0,
@@ -158,8 +158,8 @@ export default function Loader() {
                         strokeWidth="2"
                         fill="none"
                         strokeLinecap="round"
-                        strokeDasharray="314"
-                        strokeDashoffset="314"
+                         strokeDasharray="80 414" 
+                        // strokeDashoffset="314"
                     />
                 </svg>
 

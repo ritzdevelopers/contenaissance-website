@@ -66,7 +66,7 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
             );
         };
 
-        const cloudDrift = (
+         const cloudDrift = (
             midX: string,
             frontX: string,
             midDur: number,

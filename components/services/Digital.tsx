@@ -67,7 +67,7 @@ export default function Digital() {
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 mt-5 md:mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 my-5 md:my-10 ">
                 {/* Left */}
                 <div className="space-y-3 text-sm tracking-[0.1em] uppercase">
                     <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Platform-Specific Content

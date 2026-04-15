@@ -47,14 +47,12 @@ const ServiceCard: React.FC<{
     >
       {/* Outer Glow */}
       <div className="absolute -inset-px rounded-[28px] opacity-30 
-    group-hover:opacity-70 transition duration-500 
-     
-    pointer-events-none"
+    group-hover:opacity-70 transition duration-500  pointer-events-none"
       />
 
       {/* Main Card */}
       <div className="relative h-full flex flex-col rounded-[28px] border border-[#3A3A3E] 
-            p-5 sm:p-6 md:p-8 lg:p-5 text-justify
+            p-5 md:p-6 lg:p-8 xl:p-5 text-justify
             overflow-hidden transition-all duration-500
             bg-linear-to-b from-white/2 to-white/1
             backdrop-blur-sm cursor-pointer">
@@ -65,7 +63,7 @@ const ServiceCard: React.FC<{
         </div>
 
         {/* Inner Glass Container */}
-        <div className="font-sora bg-zinc-900/30 rounded-[22px] p-4 sm:p-5 md:p-6 lg:p-7 "
+        <div className="font-sora bg-zinc-900/30 rounded-[22px] p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col h-full"
         >
           {/* Badge */}
           <div className="inline-block mb-4 sm:mb-5">

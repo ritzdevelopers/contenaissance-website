@@ -54,7 +54,7 @@ export default function AiPower() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-10">
+            className="relative w-full min-h-screen  text-white px-6 md:px-20 py-5 md:py-10">
 
             {/* Main Heading */}
             <div className="max-w-6xl">
@@ -67,7 +67,7 @@ export default function AiPower() {
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 mt-5 md:mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 my-5 md:my-10 ">
                 {/* Left */}
                 <div className="space-y-3 text-sm tracking-widest uppercase">
                     <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Maximize Marketing Impact</p>
@@ -98,7 +98,7 @@ export default function AiPower() {
             
                  <div
                     ref={previewRef}
-                    className="w-screen max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer"
+                    className="w-screen max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer "
                     style={{ transformOrigin: "center center" }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}

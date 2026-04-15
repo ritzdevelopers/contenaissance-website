@@ -1,11 +1,15 @@
 "use client";
 
+
 /// <reference types="react" />
 import React, { JSX } from "react";
 import { PiImagesSquareBold } from "react-icons/pi";
 import { TbUsers } from "react-icons/tb";
+import { useRouter } from "next/navigation";
 
 const Gallery = () => {
+  const router = useRouter();
+
   const images = [
     "/assets/portfolio/G1.jpg",
     "/assets/portfolio/G2.jpg",
@@ -121,10 +125,16 @@ const Gallery = () => {
         <div className="col-span-12 md:col-span-5 p-4 md:p-8 flex flex-col justify-center">
           <h3 className="text-[#d09f1f] font-bold">Built to Perform. Designed to Impress.</h3>
           <p className="text-gray-400 text-sm mb-6 leading-7">
-           Looking to stand out online and grow faster? We craft refined digital experiences where creative vision meets strategic execution - built to elevate brand perception and deliver real, measurable impact.
+            Looking to stand out online and grow faster? We craft refined digital experiences where creative vision meets strategic execution - built to elevate brand perception and deliver real, measurable impact.
           </p>
 
-          <button className="bg-white text-black px-6 py-2 rounded-full font-medium w-fit hover:bg-gray-200 transition">
+
+          <button
+            onClick={() => {
+              router.push('/portfolio')
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            className="bg-white text-black px-6 py-2 rounded-xl font-bold w-fit hover:bg-gray-200 transition cursor-pointer">
             Explore Portfolio
           </button>
         </div>
