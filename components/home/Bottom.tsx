@@ -41,7 +41,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
         <section
             ref={sectionRef}
             className="relative w-full min-h-[50vh] md:min-h-[70vh] lg:min-h-[80vh] xl:min-h-[90vh] overflow-hidden flex items-end justify-center 
-            bg-[url('/assets/image/bottom-cloud.png')] bg-cover bg-center bg-no-repeat"
+           "
         >
             {/*  Gradient Overlay */}
             <div className="absolute inset-0 bg-linear-to-b from-zinc-950 via-transparent to-transparent z-0" />

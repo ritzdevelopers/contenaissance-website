@@ -110,8 +110,8 @@ export default function Loader() {
         // }
         const waitForSpecificAssets = () => {
             const assets = [
-                "/assets/image/butterfly.gif",
-                "/assets/image/new.gif"
+                "/assets/image/new1.gif",
+                "/assets/image/footer-butterfly.gif"
             ]
 
             const promises = assets.map((src) => {
