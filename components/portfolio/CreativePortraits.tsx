@@ -29,7 +29,6 @@ const CreativePortraits = () => {
                     We bring together elite creators, advanced AI, and strategic direction to craft visual experiences that position brands at the top - not just in the market, but in perception.
                 </p>
 
-
                 {/* Image 1 */}
                <img
                     src={getAssetUrl("assets/image/portfolio1.png")}
@@ -53,7 +52,7 @@ const CreativePortraits = () => {
                 <img
                     src={getAssetUrl("assets/image/portfolio4.png")}
                     className="creative-portraits-img creative-portraits-img-4 hidden lg:block absolute top-[74%] md:top-[50%] right-4 sm:right-10 md:right-20 w-28 sm:w-36 md:w-52 lg:w-52 xl:w-60 shadow-2xl rotate-[-8deg]"
-                />
+                />  
 
             </div>
         </section>

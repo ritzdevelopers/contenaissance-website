@@ -10,80 +10,52 @@ gsap.registerPlugin(ScrollTrigger)
 export default function Bottom({ children }: { children?: React.ReactNode }) {
 
     const sectionRef = useRef<HTMLDivElement>(null)
+    const imageRef = useRef<HTMLImageElement>(null)
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const ctx = gsap.context(() => {
+        const ctx = gsap.context(() => {
 
-    //         const mm = gsap.matchMedia()
+            gsap.fromTo(imageRef.current,
+                { y: 200, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        end: "top 40%",
+                        scrub: 1,
+                    }
+                }
+            )
 
-    //         /* ---------------- DESKTOP ---------------- */
-    //         mm.add("(min-width: 768px)", () => {
+        }, sectionRef)
 
-    //             gsap.set(".contact-section", { y: "100%" })
+        return () => ctx.revert()
 
-    //             gsap.timeline({
-    //                 scrollTrigger: {
-    //                     trigger: sectionRef.current,
-    //                     start: "top 30%",
-    //                     end: "+=200%",
-    //                     scrub: 1,
-    //                     pin: true,
-    //                     pinSpacing: true,
-    //                 }
-    //             })
-    //             .fromTo(
-    //                 ".contact-section",
-    //                 { y: "100%" },
-    //                 { y: "0%", ease: "none" },
-    //                 0
-    //             )
-    //         })
-
-    //         /* ---------------- MOBILE ---------------- */
-    //         mm.add("(max-width: 767px)", () => {
-
-    //             gsap.set(".contact-section", { y: "60vh" })
-
-    //             gsap.timeline({
-    //                 scrollTrigger: {
-    //                     trigger: sectionRef.current,
-    //                     start: "top top",
-    //                     end: "+=200%",
-    //                     scrub: 0.5,
-    //                     pin: true,
-    //                     pinSpacing: true,
-    //                     fastScrollEnd: true,
-    //                     invalidateOnRefresh: true,
-    //                 }
-    //             })
-    //             .fromTo(
-    //                 ".contact-section",
-    //                 { y: "60vh" },
-    //                 { y: "0vh", ease: "none" },
-    //                 0
-    //             )
-    //         })
-
-    //     }, sectionRef)
-
-    //     return () => ctx.revert()
-
-    // }, [])
+    }, [])
 
     return (
         <section
-            // ref={sectionRef}
-            className="bottom-section relative w-full flex items-center justify-center z-0 overflow-hidden"
+            ref={sectionRef}
+            className="relative w-full min-h-[50vh] md:min-h-[70vh] lg:min-h-[80vh] xl:min-h-[90vh] overflow-hidden flex items-end justify-center 
+            bg-[url('/assets/image/bottom-cloud.png')] bg-cover bg-center bg-no-repeat"
         >
-            <div className="video-wrapper w-full flex items-end justify-center">
+            {/*  Gradient Overlay */}
+            <div className="absolute inset-0 bg-linear-to-b from-zinc-950 via-transparent to-transparent z-0" />
+            <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent z-0" />
+            {/*  Foreground Image (slides from bottom) */}
+            <div className="relative  w-full flex justify-center items-end">
                 <img
+                    ref={imageRef}
                     src={getAssetUrl("assets/image/Group.png")}
                     alt="Footer Image"
-                    className="w-full object-contain rounded-xl pointer-events-none"
+                    className="w-full object-contain"
                 />
-                {children}
             </div>
+            {children}
         </section>
     )
 }

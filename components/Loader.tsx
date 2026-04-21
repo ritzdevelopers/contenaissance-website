@@ -60,57 +60,77 @@ export default function Loader() {
             })
         }
 
-        const waitForMediaToLoad = () => {
-            const images = Array.from(document.querySelectorAll("img"))
-            const videos = Array.from(document.querySelectorAll("video"))
-            const pendingPromises: Promise<void>[] = []
+        // const waitForMediaToLoad = () => {
+        //     const images = Array.from(document.querySelectorAll("img"))
+        //     const videos = Array.from(document.querySelectorAll("video"))
+        //     const pendingPromises: Promise<void>[] = []
 
-            images.forEach((img) => {
-                if (img.complete) return
+        //     images.forEach((img) => {
+        //         if (img.complete) return
 
-                pendingPromises.push(
-                    new Promise((resolve) => {
-                        const onLoadOrError = () => {
-                            img.removeEventListener("load", onLoadOrError)
-                            img.removeEventListener("error", onLoadOrError)
-                            resolve()
-                        }
+        //         pendingPromises.push(
+        //             new Promise((resolve) => {
+        //                 const onLoadOrError = () => {
+        //                     img.removeEventListener("load", onLoadOrError)
+        //                     img.removeEventListener("error", onLoadOrError)
+        //                     resolve()
+        //                 }
 
-                        img.addEventListener("load", onLoadOrError, { once: true })
-                        img.addEventListener("error", onLoadOrError, { once: true })
-                    })
-                )
+        //                 img.addEventListener("load", onLoadOrError, { once: true })
+        //                 img.addEventListener("error", onLoadOrError, { once: true })
+        //             })
+        //         )
+        //     })
+
+        //     videos.forEach((video) => {
+        //         if (video.readyState >= 3 || video.ended) return
+
+        //         pendingPromises.push(
+        //             new Promise((resolve) => {
+        //                 const onReadyOrError = () => {
+        //                     video.removeEventListener("loadeddata", onReadyOrError)
+        //                     video.removeEventListener("canplaythrough", onReadyOrError)
+        //                     video.removeEventListener("error", onReadyOrError)
+        //                     resolve()
+        //                 }
+
+        //                 video.addEventListener("loadeddata", onReadyOrError, { once: true })
+        //                 video.addEventListener("canplaythrough", onReadyOrError, { once: true })
+        //                 video.addEventListener("error", onReadyOrError, { once: true })
+        //             })
+        //         )
+        //     })
+
+        //     if (!pendingPromises.length) {
+        //         hideLoader()
+        //         return
+        //     }
+
+        //     Promise.all(pendingPromises).then(hideLoader)
+        // }
+        const waitForSpecificAssets = () => {
+            const assets = [
+                "/assets/image/butterfly.gif",
+                "/assets/image/new.gif"
+            ]
+
+            const promises = assets.map((src) => {
+                return new Promise<void>((resolve) => {
+                    const img = new Image()
+                    img.src = src
+
+                    const done = () => resolve()
+
+                    img.onload = done
+                    img.onerror = done
+                })
             })
 
-            videos.forEach((video) => {
-                if (video.readyState >= 3 || video.ended) return
-
-                pendingPromises.push(
-                    new Promise((resolve) => {
-                        const onReadyOrError = () => {
-                            video.removeEventListener("loadeddata", onReadyOrError)
-                            video.removeEventListener("canplaythrough", onReadyOrError)
-                            video.removeEventListener("error", onReadyOrError)
-                            resolve()
-                        }
-
-                        video.addEventListener("loadeddata", onReadyOrError, { once: true })
-                        video.addEventListener("canplaythrough", onReadyOrError, { once: true })
-                        video.addEventListener("error", onReadyOrError, { once: true })
-                    })
-                )
-            })
-
-            if (!pendingPromises.length) {
-                hideLoader()
-                return
-            }
-
-            Promise.all(pendingPromises).then(hideLoader)
+            Promise.all(promises).then(hideLoader)
         }
 
         const onWindowLoaded = () => {
-            waitForMediaToLoad()
+            waitForSpecificAssets()
         }
 
         if (document.readyState === "complete") {
@@ -158,8 +178,8 @@ export default function Loader() {
                         strokeWidth="2"
                         fill="none"
                         strokeLinecap="round"
-                         strokeDasharray="80 414" 
-                        // strokeDashoffset="314"
+                        strokeDasharray="80 414"
+                    // strokeDashoffset="314"
                     />
                 </svg>
 
