@@ -36,13 +36,13 @@ export default function Loader() {
 
         }, loaderRef)
 
-        // 🎯 smooth progress (conflict-free)
+        // 🎯 smooth progress
         const animateProgress = (target: number, onComplete?: () => void) => {
             gsap.to(progressRef, {
                 current: target,
                 duration: 0.6,
                 ease: "power2.out",
-                overwrite: true, // 🔥 important
+                overwrite: true,
                 onUpdate: () => {
                     setProgress(Math.round(progressRef.current))
                 },
@@ -65,14 +65,14 @@ export default function Loader() {
             })
         }
 
-        // ⚡ fake smooth progress (0 → 90)
+        // ⚡ fake progress till 90
         const interval = setInterval(() => {
             if (progressRef.current < 90) {
                 animateProgress(progressRef.current + 1)
             }
         }, 200)
 
-        // 📦 load only required assets
+        // 📦 asset loader (FIXED)
         const waitForSpecificAssets = () => {
             const assets = [
                 "/assets/image/new1.gif",
@@ -82,35 +82,44 @@ export default function Loader() {
             let loaded = 0
             const total = assets.length
 
+            const update = () => {
+                loaded++
+
+                const real = (loaded / total) * 100
+                const target = Math.min(real, 90)
+
+                animateProgress(target)
+
+                // ✅ all assets loaded
+                if (loaded === total) {
+
+                    clearInterval(interval)
+                    gsap.killTweensOf(progressRef)
+
+                    animateProgress(100, () => {
+                        hideLoader()
+                    })
+                }
+            }
+
             assets.forEach((src) => {
                 const img = new Image()
                 img.src = src
 
-                const update = () => {
-                    loaded++
-                    const real = (loaded / total) * 100
-                    const target = Math.min(real, 90)
-
-                    animateProgress(target)
-
-                    // ✅ ALL LOADED
-                    if (loaded === total) {
-
-                        // 🛑 STOP fake progress
-                        clearInterval(interval)
-
-                        // 💣 kill all running animations on progress
-                        gsap.killTweensOf(progressRef)
-
-                        // 🚀 FINAL 100%
-                        animateProgress(100, () => {
-                            hideLoader()
-                        })
-                    }
+                let called = false
+                const safeUpdate = () => {
+                    if (called) return
+                    called = true
+                    update()
                 }
 
-                img.onload = update
-                img.onerror = update
+                // ✅ FIX: handle cached images
+                if (img.complete) {
+                    safeUpdate()
+                } else {
+                    img.onload = safeUpdate
+                    img.onerror = safeUpdate
+                }
             })
         }
 
