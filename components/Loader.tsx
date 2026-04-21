@@ -1,21 +1,22 @@
 "use client"
 /// <reference types="react" />
-import { useEffect, useRef, JSX } from "react"
+
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
-import { getAssetUrl } from "@/lib/assetUrl"
 
 export default function Loader() {
     const loaderRef = useRef<HTMLDivElement | null>(null)
     const circleRef = useRef<SVGCircleElement | null>(null)
 
+    const [progress, setProgress] = useState(0)
+    const progressRef = useRef(0)
+
     useEffect(() => {
         let isMounted = true
-        let circleTween: gsap.core.Tween | null = null
-        let ringRotateTween: gsap.core.Tween | null = null
 
         const ctx = gsap.context(() => {
 
-            // Stroke keeps animating until page is ready (killed in hideLoader)
+            // 🔄 circle rotate
             gsap.to(circleRef.current, {
                 rotate: 360,
                 duration: 1.6,
@@ -24,14 +25,7 @@ export default function Loader() {
                 transformOrigin: "50% 50%",
             })
 
-            // ringRotateTween = gsap.to(".progress-ring", {
-            //     rotate: 360,
-            //     duration: 1.8,
-            //     repeat: -1,
-            //     ease: "linear",
-            //     transformOrigin: "50% 50%",
-            // })
-
+            // ✨ text animation
             gsap.from(".loader-text", {
                 opacity: 0,
                 y: 20,
@@ -42,108 +36,101 @@ export default function Loader() {
 
         }, loaderRef)
 
+        // 🎯 smooth progress (conflict-free)
+        const animateProgress = (target: number, onComplete?: () => void) => {
+            gsap.to(progressRef, {
+                current: target,
+                duration: 0.6,
+                ease: "power2.out",
+                overwrite: true, // 🔥 important
+                onUpdate: () => {
+                    setProgress(Math.round(progressRef.current))
+                },
+                onComplete
+            })
+        }
+
+        progressRef.current = 0
+
         const hideLoader = () => {
             if (!isMounted || !loaderRef.current) return
-
-            // circleTween?.kill()
-            // ringRotateTween?.kill()
 
             gsap.to(loaderRef.current, {
                 opacity: 0,
                 duration: 0.8,
                 ease: "power2.out",
                 onComplete: () => {
-                    if (loaderRef.current) {
-                        loaderRef.current.style.display = "none"
-                    }
+                    loaderRef.current!.style.display = "none"
                 },
             })
         }
 
-        // const waitForMediaToLoad = () => {
-        //     const images = Array.from(document.querySelectorAll("img"))
-        //     const videos = Array.from(document.querySelectorAll("video"))
-        //     const pendingPromises: Promise<void>[] = []
+        // ⚡ fake smooth progress (0 → 90)
+        const interval = setInterval(() => {
+            if (progressRef.current < 90) {
+                animateProgress(progressRef.current + 1)
+            }
+        }, 200)
 
-        //     images.forEach((img) => {
-        //         if (img.complete) return
-
-        //         pendingPromises.push(
-        //             new Promise((resolve) => {
-        //                 const onLoadOrError = () => {
-        //                     img.removeEventListener("load", onLoadOrError)
-        //                     img.removeEventListener("error", onLoadOrError)
-        //                     resolve()
-        //                 }
-
-        //                 img.addEventListener("load", onLoadOrError, { once: true })
-        //                 img.addEventListener("error", onLoadOrError, { once: true })
-        //             })
-        //         )
-        //     })
-
-        //     videos.forEach((video) => {
-        //         if (video.readyState >= 3 || video.ended) return
-
-        //         pendingPromises.push(
-        //             new Promise((resolve) => {
-        //                 const onReadyOrError = () => {
-        //                     video.removeEventListener("loadeddata", onReadyOrError)
-        //                     video.removeEventListener("canplaythrough", onReadyOrError)
-        //                     video.removeEventListener("error", onReadyOrError)
-        //                     resolve()
-        //                 }
-
-        //                 video.addEventListener("loadeddata", onReadyOrError, { once: true })
-        //                 video.addEventListener("canplaythrough", onReadyOrError, { once: true })
-        //                 video.addEventListener("error", onReadyOrError, { once: true })
-        //             })
-        //         )
-        //     })
-
-        //     if (!pendingPromises.length) {
-        //         hideLoader()
-        //         return
-        //     }
-
-        //     Promise.all(pendingPromises).then(hideLoader)
-        // }
+        // 📦 load only required assets
         const waitForSpecificAssets = () => {
             const assets = [
                 "/assets/image/new1.gif",
                 "/assets/image/footer-butterfly.gif"
             ]
 
-            const promises = assets.map((src) => {
-                return new Promise<void>((resolve) => {
-                    const img = new Image()
-                    img.src = src
+            let loaded = 0
+            const total = assets.length
 
-                    const done = () => resolve()
+            assets.forEach((src) => {
+                const img = new Image()
+                img.src = src
 
-                    img.onload = done
-                    img.onerror = done
-                })
+                const update = () => {
+                    loaded++
+                    const real = (loaded / total) * 100
+                    const target = Math.min(real, 90)
+
+                    animateProgress(target)
+
+                    // ✅ ALL LOADED
+                    if (loaded === total) {
+
+                        // 🛑 STOP fake progress
+                        clearInterval(interval)
+
+                        // 💣 kill all running animations on progress
+                        gsap.killTweensOf(progressRef)
+
+                        // 🚀 FINAL 100%
+                        animateProgress(100, () => {
+                            hideLoader()
+                        })
+                    }
+                }
+
+                img.onload = update
+                img.onerror = update
             })
-
-            Promise.all(promises).then(hideLoader)
         }
 
-        const onWindowLoaded = () => {
+        const onLoad = () => {
             waitForSpecificAssets()
         }
 
         if (document.readyState === "complete") {
-            onWindowLoaded()
+            onLoad()
         } else {
-            window.addEventListener("load", onWindowLoaded, { once: true })
+            window.addEventListener("load", onLoad, { once: true })
         }
 
         return () => {
             isMounted = false
-            window.removeEventListener("load", onWindowLoaded)
+            clearInterval(interval)
+            window.removeEventListener("load", onLoad)
             ctx.revert()
         }
+
     }, [])
 
     return (
@@ -153,12 +140,8 @@ export default function Loader() {
         >
             <div className="relative text-center w-full max-w-37.5 sm:max-w-42.5">
 
-                {/* SVG Loader */}
-                <svg
-                    className="progress-ring w-full h-auto"
-                    viewBox="0 0 120 120"
-                >
-                    {/* background circle */}
+                {/* 🔵 SVG Loader */}
+                <svg className="w-full h-auto" viewBox="0 0 120 120">
                     <circle
                         cx="60"
                         cy="60"
@@ -168,22 +151,20 @@ export default function Loader() {
                         fill="none"
                     />
 
-                    {/* animated circle */}
                     <circle
                         ref={circleRef}
                         cx="60"
                         cy="60"
                         r="50"
-                        className="ring-progress stroke-[#a47c02]"
+                        className="stroke-[#a47c02]"
                         strokeWidth="2"
                         fill="none"
                         strokeLinecap="round"
                         strokeDasharray="80 414"
-                    // strokeDashoffset="314"
                     />
                 </svg>
 
-                {/* Logo */}
+                {/* 🧿 Logo */}
                 <img
                     src="/assets/image/logo.png"
                     alt="logo"
@@ -192,11 +173,22 @@ export default function Loader() {
                                -translate-x-1/2 -translate-y-1/2"
                 />
 
-                {/* Text */}
-                <div className="loader-text mt-4 sm:mt-6 text-[#a47c02] text-center -translate-x-3.75 md:-translate-x-10">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-semibold leading-tight text-left">
-                        Contenaissance.com
+                {/* 📊 Progress UI */}
+                <div className="loader-text mt-6 text-[#a47c02]">
+
+                    {/* % */}
+                    <h2 className="text-xl md:text-2xl font-semibold">
+                        {progress}%
                     </h2>
+
+                    {/* bar */}
+                    <div className="w-full h-1 bg-gray-700 mt-3 rounded overflow-hidden">
+                        <div
+                            className="h-full bg-[#a47c02] transition-all duration-300"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+
                 </div>
 
             </div>
