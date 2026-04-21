@@ -27,78 +27,41 @@ export default function Loader() {
             gsap.to(loaderRef.current, {
                 opacity: 0,
                 duration: 0.8,
+                ease: "power2.out",
                 onComplete: () => {
                     loaderRef.current!.style.display = "none"
                 },
             })
         }
 
-        // ✅ fake smooth progress (0 → 90)
-        let fake = 0
-        const fakeInterval = setInterval(() => {
-            fake += 1
-            if (fake <= 90) {
-                setProgress(fake)
-            }
-        }, 80)
+        // 🎯 FAKE PROGRESS (2.5 sec total)
+        let current = 0
 
-        // ✅ load assets
-        const loadAssets = () => {
-            const assets = [
-                "/assets/image/new1.gif",
-                "/assets/image/footer-butterfly.gif"
-            ]
+        const interval = setInterval(() => {
+            current += 2   // speed control (increase/decrease)
 
-            let loaded = 0
-            const total = assets.length
+            if (current >= 100) {
+                current = 100
+                setProgress(current)
 
-            const update = () => {
-                loaded++
+                clearInterval(interval)
 
-                if (loaded === total) {
-                    // 🛑 stop fake progress
-                    clearInterval(fakeInterval)
+                // 👇 100% dikhega, then hide
+                setTimeout(() => {
+                    hideLoader()
+                }, 500)
 
-                    // 🚀 force smooth finish to 100
-                    let current = fake
-                    const finishInterval = setInterval(() => {
-                        current += 1
-                        setProgress(current)
-
-                        if (current >= 100) {
-                            clearInterval(finishInterval)
-
-                            // 👇 now hide AFTER 100 reached
-                            hideLoader()
-                        }
-                    }, 20)
-                }
+            } else {
+                setProgress(current)
             }
 
-            assets.forEach((src) => {
-                const img = new Image()
-                img.src = src
-
-                if (img.complete) {
-                    update()
-                } else {
-                    img.onload = update
-                    img.onerror = update
-                }
-            })
-        }
-
-        if (document.readyState === "complete") {
-            loadAssets()
-        } else {
-            window.addEventListener("load", loadAssets, { once: true })
-        }
+        }, 50) // speed (lower = faster)
 
         return () => {
             isMounted = false
-            clearInterval(fakeInterval)
-            window.removeEventListener("load", loadAssets)
+            clearInterval(interval)
         }
+
     }, [])
 
     return (
@@ -132,14 +95,20 @@ export default function Loader() {
 
                 {/* Progress */}
                 <div className="mt-6 text-[#a47c02]">
-                    <h2 className="text-xl font-semibold">{progress}%</h2>
 
+                    {/* % */}
+                    <h2 className="text-xl font-semibold">
+                        {progress}%
+                    </h2>
+
+                    {/* bar */}
                     <div className="w-full h-1 bg-gray-700 mt-3 rounded overflow-hidden">
                         <div
-                            className="h-full bg-[#a47c02] transition-all duration-200"
+                            className="h-full bg-[#a47c02] transition-all duration-100"
                             style={{ width: `${progress}%` }}
                         />
                     </div>
+
                 </div>
 
             </div>
