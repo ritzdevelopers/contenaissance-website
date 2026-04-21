@@ -71,7 +71,7 @@ export default function Loader() {
         >
             <div className="relative text-center w-full max-w-37.5 sm:max-w-42.5">
 
-                {/* SVG */}
+                {/* SVG */} 
                 <svg className="w-full h-auto" viewBox="0 0 120 120">
                     <circle cx="60" cy="60" r="50" className="stroke-gray-700" strokeWidth="2" fill="none" />
                     <circle

@@ -392,7 +392,7 @@ export default function PageAnimations() {
 
                         tl.to(".butterfly-footer-wrap", {
                             autoAlpha: 1,
-                            scale: 3.3,
+                            scale: 2.5,
                             duration: 1.2,
                             ease: "power3.out",
                         }, "step7Start");
