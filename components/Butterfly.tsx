@@ -7,7 +7,7 @@
         <div className="relative h-auto w-76 max-w-[min(94vw,26rem)] sm:w-76 md:w-88 lg:w-[30rem]">
           <img
             className="butterfly-primary relative z-10 block h-auto w-full object-contain"
-            src={getAssetUrl("/assets/Video/newButterfly.gif")}
+            src={getAssetUrl("/assets/Video/16buttterfly.gif")}
             alt="Bird animation"
           />
           <div className="butterfly-footer-wrap pointer-events-none absolute inset-0 z-[11] flex items-center justify-center opacity-0">
