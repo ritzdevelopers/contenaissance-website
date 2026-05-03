@@ -10,7 +10,6 @@ import SnowEffect from "@/components/SnowEffects";
 import Hero1 from "@/components/home/Hero1";
 import PageAnimations from "@/components/PageAnimations";
 import Header from "@/components/layouts/Header";
-import Footer from "@/components/layouts/Footer";
 import AIQuote from "@/components/home/AIQuote";
 import Contact from "@/components/layouts/Contact";
 import Reels from "@/components/home/Reels";
@@ -61,8 +60,8 @@ export default function Page() {
       <Expert isDarkMode={isDarkMode} />
       <Mosaic isDarkMode={isDarkMode} />
       {/*------Footer start--  */}
-      <Bottom >
-        {/* <FooterCTA /> */}
+      <Bottom>
+        <FooterCTA />
       </Bottom>
       {/* ---------footer end-- */}
       <Butterfly />

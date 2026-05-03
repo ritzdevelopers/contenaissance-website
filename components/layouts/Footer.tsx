@@ -1,9 +1,9 @@
-
 "use client";
 /// <reference types="react" />
-import React from 'react';
-import { ArrowUp } from 'lucide-react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import React from "react";
+import Link from "next/link";
+import { ArrowUp } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 interface FooterProps {
   isDarkMode: boolean;
@@ -11,7 +11,7 @@ interface FooterProps {
   navigateTo?: (page: 'home' | 'portfolio' | 'services' | 'contact') => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ isDarkMode, currentPage, navigateTo }) => {
+const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -30,10 +30,36 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, currentPage, navigateTo }) 
 
   const ringRadius = 23;
 
+  const muted = isDarkMode ? "text-white/60 hover:text-white" : "text-zinc-600 hover:text-zinc-900";
+
   return (
     <>
-      <footer className="bg-zinc-950 pt-5 " />
-      <div className="fixed bottom-5 right-5 z-300">
+      <footer
+        className={`relative z-10 border-t pt-12 pb-28 sm:pb-12 ${
+          isDarkMode ? "border-white/10 bg-zinc-950 text-white" : "border-zinc-200 bg-white text-zinc-900"
+        }`}
+      >
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+            <Link href="/" className={`transition-colors ${muted}`}>
+              Home
+            </Link>
+            <Link href="/portfolio" className={`transition-colors ${muted}`}>
+              Portfolio
+            </Link>
+            <Link href="/services" className={`transition-colors ${muted}`}>
+              Services
+            </Link>
+            <Link href="/contact" className={`transition-colors ${muted}`}>
+              Contact
+            </Link>
+          </nav>
+          <p className={`text-xs sm:text-right ${isDarkMode ? "text-white/40" : "text-zinc-500"}`}>
+            © {new Date().getFullYear()} Contenaissance. All rights reserved.
+          </p>
+        </div>
+      </footer>
+      <div className="fixed bottom-5 right-5 z-[300]">
         <motion.button
           onClick={scrollToTop}
           whileHover={{ scale: 1.1, y: -6 }}
