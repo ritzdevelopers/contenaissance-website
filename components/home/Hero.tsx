@@ -33,7 +33,7 @@ export default function Hero() {
         <source src="/assets/Video/light.mp4" type="video/mp4" />
       </video> */}
       <img
-        src={getAssetUrl("assets/image/flower.png")}
+        src={getAssetUrl("assets/image/home.png")}
         alt="Hero Image"
         className="absolute inset-0 w-full h-full object-cover will-change-transform bg-zinc-950"
       />

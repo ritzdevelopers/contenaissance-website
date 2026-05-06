@@ -50,7 +50,7 @@ export default function Bottom({ children }: { children?: React.ReactNode }) {
             <div className="relative  w-full flex justify-center items-end">
                 <img
                     ref={imageRef}
-                    src={getAssetUrl("assets/image/Group.png")}
+                    src={getAssetUrl("assets/image/footer.png")}
                     alt="Footer Image"
                     className="w-full object-contain"
                 />
