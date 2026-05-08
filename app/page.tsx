@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Butterfly from "@/components/Butterfly";
+// import Butterfly from "@/components/Butterfly";
 import Hero from "@/components/home/Hero";
 import StorySections from "@/components/home/StorySections";
 import ParticlesBg from "@/components/ParticlesBg";
@@ -57,11 +57,11 @@ export default function Page() {
       <ThreeDSection isDarkMode={isDarkMode} />
       <Expert isDarkMode={isDarkMode} />
       <Mosaic isDarkMode={isDarkMode} />
-      <Butterfly />
+      {/* <Butterfly /> */}
       <PageAnimations />
-      
+
       {/* <Contact isDarkMode={isDarkMode} /> */}
-      
+
     </main>
 
   );

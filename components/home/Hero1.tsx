@@ -48,7 +48,7 @@ const Hero1: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
           className={`site-parallax-layer w-full h-full max-w-full object-cover transition-opacity duration-2000 ${isDarkMode ? 'opacity-70' : 'opacity-40'}`}
         >
           <source src={backgroundVideoUrl} type="video/mp4" />
-        {/* @ts-ignore - JSX video element is correctly supported */}
+          {/* @ts-ignore - JSX video element is correctly supported */}
         </video>
 
         <div className={`absolute inset-0 ${isDarkMode
@@ -75,7 +75,7 @@ const Hero1: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
               {/* @ts-ignore - JSX span element is correctly supported */}
               <span className="text-[9px] md:text-[11px] font-bold tracking-[0.2em] uppercase font-sora text-white/70  [word-spacing:0.7em]">
                 Ritz Gen AI Storytelling Studio
-              {/* @ts-ignore - JSX span element is correctly supported */}
+                {/* @ts-ignore - JSX span element is correctly supported */}
               </span>
             </motion.div>
 
@@ -141,7 +141,7 @@ const Hero1: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
                   />
                 </motion.div>
               </div>
-            {/* @ts-ignore - JSX span closing element */}
+              {/* @ts-ignore - JSX span closing element */}
             </span>
           </motion.div>
         </div>
