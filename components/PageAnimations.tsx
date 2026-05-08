@@ -419,12 +419,34 @@ export default function PageAnimations() {
 
                 // tl.to(bird, { scaleX: 1.10, duration: 0.01 }, "<");
 
+                // Land on footer logo — calculate offset dynamically
                 tl.to(".butterfly", {
-                    x: 120,
-                    y: window.innerHeight - 600,
-                    scale: 1,
+                    x: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return 120;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterX = logoRect.left + logoRect.width / 2;
+                        const bfCenterX = bfRect.left + bfRect.width / 2;
+                        const currentX = Number(gsap.getProperty(bf, "x")) || 0;
+                        return currentX + (logoCenterX - bfCenterX);
+                    },
+                    y: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return window.innerHeight - 600;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterY = logoRect.top + logoRect.height / 2;
+                        const bfCenterY = bfRect.top + bfRect.height / 2;
+                        const currentY = Number(gsap.getProperty(bf, "y")) || 0;
+                        return currentY + (logoCenterY - bfCenterY);
+                    },
+                    scale: 0.6,
                     duration: 3.5,
-                    ease: "power2.out"
+                    ease: "power2.out",
+                    invalidateOnRefresh: true,
                 });
             });
 
@@ -526,12 +548,34 @@ export default function PageAnimations() {
 
                 tl.to([".butterfly-primary", ".butterfly-footer"], { scaleX: 1, duration: 0.01 }, "<");
 
+                // Land on footer logo — calculate offset dynamically
                 tl.to(".butterfly", {
-                    x: finalX,
-                    y: finalY,
-                    scale: 1,
+                    x: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return finalX;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterX = logoRect.left + logoRect.width / 2;
+                        const bfCenterX = bfRect.left + bfRect.width / 2;
+                        const currentX = Number(gsap.getProperty(bf, "x")) || 0;
+                        return currentX + (logoCenterX - bfCenterX);
+                    },
+                    y: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return finalY;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterY = logoRect.top + logoRect.height / 2;
+                        const bfCenterY = bfRect.top + bfRect.height / 2;
+                        const currentY = Number(gsap.getProperty(bf, "y")) || 0;
+                        return currentY + (logoCenterY - bfCenterY);
+                    },
+                    scale: 0.6,
                     duration: 3.5,
-                    ease: "power2.out"
+                    ease: "power2.out",
+                    invalidateOnRefresh: true,
                 });
             });
 

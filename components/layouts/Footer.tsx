@@ -65,6 +65,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
                 </div>
                 <div className="absolute left-[70%] md:left-[75%] lg:left-[70%] top-1/2 -translate-y-1/2 flex items-center justify-center">
                   <img
+                    id="footer-logo"
                     src={brandLogoUrl}
                     alt="Contenaissance"
                     className="h-auto w-[min(22vw,130px)] object-contain"
