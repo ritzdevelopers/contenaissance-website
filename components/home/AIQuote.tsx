@@ -1,17 +1,15 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { getAssetUrl } from '@/lib/assetUrl';
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import FooterWave from "@/components/layouts/FooterWave";
 
 interface AIQuoteProps {
     isDarkMode: boolean;
 }
 
 const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
-    const arialFont = { fontFamily: 'Arial, sans-serif' };
-
-    const timelineImageUrl = getAssetUrl("assets/image/aiQuote.png");
-
-    const slideCopies = 8;
+    const arialFont = { fontFamily: "Arial, sans-serif" };
 
     return (
         <section className="pt-0 pb-2 md:pb-2 px-0 relative flex flex-col items-center justify-center transition-colors duration-700 bg-zinc-950">
@@ -57,87 +55,17 @@ const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
                 </motion.div>
             </div>
 
-            {/* Infinite slider — CSS animation on mobile, Framer on desktop */}
-            <div className="w-full relative overflow-hidden py-4">
-
-                {/*
-                    Mobile: pure CSS animation — no JS, no RAF, no Framer overhead
-                    Desktop: Framer motion (same as before)
-                    Design identical on both
-                */}
-
-                {/* ── MOBILE: CSS only ── */}
-                <div className="flex flex-nowrap w-max md:hidden slider-track">
-                    <div className="flex flex-nowrap shrink-0">
-                        {Array.from({ length: slideCopies }).map((_, i) => (
-                            <img
-                                key={`ma-${i}`}
-                                src={timelineImageUrl}
-                                alt=""
-                                loading="lazy"
-                                decoding="async"
-                                className="h-24 w-auto shrink-0 object-contain"
-                            />
-                        ))}
-                    </div>
-                    <div className="flex flex-nowrap shrink-0">
-                        {Array.from({ length: slideCopies }).map((_, i) => (
-                            <img
-                                key={`mb-${i}`}
-                                src={timelineImageUrl}
-                                alt=""
-                                loading="lazy"
-                                decoding="async"
-                                className="h-24 w-auto shrink-0 object-contain"
-                            />
-                        ))}
-                    </div>
+            {/* Same canvas wave as footer — replaces timeline image strip */}
+            <div className="relative w-full overflow-hidden mt-2 md:mt-4 px-0">
+                <div className="relative w-full overflow-hidden h-[180px] md:h-[260px]">
+                    <FooterWave
+                        className="absolute inset-0 w-full h-full"
+                        lineCount={90}
+                        speed={0.55}
+                        lineColor="255,255,255"
+                    />
                 </div>
-
-                {/* ── DESKTOP: Framer motion (original) ── */}
-                <motion.div
-                    className="hidden md:flex flex-nowrap w-max"
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{
-                        duration: 120,
-                        repeat: Infinity,
-                        ease: "linear",
-                        repeatType: "loop",
-                    }}
-                >
-                    <div className="flex flex-nowrap shrink-0">
-                        {Array.from({ length: slideCopies }).map((_, i) => (
-                            <img
-                                key={`a-${i}`}
-                                src={timelineImageUrl}
-                                alt=""
-                                className="h-40 lg:h-56 w-auto shrink-0 object-contain"
-                            />
-                        ))}
-                    </div>
-                    <div className="flex flex-nowrap shrink-0">
-                        {Array.from({ length: slideCopies }).map((_, i) => (
-                            <img
-                                key={`b-${i}`}
-                                src={timelineImageUrl}
-                                alt=""
-                                className="h-40 lg:h-56 w-auto shrink-0 object-contain"
-                            />
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Edge faders */}
-                <div className="absolute inset-y-0 left-0 w-32 md:w-80 bg-gradient-to-r from-zinc-950 via-zinc-950/60 to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-32 md:w-80 bg-gradient-to-l from-zinc-950 via-zinc-950/60 to-transparent z-10 pointer-events-none" />
             </div>
-
-            <motion.div
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true }}
-                className=""
-            />
         </section>
     );
 };

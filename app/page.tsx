@@ -18,8 +18,6 @@ import Services from "@/components/home/Services";
 import ThreeDSection from "@/components/home/ThreeDSection";
 import Expert from "@/components/home/Expert";
 import Mosaic from "@/components/home/Mosaic";
-import Bottom from "@/components/home/Bottom";
-import FooterCTA from "@/components/layouts/FooterCTA";
 
 export default function Page() {
 
@@ -59,11 +57,6 @@ export default function Page() {
       <ThreeDSection isDarkMode={isDarkMode} />
       <Expert isDarkMode={isDarkMode} />
       <Mosaic isDarkMode={isDarkMode} />
-      {/*------Footer start--  */}
-      <Bottom>
-        <FooterCTA />
-      </Bottom>
-      {/* ---------footer end-- */}
       <Butterfly />
       <PageAnimations />
       

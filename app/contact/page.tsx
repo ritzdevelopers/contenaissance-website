@@ -1,6 +1,4 @@
-import Bottom from "@/components/home/Bottom";
 import Contact from "@/components/layouts/Contact";
-import FooterCTA from "@/components/layouts/FooterCTA";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function ContactPage() {
@@ -11,11 +9,6 @@ export default function ContactPage() {
       <section >
         <Contact isDarkMode={isDarkMode} />
       </section>
-      <div className="mt-[1vh] md:mt-[2vh] bg-zinc-950">
-        <Bottom >
-          <FooterCTA />
-        </Bottom>
-      </div>
     </main>
   )
 }

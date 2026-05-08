@@ -45,7 +45,7 @@ const Hero1: React.FC<HeroProps> = ({ isDarkMode, navigateTo }) => {
           loop
           playsInline
           preload='none'
-          className={`w-full h-full max-w-full object-cover transition-opacity duration-2000 ${isDarkMode ? 'opacity-70' : 'opacity-40'}`}
+          className={`site-parallax-layer w-full h-full max-w-full object-cover transition-opacity duration-2000 ${isDarkMode ? 'opacity-70' : 'opacity-40'}`}
         >
           <source src={backgroundVideoUrl} type="video/mp4" />
         {/* @ts-ignore - JSX video element is correctly supported */}

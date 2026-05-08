@@ -539,8 +539,9 @@ export default function PageAnimations() {
 
             mm.add("(min-width: 768px)", () => {
 
+                gsap.set(".butterfly", { zIndex: 30 })
                 gsap.to(".butterfly", {
-                    zIndex: 0,
+                    zIndex: 30,
                     scrollTrigger: {
                         trigger: ".bottom-section",
                         start: "top top",
@@ -553,8 +554,9 @@ export default function PageAnimations() {
             /* ── MOBILE ── */
             mm.add("(max-width: 767px)", () => {
 
+                gsap.set(".butterfly", { zIndex: 30 })
                 gsap.to(".butterfly", {
-                    zIndex: 0,
+                    zIndex: 30,
                     scrollTrigger: {
                         trigger: ".bottom-section",
                         start: "top top",

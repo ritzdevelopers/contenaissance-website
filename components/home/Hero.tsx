@@ -33,9 +33,9 @@ export default function Hero() {
         <source src="/assets/Video/light.mp4" type="video/mp4" />
       </video> */}
       <img
-        src={getAssetUrl("assets/image/home.png")}
+        src={getAssetUrl("assets/image/home2.png")}
         alt="Hero Image"
-        className="absolute inset-0 w-full h-full object-cover will-change-transform bg-zinc-950"
+        className="site-parallax-layer absolute inset-0 w-full h-full object-cover will-change-transform bg-zinc-950 scale-110"
       />
       <div className="absolute inset-0 pointer-events-none 
 bg-gradient-to-t 

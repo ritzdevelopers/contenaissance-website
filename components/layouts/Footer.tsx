@@ -3,7 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useInView, useScroll, useSpring } from "framer-motion";
+import { useRef } from "react";
+import FooterWave from "./FooterWave";
 
 interface FooterProps {
   isDarkMode: boolean;
@@ -29,34 +31,125 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
   };
 
   const ringRadius = 23;
-
-  const muted = isDarkMode ? "text-white/60 hover:text-white" : "text-zinc-600 hover:text-zinc-900";
+  const brandWord = "CONTENAISSANCE";
+  const brandRef = useRef<HTMLHeadingElement>(null);
+  const brandInView = useInView(brandRef, { once: false, amount: 0.25 });
+  const linkColor = isDarkMode ? "text-white/78 hover:text-white" : "text-zinc-700 hover:text-zinc-950";
+  const footerBg = isDarkMode ? "bg-zinc-950 text-white" : "bg-zinc-100 text-zinc-950";
+  const optimaStyle = { fontFamily: "Optima, Segoe UI, Candara, Noto Sans, sans-serif" };
 
   return (
     <>
-      <footer
-        className={`relative z-10 border-t pt-12 pb-28 sm:pb-12 ${
-          isDarkMode ? "border-white/10 bg-zinc-950 text-white" : "border-zinc-200 bg-white text-zinc-900"
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-            <Link href="/" className={`transition-colors ${muted}`}>
-              Home
-            </Link>
-            <Link href="/portfolio" className={`transition-colors ${muted}`}>
-              Portfolio
-            </Link>
-            <Link href="/services" className={`transition-colors ${muted}`}>
-              Services
-            </Link>
-            <Link href="/contact" className={`transition-colors ${muted}`}>
-              Contact
-            </Link>
-          </nav>
-          <p className={`text-xs sm:text-right ${isDarkMode ? "text-white/40" : "text-zinc-500"}`}>
-            © {new Date().getFullYear()} Contenaissance. All rights reserved.
-          </p>
+      <footer className={`relative z-10  pt-10 rgba(17, 17, 19, 0.90)`}>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 opacity-30 bg-rgba(17, 17, 19, 0.90)" />
+
+        <div className="mx-auto">
+          <div className="relative overflow-hidden rounded-t-[120px] rounded-b-none bg-[#2d2c2c] min-h-[520px] md:h-[559px] px-5 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12">
+            {/* Top inward curve/notch */}
+
+            {/* Animated wave background */}
+            <FooterWave className="z-0" />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,rgba(17,17,19,0)_0%,rgba(17,17,19,0.55)_70%,rgba(17,17,19,0.95)_100%)]"
+            />
+
+            <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+              <div
+                style={optimaStyle}
+                className="grid grid-cols-2 gap-x-9 gap-y-3 text-[18px] font-[550] leading-normal"
+              >
+                <Link href="/" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Home</Link>
+                <Link href="/portfolio" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Portfolio</Link>
+                <Link href="/services" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Services</Link>
+                <Link href="/contact" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Contact</Link>
+              </div>
+
+              <div className="w-full max-w-xl">
+                <p
+                  style={optimaStyle}
+                  className="mb-3 text-[18px] leading-normal font-normal text-white"
+                >
+                  Still have a questions
+                </p>
+                <form
+                  className="flex w-full items-center gap-2"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="h-[42px] w-full flex-1 rounded-[50px] border border-white bg-white px-5 text-[14px] font-normal leading-normal text-black/80 outline-none transition placeholder:font-sora placeholder:text-[14px] placeholder:font-normal placeholder:leading-normal placeholder:text-black/40 focus:border-[#AE8C20] focus:ring-2 focus:ring-[#AE8C20]/25"
+                  />
+                  <button
+                    type="submit"
+                    className="flex h-[42px] shrink-0 items-center justify-center gap-2 rounded-[50px] border border-[#AE8C20] bg-[#AE8C20] px-[34px] font-sora text-[15px] font-normal leading-none text-white transition hover:bg-[#c19a26]"
+                  >
+                    Send Us
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div className="relative z-10 mt-8 overflow-hidden">
+              <motion.h2
+                ref={brandRef}
+                style={optimaStyle}
+                className="flex w-full justify-center text-center flex-wrap items-end gap-y-1 text-[clamp(3rem,9.8vw,140px)] font-bold leading-normal tracking-[0.01em] text-white uppercase"
+                initial={false}
+                animate={brandInView ? "show" : "hidden"}
+                variants={{
+                  hidden: {},
+                  show: {
+                    transition: {
+                      staggerChildren: 0.12,
+                      delayChildren: 0.12,
+                    },
+                  },
+                }}
+              >
+                {brandWord.split("").map((char, idx) => (
+                  <motion.span
+                    key={`${char}-${idx}`}
+                    variants={{
+                      hidden: { y: 160, opacity: 0, filter: "blur(7px)", scale: 0.82, rotateZ: 2.2 },
+                      show: { y: 0, opacity: 1, filter: "blur(0px)", scale: 1, rotateZ: 0 },
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 120,
+                      damping: 24,
+                      mass: 1.05,
+                    }}
+                    className="inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.h2>
+            </div>
+
+            <div className="relative z-10 mt-6 flex flex-col gap-3 border-t border-white/10 pt-4 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
+              <p className="font-sora text-[14px] font-light leading-normal text-white">
+                © {new Date().getFullYear()} Contenaissance. All rights reserved.
+              </p>
+              <div className="flex flex-wrap items-center gap-4 font-sora text-[14px] font-light leading-normal text-white">
+                <Link href="#" className="transition hover:opacity-80">Privacy Policy</Link>
+                <Link href="#" className="transition hover:opacity-80">Cookies Policy</Link>
+                <span>
+                  Website by{" "}
+                  <a
+                    href="https://ritzmediaworld.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ritzmediaworld-link relative inline-block transition-opacity duration-200 hover:opacity-90"
+                  >
+                    ritzmediaworld
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
       <div className="fixed bottom-5 right-5 z-[300]">
