@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
-import { Home, Clapperboard, Film, Mail, X, Globe, ChevronDown } from "lucide-react";
+import { X, Globe, ChevronDown } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { GoArrowUpRight } from "react-icons/go";
 import { getAssetUrl } from "@/lib/assetUrl";
@@ -30,13 +30,6 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
     { key: "portfolio", path: "/portfolio", label: "Portfolio" },
     { key: "contact", path: "/contact", label: "Contact" },
   ];
-
-  const navIcons: any = {
-    home: <Home size={16} className="opacity-80" />,
-    "services-page": <Clapperboard size={16} className="opacity-80" />,
-    portfolio: <Film size={16} className="opacity-80" />,
-    contact: <Mail size={16} className="opacity-80" />,
-  };
 
   const handleExpertiseVideoEnter = () => {
     const video = expertiseVideoRef.current;
@@ -157,7 +150,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[490] hidden lg:block"
+              className="fixed inset-0 z-[490] bg-black/60 backdrop-blur-sm"
             />
 
             {/* FULL WIDTH TOP SLIDE — shop shutter */}
@@ -168,7 +161,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                 duration: 1.6,
                 ease: [0.65, 0, 0.35, 1],
               }}
-              className="fixed top-0 left-0 w-full h-full z-[500] hidden lg:block bg-linear-to-b from-[#0b0f1a] to-black overflow-hidden"
+              className="fixed top-0 left-0 z-[500] h-full w-full overflow-y-auto bg-linear-to-b from-[#0b0f1a] to-black"
             >
               <motion.div
                 initial={{ opacity: 0 }}
@@ -178,15 +171,15 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                   delay: 0.5,
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
-                className="w-full h-full flex flex-col"
+                className="flex min-h-screen w-full flex-col"
               >
-                <div className="mx-auto flex h-full w-full max-w-[1320px] items-start justify-center px-6 py-6 md:px-10 md:py-8">
+                <div className="mx-auto flex w-full max-w-[1320px] items-start justify-center px-4 py-4 sm:px-6 sm:py-6 md:px-10 md:py-8">
                   <div className="relative w-full">
                     <button
                       onClick={() => setMobileOpen(false)}
-                      className="absolute -right-15 top-2 z-20 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/55 transition-colors hover:bg-white/10 hover:text-[#ab8922]"
+                      className="absolute right-1 top-1 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-[#ab8922] sm:right-2 sm:top-2 sm:h-12 sm:w-12 md:-right-15 md:top-2 md:h-14 md:w-14 md:-translate-y-1/2 md:text-white/55"
                     >
-                      <X size={22} />
+                      <X size={20} />
                     </button>
                     <motion.section
                       initial={{ y: 24, opacity: 0 }}
@@ -194,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                       className="relative w-full overflow-hidden rounded-[24px] border border-white/12 bg-[linear-gradient(180deg,#171717_0%,#111111_100%)] text-white shadow-[0_30px_90px_rgba(0,0,0,0.55)]"
                     >
-                    <div className="flex items-center justify-between border-b border-white/10 px-6 py-5 md:px-8">
+                    <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 sm:px-6 sm:py-5 md:px-8">
                       <button
                         onClick={() => (window.location.href = "/")}
                         className="group flex cursor-pointer items-center gap-4"
@@ -205,12 +198,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                       {/* <p className="text-[32px] font-normal text-white/45">Stories, Engineered.</p> */}
                     </div>
 
-                    <div className="grid grid-cols-[250px_1fr]">
-                      <div className="border-r border-white/10 p-5 md:p-7">
+                    <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[180px_1fr] md:grid-cols-[220px_1fr] lg:grid-cols-[250px_1fr]">
+                      <div className="border-r border-white/10 p-3 sm:p-5 md:p-7">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
                           Company
                         </p>
-                        <div className="mt-9 space-y-2.5">
+                        <div className="mt-4 space-y-1.5 sm:mt-6 sm:space-y-2 lg:mt-9 lg:space-y-2.5">
                           {navItems.map((item) => (
                             <button
                               key={item.key}
@@ -218,7 +211,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                                 router.push(item.path);
                                 setMobileOpen(false);
                               }}
-                              className={`block cursor-pointer border-0 bg-transparent p-0 text-left text-[48px] font-semibold leading-[0.98] tracking-[-0.02em] transition-colors duration-200 ${currentPath === item.path ? "text-[#ab8922]" : "text-white/90 hover:text-white"
+                              className={`block cursor-pointer border-0 bg-transparent p-0 text-left text-[24px] font-semibold leading-[1] tracking-[-0.02em] transition-colors duration-200 sm:text-[30px] md:text-[38px] lg:text-[48px] ${currentPath === item.path ? "text-[#ab8922]" : "text-white/90 hover:text-white"
                                 }`}
                             >
                               {item.label}
@@ -227,16 +220,16 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                         </div>
 
                         <button
-                          className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/5 px-5 py-3 text-[18px] text-white/80 shadow-sm transition-colors hover:bg-white/10"
+                          className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-3 py-2 text-[12px] text-white/80 shadow-sm transition-colors hover:bg-white/10 sm:mt-7 sm:gap-3 sm:px-4 sm:py-2.5 sm:text-[14px] md:mt-10 md:px-5 md:py-3 md:text-[18px]"
                           type="button"
                         >
-                          <Globe size={20} />
+                          <Globe size={16} />
                           English
-                          <ChevronDown size={18} />
+                          <ChevronDown size={14} />
                         </button>
                       </div>
 
-                      <div className="p-5 md:p-7">
+                      <div className="p-3 sm:p-5 md:p-7">
                         <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
                           Expertise
                         </p>
@@ -259,11 +252,11 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
                             onMouseLeave={handleExpertiseVideoLeave}
                             onFocus={handleExpertiseVideoEnter}
                             onBlur={handleExpertiseVideoLeave}
-                            className="h-[350px] w-full rounded-[14px] object-cover"
+                            className="h-[190px] w-full rounded-[14px] object-cover sm:h-[230px] md:h-[300px] lg:h-[350px]"
                           />
                         </motion.div>
 
-                        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-4 text-[13px] uppercase tracking-[0.08em] text-white/70">
+                        <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-white/10 pt-4 text-[11px] uppercase tracking-[0.08em] text-white/70 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-[13px]">
                           {[
                             { name: "LinkedIn", url: "https://www.linkedin.com/company/contenaissance/" },
                             { name: "Instagram", url: "https://www.instagram.com/contenaissance/" },
@@ -290,79 +283,6 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode }) => {
               </motion.div>
             </motion.div>
           </>,
-          document.body
-        )}
-
-      {/* MOBILE MENU */}
-      {mobileOpen &&
-        createPortal(
-          <motion.div
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1.6, ease: [0.65, 0, 0.35, 1] }}
-            className="fixed inset-0 z-[500] lg:hidden bg-[#05070d] overflow-y-auto"
-          >
-            <div className="relative flex min-h-screen flex-col px-5 pb-10 pt-5 sm:px-8 sm:pt-6 md:px-12">
-              {/* Top Bar */}
-              <div className="flex items-center justify-between">
-                <img src={logoUrl} alt="Logo" className="h-10 object-contain sm:h-12" />
-
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white sm:h-12 sm:w-12"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Center Content */}
-              <div className="flex-1 flex flex-col justify-center items-center">
-                <div className="my-5 text-[11px] uppercase tracking-[0.4em] text-white/40 sm:my-6">
-                  Navigate
-                </div>
-
-                <div className="w-full max-w-[680px] space-y-4">
-                  {navItems.map((item, idx) => (
-                    <motion.button
-                      key={item.key}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.08 * idx }}
-                      onClick={() => {
-                        router.push(item.path);
-                        setMobileOpen(false);
-                      }}
-                      className="flex w-full cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-white/3 px-5 py-4 text-[12px] uppercase tracking-[0.28em] text-white backdrop-blur-xl sm:px-6 sm:text-[13px] md:py-5 md:text-[14px]"
-                    >
-                      <div className="flex items-center gap-4">
-                        {navIcons[item.key]}
-                        {item.label}
-                      </div>
-                      <div className="h-px w-10 bg-white/20" />
-                    </motion.button>
-                  ))}
-
-                  {/* CONTACT BUTTON */}
-                  <button
-                    onClick={() => {
-                      router.push("/contact");
-                      setMobileOpen(false);
-                    }}
-                    className="mt-6 w-full rounded-full bg-white py-3 text-[12px] font-bold uppercase tracking-[0.32em] text-black sm:text-[13px]"
-                  >
-                    Get In Touch
-                  </button>
-                </div>
-              </div>
-
-              {/* Bottom Tagline */}
-              <div className="mt-12 text-center">
-                <p className="text-[10px] tracking-[0.35em] uppercase text-white/30">
-                  Ritz Gen AI Storytelling Studios
-                </p>
-              </div>
-            </div>
-          </motion.div>,
           document.body
         )}
     </motion.header>
