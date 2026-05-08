@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-32 opacity-30 bg-rgba(17, 17, 19, 0.90)" />
 
         <div className="mx-auto">
-          <div className="relative overflow-hidden rounded-t-[120px] rounded-b-none bg-[#2d2c2c] min-h-[520px] md:h-[559px] px-5 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12">
+          <div className="relative overflow-hidden rounded-t-[120px] rounded-b-none bg-[#2d2c2c]  px-5 py-8 sm:px-10 sm:py-10 md:px-14 md:pt-12 md:pb-7">
             {/* Top inward curve/notch */}
 
             {/* Animated wave background */}
@@ -129,7 +129,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
               </motion.h2>
             </div>
 
-            <div className="relative z-10 mt-6 flex flex-col gap-3 border-t border-white/10 pt-4 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative z-10 mt-4 flex flex-col gap-2 border-t border-white/10 pt-3 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-sora text-[14px] font-light leading-normal text-white">
                 © {new Date().getFullYear()} Contenaissance. All rights reserved.
               </p>

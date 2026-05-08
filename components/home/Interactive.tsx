@@ -236,18 +236,18 @@ export default function Interactive({ isDarkMode }: InteractiveProps) {
                         /> */}
 
                         {/* MID CLOUD */}
-                        <img
+                        {/* <img
                             src={getAssetUrl("assets/image/cloud.png")}
                             className="absolute top-50 left-[-20%]  opacity-45"
                             id="cloud-2"
-                        />
+                        /> */}
 
                         {/* FRONT CLOUD (faster) */}
-                        <img
+                        {/* <img
                             src={getAssetUrl("assets/image/cloud.png")}
                             className="absolute top-50 left-[-10%]  opacity-60"
                             id="cloud-3"
-                        />
+                        /> */}
 
                     </div>
                     <div className="flex flex-row sm:flex-row gap-4 sm:gap-6 items-center sm:items-center md:justify-end px-0 md:px-0 ">

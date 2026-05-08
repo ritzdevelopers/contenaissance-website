@@ -137,9 +137,9 @@ export default function Loader({
         tl.to(
             zoom,
             {
-                scale: 13,
+                scale: 11.5,
                 opacity: 0,
-                duration: 1.38,
+                duration: 0.78,
                 ease: "power2.inOut",
             },
             0
@@ -149,7 +149,7 @@ export default function Loader({
             backdrop,
             {
                 opacity: 0,
-                duration: 1.12,
+                duration: 0.64,
                 ease: "power2.inOut",
             },
             0
@@ -162,9 +162,9 @@ export default function Loader({
         let target = START_PCT
         let smooth = START_PCT
 
-        const PRELOAD_CAP = 91
-        const RATE_PRELOAD_PCT_PER_SEC = 6.2
-        const RATE_FINISH_PCT_PER_SEC = 14
+        const PRELOAD_CAP = 93
+        const RATE_PRELOAD_PCT_PER_SEC = 8.4
+        const RATE_FINISH_PCT_PER_SEC = 18
 
         const loop = (now: number) => {
             if (!mounted || exitingRef.current) return
@@ -185,7 +185,7 @@ export default function Loader({
                 )
             }
 
-            const alpha = 1 - Math.exp(-5.8 * dt)
+            const alpha = 1 - Math.exp(-16.5 * dt)
             smooth += (target - smooth) * alpha
 
             setPhase((ph) => ph + 0.0036 * (dt * 60))

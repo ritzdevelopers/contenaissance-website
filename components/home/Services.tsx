@@ -184,7 +184,7 @@ const Services: React.FC<ServicesProps> = ({
       <section
         id="services"
         ref={sectionRef}
-        className={`relative overflow-hidden min-h-screen  z-21
+        className={`relative overflow-hidden min-h-screen z-40
           ${isFullPage ? "pt-32 md:pt-48 lg:pt-56" : "-mt-6 py-12 md:py-16"} 
           px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 
           max-w-400 mx-auto`}
@@ -225,7 +225,7 @@ const Services: React.FC<ServicesProps> = ({
         </div>
 
         {/* Cards */}
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-10  font-sora items-stretch ">
+        <div className="relative z-50 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-10 font-sora items-stretch">
           {allServices.map((service, index) => (
             <ServiceCard
               key={service.id}
