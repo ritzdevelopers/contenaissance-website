@@ -211,6 +211,14 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!activeVideo) return;
+    document.body.classList.add("force-native-cursor");
+    return () => {
+      document.body.classList.remove("force-native-cursor");
+    };
+  }, [activeVideo]);
+
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
 
@@ -325,6 +333,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-999999 bg-black/80 backdrop-blur-sm flex items-center justify-center px-6 py-10"
+            data-native-cursor
             onClick={() => setActiveVideo(null)}
           >
             <motion.div

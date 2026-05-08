@@ -6,6 +6,7 @@ import { ArrowUp } from "lucide-react";
 import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 import FooterWave from "./FooterWave";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 interface FooterProps {
   isDarkMode: boolean;
@@ -31,9 +32,9 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
   };
 
   const ringRadius = 23;
-  const brandWord = "CONTENAISSANCE";
-  const brandRef = useRef<HTMLHeadingElement>(null);
+  const brandRef = useRef<HTMLDivElement>(null);
   const brandInView = useInView(brandRef, { once: false, amount: 0.25 });
+  const brandLogoUrl = getAssetUrl("assets/image/logo.png");
   const linkColor = isDarkMode ? "text-white/78 hover:text-white" : "text-zinc-700 hover:text-zinc-950";
   const footerBg = isDarkMode ? "bg-zinc-950 text-white" : "bg-zinc-100 text-zinc-950";
   const optimaStyle = { fontFamily: "Optima, Segoe UI, Candara, Noto Sans, sans-serif" };
@@ -92,44 +93,22 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
             </div>
 
             <div className="relative z-10 mt-8 overflow-hidden">
-              <motion.h2
+              <motion.div
                 ref={brandRef}
-                style={optimaStyle}
-                className="flex w-full justify-center text-center flex-wrap items-end gap-y-1 text-[clamp(3rem,9.8vw,140px)] font-bold leading-normal tracking-[0.01em] text-white uppercase"
+                className="flex w-full justify-center py-3 md:py-5"
                 initial={false}
-                animate={brandInView ? "show" : "hidden"}
-                variants={{
-                  hidden: {},
-                  show: {
-                    transition: {
-                      staggerChildren: 0.12,
-                      delayChildren: 0.12,
-                    },
-                  },
-                }}
+                animate={brandInView ? { opacity: 1, y: 0 } : { opacity: 0.7, y: 8 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
-                {brandWord.split("").map((char, idx) => (
-                  <motion.span
-                    key={`${char}-${idx}`}
-                    variants={{
-                      hidden: { y: 160, opacity: 0, filter: "blur(7px)", scale: 0.82, rotateZ: 2.2 },
-                      show: { y: 0, opacity: 1, filter: "blur(0px)", scale: 1, rotateZ: 0 },
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 120,
-                      damping: 24,
-                      mass: 1.05,
-                    }}
-                    className="inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </motion.h2>
+                <img
+                  src={brandLogoUrl}
+                  alt="Contenaissance"
+                  className="h-auto w-[min(26vw,170px)] object-contain"
+                />
+              </motion.div>
             </div>
 
-            <div className="relative z-10 mt-4 flex flex-col gap-2 border-t border-white/10 pt-3 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative z-10 mt-4 flex flex-col gap-2 border-t border-white/10 pt-8 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-sora text-[14px] font-light leading-normal text-white">
                 © {new Date().getFullYear()} Contenaissance. All rights reserved.
               </p>

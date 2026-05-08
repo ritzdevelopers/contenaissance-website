@@ -53,8 +53,38 @@ body.has-animated-cursor summary {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 999999;
+  z-index: 2147483647;
   transform: translate(-50%, -50%);
+}
+
+/* Allow native pointer inside fullscreen popups/modals when needed. */
+body.has-animated-cursor [data-native-cursor],
+body.has-animated-cursor [data-native-cursor] * {
+  cursor: auto !important;
+}
+
+body.has-animated-cursor [data-native-cursor] button,
+body.has-animated-cursor [data-native-cursor] [role="button"],
+body.has-animated-cursor [data-native-cursor] a {
+  cursor: pointer !important;
+}
+
+/* Hard fallback: when overlays need guaranteed native cursor. */
+body.has-animated-cursor.force-native-cursor,
+body.has-animated-cursor.force-native-cursor * {
+  cursor: auto !important;
+}
+
+body.has-animated-cursor.force-native-cursor button,
+body.has-animated-cursor.force-native-cursor [role="button"],
+body.has-animated-cursor.force-native-cursor a {
+  cursor: pointer !important;
+}
+
+body.has-animated-cursor.force-native-cursor .custom-cursor-ring,
+body.has-animated-cursor.force-native-cursor .custom-cursor-dot,
+body.has-animated-cursor.force-native-cursor .custom-cursor-pulse {
+  opacity: 0 !important;
 }
 
 .custom-cursor-ring {

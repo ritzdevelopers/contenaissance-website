@@ -5,9 +5,14 @@ import gsap from "gsap"
 import Loader from "@/components/Loader"
 import AnimatedCursor from "@/components/AnimatedCursor"
 
+const LOADER_SESSION_KEY = "contenaissance-loader-dismissed"
+
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
     const [pageLoaded, setPageLoaded] = useState(false)
-    const [loaderDismissed, setLoaderDismissed] = useState(false)
+    const [loaderDismissed, setLoaderDismissed] = useState(() => {
+        if (typeof window === "undefined") return false
+        return window.sessionStorage.getItem(LOADER_SESSION_KEY) === "1"
+    })
     const contentRef = useRef<HTMLDivElement>(null)
     const rafRef = useRef<number | null>(null)
     const targetRef = useRef({ x: 0, y: 0 })
@@ -15,6 +20,11 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
 
     useEffect(() => {
         const handleLoad = () => setPageLoaded(true)
+
+        if (loaderDismissed) {
+            setPageLoaded(true)
+            return
+        }
 
         if (document.readyState === "complete") {
             setPageLoaded(true)
@@ -26,10 +36,26 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     }, [])
 
     useEffect(() => {
+        if (!loaderDismissed) return
+        window.sessionStorage.setItem(LOADER_SESSION_KEY, "1")
+    }, [loaderDismissed])
+
+    useEffect(() => {
         const el = contentRef.current
         if (!el) return
-        gsap.set(el, { opacity: 0 })
-    }, [])
+        gsap.set(el, { opacity: loaderDismissed ? 1 : 0 })
+    }, [loaderDismissed])
+
+    useEffect(() => {
+        if (!loaderDismissed) {
+            document.body.classList.add("overflow-hidden")
+            return () => {
+                document.body.classList.remove("overflow-hidden")
+            }
+        }
+
+        document.body.classList.remove("overflow-hidden")
+    }, [loaderDismissed])
 
     useEffect(() => {
         const STRENGTH = 18
