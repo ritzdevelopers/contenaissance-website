@@ -3,8 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
-import { motion, useInView, useScroll, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import FooterWave from "./FooterWave";
 import { getAssetUrl } from "@/lib/assetUrl";
 
@@ -32,8 +31,6 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
   };
 
   const ringRadius = 23;
-  const brandRef = useRef<HTMLDivElement>(null);
-  const brandInView = useInView(brandRef, { once: false, amount: 0.25 });
   const brandLogoUrl = getAssetUrl("assets/image/logo.png");
   const linkColor = isDarkMode ? "text-white/78 hover:text-white" : "text-zinc-700 hover:text-zinc-950";
   const footerBg = isDarkMode ? "bg-zinc-950 text-white" : "bg-zinc-100 text-zinc-950";
@@ -56,14 +53,23 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
             />
 
             <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-              <div
-                style={optimaStyle}
-                className="grid grid-cols-2 gap-x-9 gap-y-3 text-[18px] font-[550] leading-normal"
-              >
-                <Link href="/" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Home</Link>
-                <Link href="/portfolio" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Portfolio</Link>
-                <Link href="/services" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Services</Link>
-                <Link href="/contact" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Contact</Link>
+            <div className="relative flex items-center gap-8 md:gap-14 min-w-[420px]">
+                <div
+                  style={optimaStyle}
+                  className="grid grid-cols-2 gap-x-9 gap-y-3 text-[18px] font-[550] leading-normal"
+                >
+                  <Link href="/" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Home</Link>
+                  <Link href="/portfolio" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Portfolio</Link>
+                  <Link href="/services" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Services</Link>
+                  <Link href="/contact" className={`inline-flex items-center pr-[9px] pb-[6px] transition-colors ${linkColor}`}>Contact</Link>
+                </div>
+                <div className="absolute left-[70%] md:left-[75%] lg:left-[70%] top-1/2 -translate-y-1/2 flex items-center justify-center">
+                  <img
+                    src={brandLogoUrl}
+                    alt="Contenaissance"
+                    className="h-auto w-[min(22vw,130px)] object-contain"
+                  />
+                </div>
               </div>
 
               <div className="w-full max-w-xl">
@@ -90,22 +96,6 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
                   </button>
                 </form>
               </div>
-            </div>
-
-            <div className="relative z-10 mt-8 overflow-hidden">
-              <motion.div
-                ref={brandRef}
-                className="flex w-full justify-center py-3 md:py-5"
-                initial={false}
-                animate={brandInView ? { opacity: 1, y: 0 } : { opacity: 0.7, y: 8 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <img
-                  src={brandLogoUrl}
-                  alt="Contenaissance"
-                  className="h-auto w-[min(26vw,170px)] object-contain"
-                />
-              </motion.div>
             </div>
 
             <div className="relative z-10 mt-4 flex flex-col gap-2 border-t border-white/10 pt-8 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
