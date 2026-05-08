@@ -1,10 +1,11 @@
 
 "use client"
-
-import React, { useMemo, useRef, useState, useEffect } from 'react';
+/// <reference types="react" />
+import React, { useMemo, useRef, useState, useEffect, JSX } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import { X } from "lucide-react";
+import { getAssetUrl } from '@/lib/assetUrl';
 
 interface ReelsProps {
   isDarkMode: boolean;
@@ -79,27 +80,29 @@ const ReelCard: React.FC<{
       // className="relative h-[550px] aspect-[9/16] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 flex-shrink-0 transition-all cursor-pointer bg-zinc-900 group w-[calc(100vw-2rem)] sm:w-auto sm:max-w-[320px]"
       className="
                 relative
-                h-[420px] sm:h-[500px] md:h-[550px]
-                w-[220px] sm:w-[260px] md:w-[300px]
+                h-105 sm:h-125 md:h-137.5
+                w-55 sm:w-65 md:w-75
                 rounded-[1.2rem] sm:rounded-[1.8rem] md:rounded-[2.5rem]
                 overflow-hidden border border-white/10
-                flex-shrink-0 transition-all cursor-pointer
+                shrink-0 transition-all cursor-pointer
                 bg-zinc-900 group
                 "
     >
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-1000 group-hover:scale-110"
-      >
-        <source src={video} type="video/mp4" />
-      </video>
+        {/* @ts-ignore - JSX video element is correctly supported */}
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full max-w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        >
+          <source src={video} type="video/mp4" />
+        {/* @ts-ignore - JSX video element is correctly supported */}
+        </video>
 
       {/* Cinematic Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500" />
 
       {/* Content */}
       <div
@@ -124,7 +127,7 @@ const ReelCard: React.FC<{
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none" />
     </motion.div>
   );
 };
@@ -142,23 +145,23 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
   const baseReels = useMemo(() => [
     {
       title: "Storytelling",
-      video: "/assets/Video/auto.mp4"
+      video: getAssetUrl("assets/Video/auto.mp4")
     },
     {
       title: "Studio Vision",
-      video: "/assets/Video/01.mp4"
+      video: getAssetUrl("assets/Video/01.mp4")
     },
     {
       title: "AI Model",
-      video: "/assets/Video/02.MP4"
+      video: getAssetUrl("assets/Video/02.MP4")
     },
     {
       title: "Cinematic Flow",
-      video: "/assets/Video/05.MP4"
+      video: getAssetUrl("assets/Video/05.MP4")
     },
     {
       title: "Neural Core",
-      video: "/assets/Video/09.mp4"
+      video: getAssetUrl("assets/Video/09.mp4")
     }
   ], []);
 
@@ -208,6 +211,14 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!activeVideo) return;
+    document.body.classList.add("force-native-cursor");
+    return () => {
+      document.body.classList.remove("force-native-cursor");
+    };
+  }, [activeVideo]);
+
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
 
@@ -237,7 +248,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       {/* Dynamic Background Glow */}
       {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] rounded-full blur-[140px] pointer-events-none bg-blue-600/10 opacity-50" /> */}
 
-      <div className="mb-4 px-6 max-w-[1400px] w-full flex flex-col items-center z-20">
+      <div className="mb-4 px-6 max-w-350 w-full flex flex-col items-center z-20">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -255,7 +266,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
       </div>
 
       {/* Modern Slider Container */}
-      <div className="relative w-full max-w-[1600px] mx-auto z-30 group/slider">
+      <div className="relative w-full max-w-400 mx-auto z-30 group/slider">
 
         {/* Navigation Buttons */}
         <AnimatePresence>
@@ -293,7 +304,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
           }}
         >
           {reels.map((reel, index) => (
-            <div key={index} className="flex-shrink-0 cursor-pointer"
+            <div key={index} className="shrink-0 cursor-pointer"
               onClick={() => setActiveVideo(reel.video)}
             >
               <ReelCard
@@ -311,8 +322,8 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
 
 
         {/* Cinematic Edge Faders */}
-        <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-gradient-to-r from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
-        <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
+        <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-linear-to-r from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
+        <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-linear-to-l from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none z-30" />
       </div>
       {/* -----------------------Pop up video------------------- */}
       <AnimatePresence>
@@ -321,7 +332,8 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-sm flex items-center justify-center px-6 py-10"
+            className="fixed inset-0 z-999999 bg-black/80 backdrop-blur-sm flex items-center justify-center px-6 py-10"
+            data-native-cursor
             onClick={() => setActiveVideo(null)}
           >
             <motion.div
@@ -340,6 +352,7 @@ const Reels: React.FC<ReelsProps> = ({ isDarkMode }) => {
                 <X size={24} />
               </button>
 
+              {/* @ts-ignore - JSX video element is correctly supported */}
               <video
                 src={activeVideo}
                 controls

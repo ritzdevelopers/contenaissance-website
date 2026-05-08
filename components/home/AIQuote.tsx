@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { getAssetUrl } from '@/lib/assetUrl';
 
 interface AIQuoteProps {
     isDarkMode: boolean;
@@ -8,7 +9,7 @@ interface AIQuoteProps {
 const AIQuote: React.FC<AIQuoteProps> = ({ isDarkMode }) => {
     const arialFont = { fontFamily: 'Arial, sans-serif' };
 
-    const timelineImageUrl = "/assets/image/aiQuote.png";
+    const timelineImageUrl = getAssetUrl("assets/image/aiQuote.png");
 
     const slideCopies = 8;
 

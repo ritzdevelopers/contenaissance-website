@@ -10,7 +10,6 @@ import SnowEffect from "@/components/SnowEffects";
 import Hero1 from "@/components/home/Hero1";
 import PageAnimations from "@/components/PageAnimations";
 import Header from "@/components/layouts/Header";
-import Footer from "@/components/layouts/Footer";
 import AIQuote from "@/components/home/AIQuote";
 import Contact from "@/components/layouts/Contact";
 import Reels from "@/components/home/Reels";
@@ -19,8 +18,6 @@ import Services from "@/components/home/Services";
 import ThreeDSection from "@/components/home/ThreeDSection";
 import Expert from "@/components/home/Expert";
 import Mosaic from "@/components/home/Mosaic";
-import Bottom from "@/components/home/Bottom";
-import FooterCTA from "@/components/layouts/FooterCTA";
 
 export default function Page() {
 
@@ -60,15 +57,11 @@ export default function Page() {
       <ThreeDSection isDarkMode={isDarkMode} />
       <Expert isDarkMode={isDarkMode} />
       <Mosaic isDarkMode={isDarkMode} />
-      {/* <FooterCTA /> */}
-      <Bottom >
-        <FooterCTA />
-        {/* <Contact isDarkMode={isDarkMode} /> */}
-      </Bottom>
-      {/* <Butterfly /> */}
+      <Butterfly />
       <PageAnimations />
-      <section className="" />
-      <Footer isDarkMode={isDarkMode} />
+      
+      {/* <Contact isDarkMode={isDarkMode} /> */}
+      
     </main>
 
   );

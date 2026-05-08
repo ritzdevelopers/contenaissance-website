@@ -1,7 +1,7 @@
 
 "use client"
-
-import React, { useState } from 'react';
+/// <reference types="react" />
+import React, { useState, JSX } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Globe, Mail, Phone, Instagram, Linkedin, Youtube, Facebook, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -132,7 +132,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
 
   return (
     <section className="contact-section  top-0 left-0 w-full min-h-screen px-5 md:px-16 pt-28 md:pt-38 pb-5 md:pb-8  md bg-zinc-950">
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-16 lg:gap-x-24 gap-y-12 md:gap-y-20 items-start">
+      <div className="max-w-400 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-8 md:gap-x-16 lg:gap-x-24 gap-y-12 md:gap-y-20 items-start">
 
         <div className="flex flex-col h-full items-center lg:items-start">
           <motion.h2
@@ -150,7 +150,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
               </div>
               <div>
                 <p className="text-[10px] uppercase tracking-[0.2em] font-bold mb-1 text-white/40">Email Studio</p>
-                <p className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-medium text-white tracking-tight break-words">info@ritzmediaworld.com</p>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-medium text-white tracking-tight wrap-break-word">info@ritzmediaworld.com</p>
               </div>
             </div>
 
@@ -310,7 +310,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
                               bg-emerald-500/20 border-2 border-emerald-500/40
                               rounded-full
                               text-emerald-300 font-bold uppercase
-                              tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em]
+                              tracking-widest sm:tracking-widest md:tracking-widest
                               text-[10px] sm:text-[11px] md:text-[13px]
                               shadow-lg shadow-emerald-500/20
                               transition-all duration-300
@@ -376,7 +376,7 @@ const Contact: React.FC<ContactProps> = ({ isDarkMode, isFullPage = false }) => 
           </div>
         </div>
 
-        <div className="absolute top-1/3 right-0 w-[200px] sm:w-[320px] md:w-[520px] h-[200px] sm:h-[320px] md:h-[520px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/3 right-0 w-50 sm:w-80 md:w-130 h-50 sm:h-80 md:h-130 bg-blue-500/5 blur-3xl rounded-full pointer-events-none" />
       </div>
     </section>
   );

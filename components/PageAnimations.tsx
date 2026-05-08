@@ -284,7 +284,7 @@
 
 //     return null
 // }
-
+// -----docfile - final-animation.txt
 
 "use client"
 
@@ -300,49 +300,16 @@ export default function PageAnimations() {
 
         const ctx = gsap.context(() => {
 
-            const butterfly = document.querySelector(".butterfly")
-            const bird = document.querySelector(".butterfly img")
-
-            let prevX = 0
-
-            const rotateBird = gsap.quickTo(bird, "scaleX", {
-                duration: 0.6,
-                ease: "power2.out"
+            gsap.set(".butterfly", { autoAlpha: 1, duration: 0.01 })
+            gsap.set([".butterfly-primary", ".butterfly-footer"], {
+                scaleX: 1.10,
+                transformOrigin: "50% 50%",
             })
-            const rotateAngle = gsap.quickTo(butterfly, "rotation", {
-                duration: 0.6,
-                ease: "power2.out"
+            gsap.set(".butterfly-footer-wrap", {
+                autoAlpha: 0,
+                scale: 1,
+                transformOrigin: "50% 50%",
             })
-
-            gsap.set(".butterfly", { autoAlpha: 0 })
-            gsap.set(bird, { scaleX: 1 })
-
-            if (window.innerWidth <= 767) {
-                gsap.set(".contact-section", { y: "100vh" })
-            }
-
-            // ── Ticker: RAF pe chalta hai (max 60fps)
-            // onUpdate scroll events pe chalta tha — mobile pe 100+ events/sec = jitter
-            // Ticker scroll events se independent hai — smooth guaranteed
-            const onTick = () => {
-                if (!butterfly) return
-                const currentX = Number(gsap.getProperty(butterfly, "x")) || 0
-                const delta = currentX - prevX
-
-                if (Math.abs(delta) > 0.1) {
-                    if (delta > 0) rotateBird(1)
-                    else if (delta < 0) rotateBird(-1)
-
-                    // Desktop tilt — mobile pe rotateAngle call nahi hoga (mm ke bahar hai)
-                    const tilt = gsap.utils.clamp(-30, 30, delta * 0.2)
-                    rotateAngle(tilt)
-                }
-
-                prevX = currentX
-            }
-
-            // Ticker add — butterfly visible hone pe
-            gsap.ticker.add(onTick)
 
             const mm = gsap.matchMedia()
 
@@ -355,21 +322,145 @@ export default function PageAnimations() {
                         start: "top top",
                         end: "bottom bottom",
                         scrub: 1,
-                        // onUpdate HATAYA — ticker handle kar raha hai
                     },
-                })
+                });
 
-                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01 })
-                    .to(".butterfly", { x: 1000, y: -400, duration: 0.3, ease: "none" })
-                    .to(".butterfly", { x: -1600, y: 100, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 1000, y: 200, duration: 1, ease: "none" })
-                    .to(".butterfly", { y: 600, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 1000, y: 400, duration: 0.6, ease: "none" })
-                    .to(".butterfly", { x: 0, y: -110, duration: 1, ease: "none" })
-            })
+                const stepY = 150;
+                const stepX = 800;
+                const butterflyHoverScale = 1.40;
+
+                tl.set(".butterfly", {
+                    x: 0,
+                    y: -window.innerHeight * 0.15,
+                    autoAlpha: 1,
+                    scale: 1
+                });
+
+                let direction = -1;
+
+                for (let i = 0; i < 8; i++) {
+
+                    // tl.to([".butterfly-primary", ".butterfly-footer"], {
+                    //     scaleX: direction === -1 ? 1 : -1,
+                    //     duration: 0.01
+                    // }, "<");
+
+                    // Primary butterfly (normal direction)
+                    tl.to(".butterfly-primary", {
+                        scaleX: direction === -1 ? 1 : -1,
+                        duration: 0.01
+                    }, "<");
+
+                    // Footer butterfly (reverse direction)
+                    tl.to(".butterfly-footer", {
+                        scaleX: direction === -1 ? -1 : 1,
+                        duration: 0.01
+                    }, "<");
+
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            duration: 3.0,
+                            ease: "linear"
+                        });
+                    } else {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            y: stepY,
+                            duration: 15.5,
+                            ease: "linear"
+                        });
+                    }
+
+                    const pauseDuration =
+                        i === 0 ? 0.1 :
+                            i < 4 ? 1.0 :
+                                i === 4 ? 1.5 :
+                                    i === 5 ? 2.9 :
+                                        i === 6 ? 3.0 :
+                                            1.0;
+
+                    tl.to(".butterfly", {
+                        y: `-=${400}`,
+                        duration: pauseDuration,
+                        ease: "none",
+                    });
+
+                    // Crossfade + scale on footer wrap (scrubs both ways; avoids wrong size on reverse)
+                    if (i === 7) {
+                        tl.addLabel("step7Start");
+
+                        tl.to(".butterfly-footer-wrap", {
+                            autoAlpha: 1,
+                            scale: 2.5,
+                            duration: 1.2,
+                            ease: "power3.out",
+                        }, "step7Start");
+
+                        tl.to(".butterfly-primary", {
+                            autoAlpha: 0,
+                            duration: 0.45,
+                            ease: "power1.inOut",
+                        }, "step7Start");
+
+                        tl.addLabel("step7End", `+=${pauseDuration}`);
+                    }
+
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            scale: butterflyHoverScale,
+                            duration: 1,
+                            ease: "power2.out",
+                        });
+                    }
+
+                    direction *= -1;
+                }
+
+                // tl.to(bird, { scaleX: 1.10, duration: 0.01 }, "<");
+
+                // Land on footer logo — calculate offset dynamically
+                tl.to(".butterfly", {
+                    x: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return 120;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterX = logoRect.left + logoRect.width / 2;
+                        const bfCenterX = bfRect.left + bfRect.width / 2;
+                        const currentX = Number(gsap.getProperty(bf, "x")) || 0;
+                        return currentX + (logoCenterX - bfCenterX);
+                    },
+                    y: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return window.innerHeight - 600;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterY = logoRect.top + logoRect.height / 2;
+                        const bfCenterY = bfRect.top + bfRect.height / 2;
+                        const currentY = Number(gsap.getProperty(bf, "y")) || 0;
+                        return currentY + (logoCenterY - bfCenterY);
+                    },
+                    scale: 0.6,
+                    duration: 3.5,
+                    ease: "power2.out",
+                    invalidateOnRefresh: true,
+                });
+            });
 
             /* ---------------- MOBILE ANIMATION ---------------- */
+            // Same timeline structure as desktop; horizontal amplitude scales with viewport.
             mm.add("(max-width: 767px)", () => {
+
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                const stepY = 150;
+                const stepX = 800 * (w / 768);
+                const butterflyHoverScale = 1.30;
+                const finalX = Math.min(120, w * 0.32);
+                const finalY = h - Math.min(650, h * 0.72);
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -377,39 +468,124 @@ export default function PageAnimations() {
                         start: "top top",
                         end: "bottom bottom",
                         scrub: 1,
-                        // onUpdate HATAYA — ticker handle kar raha hai
                     },
-                })
+                });
 
-                tl.to(".butterfly", { autoAlpha: 1, duration: 0.01, scale: 2 })
-                    .to(".butterfly", { x: 180, y: -360, duration: 0.6, ease: "none" })
-                    .to(".butterfly", { x: -150, y: 80, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 300, y: -100, duration: 1, ease: "none" })
-                    .to(".butterfly", { y: 300, duration: 1, ease: "none" })
-                    .to(".butterfly", { x: 350, y: 0, duration: 0.6, ease: "none" })
-                    .to(".butterfly", { x: 0, y: -90, duration: 1, ease: "none" })
-            })
+                tl.set(".butterfly", {
+                    x: 0,
+                    y: -h * 0.15,
+                    autoAlpha: 1,
+                    scale: 1
+                });
 
-            /* ---------------- CONTACT SECTION ANIMATION ---------------- */
+                let direction = -1;
+
+                for (let i = 0; i < 8; i++) {
+
+                    tl.to([".butterfly-primary", ".butterfly-footer"], {
+                        scaleX: direction === -1 ? 1 : -1,
+                        duration: 0.01
+                    }, "<");
+
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            duration: 3.0,
+                            ease: "linear"
+                        });
+                    } else {
+                        tl.to(".butterfly", {
+                            x: direction * stepX,
+                            y: stepY,
+                            duration: 15.5,
+                            ease: "linear"
+                        });
+                    }
+
+                    const pauseDuration =
+                        i === 0 ? 0.1 :
+                            i < 4 ? 1.0 :
+                                i === 4 ? 1.5 :
+                                    i === 5 ? 2.9 :
+                                        i === 6 ? 3.0 :
+                                            1.0;
+
+                    tl.to(".butterfly", {
+                        y: `-=${400}`,
+                        duration: pauseDuration,
+                        ease: "none",
+                    });
+
+                    if (i === 6) {
+                        tl.addLabel("step6Start");
+
+                        tl.to(".butterfly-footer-wrap", {
+                            autoAlpha: 1,
+                            scale: 2.2,
+                            duration: 1.2,
+                            ease: "power3.out",
+                        }, "step6Start");
+
+                        tl.to(".butterfly-primary", {
+                            autoAlpha: 0,
+                            duration: 0.45,
+                            ease: "power1.inOut",
+                        }, "step6Start");
+
+                        tl.addLabel("step6End", `+=${pauseDuration}`);
+                    }
+
+                    if (i === 0) {
+                        tl.to(".butterfly", {
+                            scale: butterflyHoverScale,
+                            duration: 1,
+                            ease: "power2.out",
+                        });
+                    }
+
+                    direction *= -1;
+                }
+
+                tl.to([".butterfly-primary", ".butterfly-footer"], { scaleX: 1, duration: 0.01 }, "<");
+
+                // Land on footer logo — calculate offset dynamically
+                tl.to(".butterfly", {
+                    x: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return finalX;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterX = logoRect.left + logoRect.width / 2;
+                        const bfCenterX = bfRect.left + bfRect.width / 2;
+                        const currentX = Number(gsap.getProperty(bf, "x")) || 0;
+                        return currentX + (logoCenterX - bfCenterX);
+                    },
+                    y: () => {
+                        const logo = document.getElementById("footer-logo");
+                        const bf = document.querySelector(".butterfly") as HTMLElement;
+                        if (!logo || !bf) return finalY;
+                        const logoRect = logo.getBoundingClientRect();
+                        const bfRect = bf.getBoundingClientRect();
+                        const logoCenterY = logoRect.top + logoRect.height / 2;
+                        const bfCenterY = bfRect.top + bfRect.height / 2;
+                        const currentY = Number(gsap.getProperty(bf, "y")) || 0;
+                        return currentY + (logoCenterY - bfCenterY);
+                    },
+                    scale: 0.6,
+                    duration: 3.5,
+                    ease: "power2.out",
+                    invalidateOnRefresh: true,
+                });
+            });
+
+            /* ---------------- CONTACT SECTION ANIMATION (MOVED TO BOTTOM.TSX) ---------------- */
 
             mm.add("(min-width: 768px)", () => {
-                gsap.fromTo(
-                    ".contact-section",
-                    { y: "120vh" },
-                    {
-                        y: "0vh",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".bottom-section",
-                            start: "top top",
-                            end: "bottom bottom",
-                            scrub: 2,
-                        },
-                    }
-                )
 
+                gsap.set(".butterfly", { zIndex: 30 })
                 gsap.to(".butterfly", {
-                    zIndex: 0,
+                    zIndex: 30,
                     scrollTrigger: {
                         trigger: ".bottom-section",
                         start: "top top",
@@ -422,24 +598,9 @@ export default function PageAnimations() {
             /* ── MOBILE ── */
             mm.add("(max-width: 767px)", () => {
 
-                gsap.fromTo(
-                    ".contact-section",
-                    { y: "60vh" },
-                    {
-                        y: "0vh",
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: ".bottom-section",
-                            start: "top top",
-                            end: "+=200%",
-                            scrub: 0.5,
-                            invalidateOnRefresh: true,
-                        },
-                    }
-                )
-
+                gsap.set(".butterfly", { zIndex: 30 })
                 gsap.to(".butterfly", {
-                    zIndex: 0,
+                    zIndex: 30,
                     scrollTrigger: {
                         trigger: ".bottom-section",
                         start: "top top",
@@ -453,7 +614,7 @@ export default function PageAnimations() {
 
         return () => {
             ctx.revert()
-            gsap.ticker.remove(() => { }) // ctx.revert() ticker bhi clean karega
+            gsap.ticker.remove(() => { })
         }
 
     }, [])

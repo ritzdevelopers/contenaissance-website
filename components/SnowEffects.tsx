@@ -1,6 +1,7 @@
+"use client";
 
-import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 interface SnowEffectProps {
     count?: number;
@@ -12,7 +13,12 @@ const seededRandom = (seed: number) => {
 };
 
 const SnowEffect: React.FC<SnowEffectProps> = ({ count = 60 }) => {
-    // Generate deterministic properties so SSR and hydration match.
+    // Framer Motion serializes motion styles differently on server vs client; render only after mount.
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const snowflakes = useMemo(() => {
         return Array.from({ length: count }).map((_, i) => ({
             id: i,
@@ -25,6 +31,10 @@ const SnowEffect: React.FC<SnowEffectProps> = ({ count = 60 }) => {
             drift: seededRandom(i * 31 + 7) * 50 - 25,
         }));
     }, [count]);
+
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[5] overflow-hidden">

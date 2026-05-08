@@ -1,8 +1,9 @@
 "use client";
-
+/// <reference types="react" />
 import gsap from "gsap";
-import React, { useEffect, useRef, useState } from "react";
+import React, { JSX, useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getAssetUrl } from "@/lib/assetUrl";
 
 gsap.registerPlugin(ScrollTrigger);
 export default function VisualIdentify() {
@@ -58,7 +59,7 @@ export default function VisualIdentify() {
             {/* Main Heading */}
             <div className="max-w-6xl">
                 <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    Visual Identify System
+                    Visual Identity System
                     {/* Stories that captivate.
                     <br />
                     Intelligence that connects. */}
@@ -66,17 +67,17 @@ export default function VisualIdentify() {
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 mt-5 md:mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-16 my-5 md:my-10 ">
                 {/* Left */}
-                <div className="space-y-3 text-sm tracking-[0.1em] uppercase">
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">
+                <div className="space-y-3 text-sm tracking-widest uppercase">
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">
                         AI-Driven Branding Frameworks
                     </p>
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Custom Design Systems
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Custom Design Systems
                     </p>
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Visual Identity Solutions
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">Visual Identity Solutions
                     </p>
-                    <p className="font-bold bg-gradient-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">UI/UX Design & Interactive Assets
+                    <p className="font-bold bg-linear-to-r from-[#fff4b0] via-[#FFD700] to-[#b8860b] bg-clip-text text-transparent ">UI/UX Design & Interactive Assets
                     </p>
 
                 </div>
@@ -102,14 +103,15 @@ export default function VisualIdentify() {
 
             <div
                 ref={previewRef}
-                className="w-[100vw] max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer mt-2 md:mt-0"
+                className="w-screen max-w-full aspect-video overflow-hidden will-change-transform rounded-3xl cursor-pointer mt-2 md:mt-0"
                 style={{ transformOrigin: "center center" }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
+                {/* @ts-ignore - JSX element is correctly supported */}
                 <video
                     ref={videoRef}
-                    src="/assets/Video/08.MP4"
+                    src={getAssetUrl("assets/Video/08.MP4")}
                     autoPlay
                     muted
                     loop
@@ -117,6 +119,7 @@ export default function VisualIdentify() {
                     preload="auto"
                     className="w-full h-full object-cover rounded-xl"
                 />
+                {/* @ts-ignore - JSX element is correctly supported */}
             </div>
 
         </section>

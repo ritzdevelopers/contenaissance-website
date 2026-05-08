@@ -1,9 +1,11 @@
 "use client";
+/// <reference types="react" />
 import { motion } from "framer-motion";
-import { useLayoutEffect, useEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef, JSX } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname, useRouter } from "next/navigation";
+import { getAssetUrl } from "@/lib/assetUrl";
 // import { useLayoutEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -43,14 +45,122 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
 
     useEffect(() => {
         if (!sectionRef.current || !previewRef.current) return;
-        //  Kill old animations 
-        // ScrollTrigger.getAll().forEach((t) => t.kill());
-        // Disable GSAP animations on mobile
-        const isMobile = window.innerWidth < 768;
-        if (isMobile) return;
 
-        const ctx = gsap.context(() => {
-            // First section: video scale animation
+        const mm = gsap.matchMedia();
+
+        // Small screens: no pin (better on iOS / short viewports), subtler scale scrub
+        mm.add("(max-width: 767px)", () => {
+            gsap.fromTo(
+                previewRef.current,
+                {
+                    scale: 0.88,
+                    borderRadius: "16px",
+                },
+                {
+                    scale: 1,
+                    borderRadius: "12px",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 88%",
+                        end: "top 28%",
+                        scrub: 0.85,
+                        pin: false,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+
+            if (!secondSectionRef.current || !leftRef.current || !rightRef.current)
+                return;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: secondSectionRef.current,
+                    start: "top 82%",
+                    toggleActions: "play reverse play reverse",
+                    invalidateOnRefresh: true,
+                },
+            });
+
+            tl.from(leftRef.current, {
+                opacity: 0,
+                y: 28,
+                duration: 0.65,
+                ease: "power3.out",
+            }).from(
+                rightRef.current,
+                {
+                    opacity: 0,
+                    y: 28,
+                    duration: 0.65,
+                    ease: "power3.out",
+                },
+                "-=0.35"
+            );
+        });
+
+        // Tablet: pinned scrub with a shorter travel than desktop
+        mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
+            gsap.fromTo(
+                previewRef.current,
+                {
+                    scale: 0.55,
+                    borderRadius: "24px",
+                    transformOrigin: "50% 100%",
+                    y: 48,
+                },
+                {
+                    scale: 1,
+                    borderRadius: "0px",
+                    y: 0,
+                    transformOrigin: "50% 100%",
+                    ease: "none",
+                    force3D: true,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 32%",
+                        end: "+=65%",
+                        scrub: 1.2,
+                        pin: true,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+
+            if (!secondSectionRef.current || !leftRef.current || !rightRef.current)
+                return;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: secondSectionRef.current,
+                    start: "top 78%",
+                    toggleActions: "play reverse play reverse",
+                    invalidateOnRefresh: true,
+                },
+            });
+
+            tl.from(leftRef.current, {
+                opacity: 0,
+                x: -56,
+                duration: 0.75,
+                ease: "power3.out",
+            }).from(
+                rightRef.current,
+                {
+                    opacity: 0,
+                    x: 56,
+                    duration: 0.75,
+                    ease: "power3.out",
+                },
+                "-=0.38"
+            );
+        });
+
+        // Large screens: full hero scale + pin
+        mm.add("(min-width: 1024px)", () => {
             gsap.fromTo(
                 previewRef.current,
                 {
@@ -74,12 +184,15 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 }
             );
 
-            // Second section: slide-in animation
+            if (!secondSectionRef.current || !leftRef.current || !rightRef.current)
+                return;
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: secondSectionRef.current,
                     start: "top 75%",
                     toggleActions: "play reverse play reverse",
+                    invalidateOnRefresh: true,
                 },
             });
 
@@ -100,11 +213,15 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
             );
         });
 
-        // setTimeout(() => {
-        //     ScrollTrigger.refresh();
-        // }, 200);
+        const onResize = () => {
+            ScrollTrigger.refresh();
+        };
+        window.addEventListener("resize", onResize);
 
-        return () => ctx.revert();
+        return () => {
+            window.removeEventListener("resize", onResize);
+            mm.revert();
+        };
     }, []);
 
     return (
@@ -112,17 +229,17 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
             {/* -----------First section----- */}
             <div
                 ref={sectionRef}
-                className="w-full flex justify-center mb-14 md:mb-10 px-5 md:px-10"
+                className="w-full flex justify-center mb-14 md:mb-10 px-4 md:px-10 z-23"
             >
                 <div
                     ref={previewRef}
                     onMouseEnter={() => handleMouseEnter(videoRef1.current)}
                     onMouseLeave={() => handleMouseLeave(videoRef1.current)}
-                    className="w-full max-w-full h-[180px] sm:h-[240px] md:h-auto rounded-2xl overflow-hidden  cursor-pointer"
+                    className="w-full max-w-full h-45 sm:h-60 md:h-auto rounded-2xl overflow-hidden  cursor-pointer "
                 >
                     <video
                         ref={videoRef1}
-                        src="/assets/Video/08.MP4"
+                        src={getAssetUrl("assets/Video/08.MP4")}
                         autoPlay
                         muted
                         loop
@@ -141,11 +258,11 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                 <div
                     className="
                     max-w-full mx-auto
-                    px-6 sm:px-8 lg:px-16
+                    px-4 sm:px-8 lg:px-16
                     py-5 sm:py-10 lg:pb-16
                     flex flex-col-reverse lg:flex-row
                     items-center justify-between
-                    gap-12 lg:gap-0
+                    gap-12 lg:gap-5
                 "
                 >
                     <motion.div ref={leftRef} className="w-full lg:w-1/2 z-10">
@@ -188,22 +305,22 @@ export default function Expert({ isDarkMode }: ExpertSectionProps) {
                         ref={rightRef}
                         className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center relative mt-1 lg:mt-0"
                     >
-                        <motion.div
+                        <div
                             onMouseEnter={() => handleMouseEnter(videoRef2.current)}
                             onMouseLeave={() => handleMouseLeave(videoRef2.current)}
-                            className="w-full sm:w-[340px] md:w-[520px] lg:w-[620px] xl:w-[700px] max-w-full h-auto sm:h-[280px] md:h-[340px] lg:h-[420px] xl:h-[380px] cursor-pointer"
+                            className="w-full cursor-pointer"
                         >
                             <video
                                 ref={videoRef2}
-                                src="/assets/Video/06.mp4"
+                                src={getAssetUrl("assets/Video/06.mp4")}
                                 autoPlay
                                 muted
                                 loop
                                 playsInline
                                 preload="none"
-                                className="w-full h-full  rounded-2xl shadow-2xl  bg-black object-cover"
+                                className="w-full h-full  rounded-2xl shadow-2xl  bg-black object-contain lg:object-contain"
                             />
-                        </motion.div>
+                        </div>
                     </motion.div>
                 </div>
             </motion.section>

@@ -1,5 +1,5 @@
 "use client";
-
+/// <reference types="react" />
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
     RoundedBox,
@@ -8,8 +8,13 @@ import {
     AdaptiveEvents,
 } from "@react-three/drei";
 import * as THREE from "three";
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, JSX } from "react";
 import { useRouter } from "next/navigation";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getAssetUrl } from "@/lib/assetUrl";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ================= CARD =================
 type CardProps = {
@@ -170,8 +175,6 @@ type CardsSceneProps = {
 function CardsScene({ images, progress }: CardsSceneProps) {
     return (
         <>
-
-
             <ambientLight intensity={0.5} />
 
             <directionalLight
@@ -203,30 +206,68 @@ interface ThreeDSectionProps {
 
 export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
     const images = [
-        "/assets/Video/15.mp4",
-        "/assets/Video/14.mp4",
-        "/assets/Video/13.mp4",
-        "/assets/Video/12.mp4",
+        getAssetUrl("assets/Video/15.mp4"),
+        getAssetUrl("assets/Video/14.mp4"),
+        getAssetUrl("assets/Video/13.mp4"),
+        getAssetUrl("assets/Video/12.mp4"),
         // "https://res.cloudinary.com/dbpx7aobb/video/upload/v1772686226/reels_l0xg2y.mp4",
-        "/assets/Video/09.mp4"
+        getAssetUrl("assets/Video/09.mp4")
     ];
 
     const sectionRef = useRef<HTMLDivElement | null>(null);
+    const mobilePinRef = useRef<HTMLDivElement | null>(null);
+    const mobileTrackRef = useRef<HTMLDivElement | null>(null);
     const [progress, setProgress] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth <= 768);
-        check();
+        const mm = ScrollTrigger.matchMedia({
+            "(max-width: 767px)": () => {
+                const pin = mobilePinRef.current;
+                const track = mobileTrackRef.current;
+                if (!pin || !track) return () => { };
 
-        window.addEventListener("resize", check);
-        return () => window.removeEventListener("resize", check);
+                gsap.set(track, { x: 0 });
+
+                const tween = gsap.to(track, {
+                    x: () => {
+                        const w = pin.offsetWidth;
+                        const tw = track.scrollWidth;
+                        return Math.min(0, w - tw);
+                    },
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: pin,
+                        start: "top 60px",
+                        end: () => {
+                            const w = pin.offsetWidth;
+                            const tw = track.scrollWidth;
+                            const travel = Math.max(0, tw - w);
+                            return `+=${travel + 80}`;
+                        },
+                        pin: true,
+                        scrub: 1,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                });
+
+                requestAnimationFrame(() => ScrollTrigger.refresh());
+
+                return () => {
+                    tween.scrollTrigger?.kill();
+                    tween.kill();
+                    gsap.set(track, { clearProps: "x" });
+                };
+            },
+        });
+
+        return () => (mm as any).revert();
     }, []);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (!sectionRef.current) return;
+            if (!sectionRef.current || window.innerWidth < 768) return;
 
             const rect = sectionRef.current.getBoundingClientRect();
             const vh = window.innerHeight;
@@ -253,21 +294,67 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
     return (
         <div className="bg-zinc-950 text-white">
 
-            {/* Spacer above (like Peach) */}
-            {/* <div style={{ height: "30vh" }} /> */}
+            {/* Mobile: vertical scroll drives horizontal cards (ScrollTrigger) */}
+            <section className="relative md:hidden pt-4 pb-10">
+                <div className="px-5 pb-8 text-center">
+                    <h1 className="text-2xl font-light leading-tight tracking-tight">
+                        Visually  Stunning<br />
+                        {/* @ts-ignore - JSX span element is correctly supported */}
+                        <span className="opacity-80 text-[0.95em]">
+                            3D Websites with Power of AI
+                            {/* @ts-ignore - JSX span element is correctly supported */}
+                        </span>
+                    </h1>
+                    <button
+                        type="button"
+                        onClick={() => router.push("/contact")}
+                        className="mt-5 px-6 py-3 rounded-2xl border border-white/40 backdrop-blur-md transition-transform active:scale-[0.98]"
+                    >
+                        Book a Call
+                    </button>
+                </div>
 
-            {/* ===== STICKY SECTION ===== (taller = slower card movement per scroll) */}
-            <section ref={sectionRef} className="relative h-[220vh] md:h-[320vh]">
+                <div
+                    ref={mobilePinRef}
+                    className="relative h-[min(72vh,560px)] overflow-hidden"
+                >
+                    <div
+                        ref={mobileTrackRef}
+                        className="flex h-full w-max items-center gap-4 pl-5 pr-8 will-change-transform"
+                    >
+                        {images.map((src, i) => (
+                            <div
+                                key={i}
+                                className="shrink-0 w-55 aspect-9/16 rounded-2xl overflow-hidden bg-zinc-900 ring-1 ring-white/10"
+                            >
+                                {/* @ts-ignore - JSX video element is correctly supported */}
+                                <video
+                                    src={src}
+                                    className="w-full h-full object-cover"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="metadata"
+                                />
+                                {/* @ts-ignore - JSX video element is correctly supported */}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                <div className="sticky top-[60px] md:top-[80px] h-[calc(100vh-60px)] md:h-[calc(100vh-80px)] overflow-hidden">
-
-                    {/* ===== 3D CANVAS ===== */}
+            {/* Desktop: sticky 3D scroll section */}
+            <section
+                ref={sectionRef}
+                className="relative hidden md:block h-[320vh]"
+            >
+                <div className="sticky top-20 h-[calc(100vh-80px)] overflow-hidden z-21 ">
                     <Canvas
                         shadows
-                        // camera={{ position: [0, 1.1, 7.5], fov: 38 }}
                         camera={{
-                            position: isMobile ? [0, 1, 6] : [0, 1.1, 7.5],
-                            fov: isMobile ? 45 : 38,
+                            position: [0, 1.1, 7.5],
+                            fov: 38,
                         }}
                         gl={{ antialias: true }}
                         className="absolute inset-0 pt-6"
@@ -275,38 +362,35 @@ export default function ThreeDSection({ isDarkMode }: ThreeDSectionProps) {
                         <AdaptiveDpr pixelated />
                         <AdaptiveEvents />
 
-                        <CardsScene
-                            images={images}
-                            progress={progress}
-                        />
+                        <CardsScene images={images} progress={progress} />
                     </Canvas>
 
-                    {/* ===== CENTER HERO ===== */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="z-50 text-center max-w-3xl px-6">
-                            <h1 className="text-4xl md:text-5xl font-light leading-tight tracking-tight">
-                                Visually<span className="font-medium">Stunning</span>
+                            <h1 className="text-3xl md:text-[32px] lg:text-[46px] font-light leading-tight tracking-tight">
+                                Visually Stunning
+
                                 <br />
+                                {/* @ts-ignore - JSX span element is correctly supported */}
                                 <span className="opacity-80">
                                     3D Websites with Power of AI
+                                    {/* @ts-ignore - JSX span element is correctly supported */}
                                 </span>
                             </h1>
 
                             <button
-                                onClick={() => router.push('/contact')}
-                                className="pointer-events-auto cursor-pointer mt-4 md:mt-6 px-6 md:px-8 py-3 md:py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105">
-                                 Book a Call
+                                type="button"
+                                onClick={() => router.push("/contact")}
+                                className="pointer-events-auto cursor-pointer mt-6 px-8 py-2 md:py-3 lg:py-4 rounded-2xl border border-white/40 backdrop-blur-md transition-all duration-500 hover:scale-105"
+                            >
+                                Book a Call
                             </button>
-
                         </div>
                     </div>
-
                 </div>
             </section>
 
-            {/* Spacer below */}
             <div className="hidden md:block" style={{ height: "40vh" }} />
-
         </div>
     );
 }
